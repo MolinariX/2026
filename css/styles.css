@@ -1,0 +1,259 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Titillium Web', Arial, sans-serif;
+}
+
+body {
+    background-color: #000000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Estructura principal */
+.team-section {
+    margin-bottom: 6px;
+}
+
+.team-row {
+    display: flex;
+    position: relative;
+    height: 140px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.names-row {
+    display: flex;
+    justify-content: space-between;
+    background-color: #000000;
+    height: 30px;
+    padding: 0 20px;
+    align-items: center;
+    margin-top: 1px;
+    margin-bottom: 5px;
+}
+
+/* Espacio para logos */
+.team-logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.logo-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.logo-link:hover {
+    transform: scale(1.1);
+}
+
+.logo-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Espacio para pilotos */
+.driver {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.driver-left {
+    justify-content: flex-start;
+    padding-left: 30px;
+}
+
+.driver-right {
+    justify-content: flex-end;
+    padding-right: 30px;
+}
+
+.driver-image {
+    max-height: 135px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Nombres de pilotos */
+.name-left, .name-right {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+/* Colores vibrantes para equipos según imágenes */
+.red-bull {
+    background-color: #0600EF;
+    background: linear-gradient(90deg, #0600EF 0%, #1E41FF 100%);
+}
+
+.mercedes {
+    background-color: #00D2BE;
+    background: linear-gradient(90deg, #00D2BE 0%, #00E6D3 100%);
+}
+
+.ferrari {
+    background-color: #FF0000;
+    background: linear-gradient(90deg, #FF0000 0%, #FF2800 100%);
+}
+
+.mclaren {
+    background-color: #FF8700;
+    background: linear-gradient(90deg, #FF8700 0%, #FFB000 100%);
+}
+
+.aston-martin {
+    background-color: #006F62;
+    background: linear-gradient(90deg, #006F62 0%, #00A28E 100%);
+}
+
+.alpine {
+    background-color: #0090FF;
+    background: linear-gradient(90deg, #0090FF 0%, #00ACFF 100%);
+}
+
+.rb {
+    background-color: #1E41FF;
+    background: linear-gradient(90deg, #1E41FF 0%, #3C5CFF 100%);
+}
+
+.williams {
+    background-color: #0082FA;
+    background: linear-gradient(90deg, #0082FA 0%, #0097FF 100%);
+}
+
+.stake {
+    background-color: #52E252;
+    background: linear-gradient(90deg, #52E252 0%, #7FFF7F 100%);
+}
+
+.haas {
+    background-color: #FFFFFF;
+    background: linear-gradient(90deg, #FFFFFF 0%, #F0F0F0 100%);
+}
+
+/* Para el equipo Haas, que tiene fondo blanco */
+.haas + .names-row .name-left,
+.haas + .names-row .name-right {
+    color: white;
+}
+
+/* Efecto de sombra para mejorar la estética */
+.team-row {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .team-row {
+        height: 120px;
+    }
+    
+    .driver-left {
+        padding-left: 20px;
+    }
+    
+    .driver-right {
+        padding-right: 20px;
+    }
+    
+    .driver-image {
+        max-height: 115px;
+    }
+    
+    .team-logo {
+        width: 150px;
+        height: 70px;
+    }
+    
+    .names-row {
+        padding: 0 15px;
+    }
+    
+    .name-left, .name-right {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-row {
+        height: 100px;
+    }
+    
+    .driver-left {
+        padding-left: 15px;
+    }
+    
+    .driver-right {
+        padding-right: 15px;
+    }
+    
+    .driver-image {
+        max-height: 95px;
+    }
+    
+    .team-logo {
+        width: 120px;
+        height: 60px;
+    }
+    
+    .name-left, .name-right {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .team-row {
+        height: 80px;
+    }
+    
+    .driver-left {
+        padding-left: 10px;
+    }
+    
+    .driver-right {
+        padding-right: 10px;
+    }
+    
+    .driver-image {
+        max-height: 75px;
+    }
+    
+    .team-logo {
+        width: 90px;
+        height: 45px;
+    }
+    
+    .names-row {
+        height: 25px;
+    }
+    
+    .name-left, .name-right {
+        font-size: 10px;
+    }
+}
