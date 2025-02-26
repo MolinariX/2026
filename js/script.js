@@ -1,4 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Funcionalidad del menú hamburguesa
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const menuItems = document.querySelector('.menu-items');
+    
+    hamburgerBtn.addEventListener('click', function() {
+        hamburgerBtn.classList.toggle('active');
+        menuItems.classList.toggle('active');
+    });
+
+    // Cerrar menú cuando se hace clic fuera
+    document.addEventListener('click', function(event) {
+        const isClickInsideMenu = menuItems.contains(event.target);
+        const isClickOnHamburger = hamburgerBtn.contains(event.target);
+        
+        if (!isClickInsideMenu && !isClickOnHamburger && menuItems.classList.contains('active')) {
+            hamburgerBtn.classList.remove('active');
+            menuItems.classList.remove('active');
+        }
+    });
+
     // Efecto de hover para los logos
     const logoLinks = document.querySelectorAll('.logo-link');
     
@@ -11,7 +31,20 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'scale(1)';
         });
     });
+
+    // Efecto de hover para los pilotos
+    const driverLinks = document.querySelectorAll('.driver-link');
     
+    driverLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+
     // Efecto de hover para las filas de equipos
     const teamRows = document.querySelectorAll('.team-row');
     
@@ -27,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.5)';
         });
     });
-    
+
     // Efecto de parallax suave para las imágenes de los pilotos
     const driverImages = document.querySelectorAll('.driver-image');
     
@@ -39,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             image.style.transform = `translateY(${position}px)`;
         });
     });
-    
+
     // Animación de carga inicial
     const teamSections = document.querySelectorAll('.team-section');
     
@@ -51,14 +84,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }, index * 100);
         });
     }
-    
-    // Configurar estilos iniciales para la animación
-    teamSections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    });
-    
+
     // Iniciar la animación después de un pequeño retraso
     setTimeout(animateEntrance, 300);
+
+    // Animación para el menú al cargar la página
+    setTimeout(() => {
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        hamburgerMenu.style.opacity = '1';
+        hamburgerMenu.style.transform = 'translateY(0)';
+    }, 500);
 });

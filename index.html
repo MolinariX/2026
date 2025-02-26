@@ -5,14 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Teams Layout</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
 </head>
 <body>
+    <!-- Menú hamburguesa -->
+    <div class="menu-container">
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" id="hamburger-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu-items">
+                <a href="https://f1-dash.com/dashboard" target="_blank" class="menu-btn">VIVO</a>
+                <a href="https://www.espn.com.ar/deporte-motor/f1/calendario" target="_blank" class="menu-btn">CALENDARIO</a>
+                <a href="pilotos.html" class="menu-btn">MUNDIAL DE PILOTOS</a>
+                <a href="constructores.html" class="menu-btn">MUNDIAL DE CONSTRUCTORES</a>
+                <a href="simulador.html" class="menu-btn">SIMULADOR</a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Red Bull -->
         <div class="team-section">
             <div class="team-row red-bull">
                 <div class="driver driver-left">
-                    <img src="images/drivers/verstappen.png" alt="Verstappen" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/max-verstappen.html" class="driver-link">
+                        <img src="images/drivers/verstappen.png" alt="Verstappen" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.redbullracing.com" class="logo-link">
@@ -20,7 +42,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/lawson.png" alt="Lawson" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/liam-lawson.html" class="driver-link">
+                        <img src="images/drivers/lawson.png" alt="Lawson" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -33,7 +57,9 @@
         <div class="team-section">
             <div class="team-row mercedes">
                 <div class="driver driver-left">
-                    <img src="images/drivers/russell.png" alt="Russell" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/george-russell.html" class="driver-link">
+                        <img src="images/drivers/russell.png" alt="Russell" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.mercedesamgf1.com" class="logo-link">
@@ -41,7 +67,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/antonelli.png" alt="Antonelli" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/andrea-kimi-antonelli.html" class="driver-link">
+                        <img src="images/drivers/antonelli.png" alt="Antonelli" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -54,7 +82,9 @@
         <div class="team-section">
             <div class="team-row ferrari">
                 <div class="driver driver-left">
-                    <img src="images/drivers/leclerc.png" alt="Leclerc" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/charles-leclerc.html" class="driver-link">
+                        <img src="images/drivers/leclerc.png" alt="Leclerc" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.ferrari.com/en-EN/formula1" class="logo-link">
@@ -62,7 +92,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/hamilton.png" alt="Hamilton" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/lewis-hamilton.html" class="driver-link">
+                        <img src="images/drivers/hamilton.png" alt="Hamilton" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -75,7 +107,9 @@
         <div class="team-section">
             <div class="team-row mclaren">
                 <div class="driver driver-left">
-                    <img src="images/drivers/norris.png" alt="Norris" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/lando-norris.html" class="driver-link">
+                        <img src="images/drivers/norris.png" alt="Norris" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.mclaren.com/racing" class="logo-link">
@@ -83,7 +117,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/piastri.png" alt="Piastri" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/oscar-piastri.html" class="driver-link">
+                        <img src="images/drivers/piastri.png" alt="Piastri" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -96,7 +132,9 @@
         <div class="team-section">
             <div class="team-row aston-martin">
                 <div class="driver driver-left">
-                    <img src="images/drivers/alonso.png" alt="Alonso" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/fernando-alonso.html" class="driver-link">
+                        <img src="images/drivers/alonso.png" alt="Alonso" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.astonmartinf1.com" class="logo-link">
@@ -104,7 +142,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/stroll.png" alt="Stroll" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/lance-stroll.html" class="driver-link">
+                        <img src="images/drivers/stroll.png" alt="Stroll" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -117,7 +157,9 @@
         <div class="team-section">
             <div class="team-row alpine">
                 <div class="driver driver-left">
-                    <img src="images/drivers/gasly.png" alt="Gasly" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/pierre-gasly.html" class="driver-link">
+                        <img src="images/drivers/gasly.png" alt="Gasly" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.alpinecars.com/en/formula-1" class="logo-link">
@@ -125,7 +167,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/doohan.png" alt="Doohan" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/jack-doohan.html" class="driver-link">
+                        <img src="images/drivers/doohan.png" alt="Doohan" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -138,7 +182,9 @@
         <div class="team-section">
             <div class="team-row rb">
                 <div class="driver driver-left">
-                    <img src="images/drivers/tsunoda.png" alt="Tsunoda" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/yuki-tsunoda.html" class="driver-link">
+                        <img src="images/drivers/tsunoda.png" alt="Tsunoda" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.visacashrbracing.com" class="logo-link">
@@ -146,7 +192,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/hadjar.png" alt="Hadjar" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/isack-hadjar.html" class="driver-link">
+                        <img src="images/drivers/hadjar.png" alt="Hadjar" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -159,7 +207,9 @@
         <div class="team-section">
             <div class="team-row williams">
                 <div class="driver driver-left">
-                    <img src="images/drivers/albon.png" alt="Albon" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/alexander-albon.html" class="driver-link">
+                        <img src="images/drivers/albon.png" alt="Albon" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.williamsf1.com" class="logo-link">
@@ -167,7 +217,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/sainz.png" alt="Sainz" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/carlos-sainz.html" class="driver-link">
+                        <img src="images/drivers/sainz.png" alt="Sainz" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -180,7 +232,9 @@
         <div class="team-section">
             <div class="team-row stake">
                 <div class="driver driver-left">
-                    <img src="images/drivers/hulkenberg.png" alt="Hulkenberg" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/nico-hulkenberg.html" class="driver-link">
+                        <img src="images/drivers/hulkenberg.png" alt="Hulkenberg" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.stakef1team.com" class="logo-link">
@@ -188,7 +242,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/bortoleto.png" alt="Bortoleto" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/gabriel-bortoleto.html" class="driver-link">
+                        <img src="images/drivers/bortoleto.png" alt="Bortoleto" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
@@ -201,7 +257,9 @@
         <div class="team-section">
             <div class="team-row haas">
                 <div class="driver driver-left">
-                    <img src="images/drivers/bearman.png" alt="Bearman" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/oliver-bearman.html" class="driver-link">
+                        <img src="images/drivers/bearman.png" alt="Bearman" class="driver-image">
+                    </a>
                 </div>
                 <div class="team-logo">
                     <a href="https://www.haasf1team.com" class="logo-link">
@@ -209,7 +267,9 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <img src="images/drivers/ocon.png" alt="Ocon" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/esteban-ocon.html" class="driver-link">
+                        <img src="images/drivers/ocon.png" alt="Ocon" class="driver-image">
+                    </a>
                 </div>
             </div>
             <div class="names-row">
