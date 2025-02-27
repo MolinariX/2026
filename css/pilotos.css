@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilos para los botones de navegación */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    background-color: #e10600;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 180px;
+}
+
+.nav-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    background-color: #ff0800;
+}
+
+.nav-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button-icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.home-button {
+    background-color: #333;
+}
+
+.home-button:hover {
+    background-color: #444;
+}
+
+.constructors-button {
+    background-color: #0600ef;
+}
+
+.constructors-button:hover {
+    background-color: #0000ff;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.races-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 5px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.race {
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.race:hover, .race.active {
+    background-color: #e10600;
+    color: white;
+    transform: scale(1.1);
+}
+
+.standings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.driver-row {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.position {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.team-logo {
+    width: 50px;
+    height: 50px;
+    margin: 0 15px;
+    object-fit: contain;
+}
+
+.driver-name {
+    flex: 1;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.driver-photo {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    margin-right: 15px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.points {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Colores de equipos */
+.redbull {
+    background-color: #0600ef;
+}
+
+.ferrari {
+    background-color: #dc0000;
+}
+
+.mercedes {
+    background-color: #00d2be;
+}
+
+.mclaren {
+    background-color: #ff8700;
+}
+
+.aston-martin {
+    background-color: #006f62;
+}
+
+.alpine {
+    background-color: #0090ff;
+}
+
+.williams {
+    background-color: #005aff;
+}
+
+.rb {
+    background-color: #00226c;
+}
+
+.haas {
+    background-color: #ffffff;
+    color: black;
+}
+
+.haas .driver-name, .haas .points {
+    color: black;
+}
+
+.sauber {
+    background-color: #5cdb95;
+}
+
+@media (max-width: 768px) {
+    .driver-row {
+        height: 60px;
+    }
+    
+    .driver-name {
+        font-size: 16px;
+    }
+    
+    .points, .position {
+        font-size: 18px;
+    }
+    
+    .team-logo, .driver-photo {
+        height: 40px;
+        width: 40px;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .nav-button {
+        width: 100%;
+        max-width: 200px;
+    }
+}

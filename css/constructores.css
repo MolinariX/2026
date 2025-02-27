@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #0f0f0f;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Estilos para los botones de navegación */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    background-color: #FF0000;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 180px;
+}
+
+.nav-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    background-color: #ff3333;
+}
+
+.nav-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button-icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.home-button {
+    background-color: #333;
+}
+
+.home-button:hover {
+    background-color: #444;
+}
+
+.drivers-button {
+    background-color: #FF0000;
+}
+
+.drivers-button:hover {
+    background-color: #ff3333;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0 40px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #f1f1f1;
+}
+
+.table-container {
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1a1a1a;
+}
+
+.constructor-row {
+    height: 70px;
+    transition: transform 0.3s ease;
+}
+
+.constructor-row:hover {
+    transform: scale(1.01);
+}
+
+.position {
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-left: 10px;
+    /* Añadir contraste con un borde/sombra para todos los números */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Estilos específicos para cada posición */
+.position-1, .position-2, .position-3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.position-1 {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    color: #FFD700; /* Dorado para el 1er lugar */
+}
+
+.position-2 {
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.7);
+    color: #C0C0C0; /* Plateado para el 2do lugar */
+}
+
+.position-3 {
+    text-shadow: 0 0 10px rgba(205, 127, 50, 0.7);
+    color: #CD7F32; /* Bronce para el 3er lugar */
+}
+
+.logo {
+    width: 60px;
+    text-align: center;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+}
+
+.constructor-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-left: 15px;
+}
+
+.points {
+    width: 120px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #333;
+    color: white;
+}
+
+/* Colores específicos para cada constructor */
+.mclaren {
+    background-color: #F29F05;
+}
+
+.ferrari {
+    background-color: #FF0000;
+}
+
+.red-bull {
+    background-color: #0600EF;
+}
+
+.mercedes {
+    background-color: #00D2BE;
+}
+
+.aston-martin {
+    background-color: #006F62;
+}
+
+.alpine {
+    background-color: #FF87BC;
+}
+
+.haas {
+    background-color: #FFFFFF;
+    color: #000000 !important; /* Forzar color negro para todos los textos en Haas */
+}
+
+/* Asegurar que el nombre de Haas sea negro */
+.haas .constructor-name {
+    color: #000000;
+}
+
+.racing-bulls {
+    background-color: #0032FF;
+}
+
+.williams {
+    background-color: #041E42;
+}
+
+.stake {
+    background-color: #52FF00;
+    color: #000000;
+}
+
+/* Asegurar que el nombre de Stake sea negro */
+.stake .constructor-name {
+    color: #000000;
+}
+
+.footer {
+    text-align: right;
+    margin-top: 20px;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Estilos para el spinner de carga */
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #333;
+    border-top: 5px solid #FF0000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .constructor-name {
+        font-size: 1.2rem;
+    }
+    
+    .points {
+        font-size: 1.2rem;
+    }
+    
+    .position {
+        font-size: 1rem;
+    }
+    
+    .logo img {
+        height: 30px;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .nav-button {
+        width: 100%;
+        max-width: 200px;
+    }
+}

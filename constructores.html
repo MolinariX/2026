@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campeonato de Constructores F1 2025</title>
+    <link rel="stylesheet" href="css/constructores.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navigation-buttons">
+            <a href="index.html" class="nav-button home-button">
+                <span class="button-icon">⬅️</span>
+                <span class="button-text">Inicio</span>
+            </a>
+            <a href="pilotos.html" class="nav-button drivers-button">
+                <span class="button-icon">🏁</span>
+                <span class="button-text">Pilotos</span>
+            </a>
+        </div>
+        
+        <h1>Campeonato de Constructores F1 2025</h1>
+        
+        <div class="loading-spinner" id="spinner">
+            <div class="spinner"></div>
+            <p>Cargando datos...</p>
+        </div>
+        
+        <div class="table-container">
+            <table id="constructores-table">
+                <!-- La tabla se llenará dinámicamente con JavaScript -->
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>Última actualización: <span id="last-update">Cargando...</span></p>
+        </div>
+    </div>
+    
+    <script src="js/constructores.js"></script>
+</body>
+</html>
