@@ -62,8 +62,9 @@ header h1 {
 .mes {
     background-color: var(--accent);
     border-radius: 10px;
-    overflow: hidden;
+    /* Remove overflow: hidden to allow tooltips to display outside the container */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* Add positioning context */
 }
 
 .mes-header {
@@ -73,12 +74,14 @@ header h1 {
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
+    border-radius: 10px 10px 0 0; /* Maintain rounded corners at top */
 }
 
 .dias {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     padding: 10px;
+    border-radius: 0 0 10px 10px; /* Maintain rounded corners at bottom */
 }
 
 .nombre-dia {
@@ -118,7 +121,7 @@ header h1 {
     z-index: 100;
 }
 
-/* Fix for tooltip display issues */
+/* Fixed tooltip styling */
 .tooltip {
     visibility: hidden;
     width: 250px;
@@ -133,10 +136,10 @@ header h1 {
     transition: opacity 0.3s;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     pointer-events: none;
-    /* Default position */
-    bottom: 125%;
+    /* Position centered below by default */
+    bottom: -125px;
     left: 50%;
-    margin-left: -125px;
+    transform: translateX(-50%);
 }
 
 /* Show tooltip on hover */
@@ -145,24 +148,28 @@ header h1 {
     opacity: 1;
 }
 
-/* Fix for tooltip position on elements in first and last rows */
-.dias .fecha:nth-child(-n+14) .tooltip {
+/* Position adjustment for top half of calendar */
+.dias .fecha:nth-child(-n+21) .tooltip {
+    bottom: -125px;
+    top: auto;
+}
+
+/* Position adjustment for bottom half of calendar */
+.dias .fecha:nth-child(n+22) .tooltip {
     bottom: auto;
-    top: 125%;
+    top: -125px;
 }
 
 /* For tooltips near the right edge */
+.dias .fecha:nth-child(7n+6) .tooltip,
 .dias .fecha:nth-child(7n+7) .tooltip {
-    right: 0;
-    left: auto;
-    margin-left: 0;
-    margin-right: 0;
+    transform: translateX(-80%);
 }
 
 /* For tooltips near the left edge */
-.dias .fecha:nth-child(7n+1) .tooltip {
-    left: 0;
-    margin-left: 0;
+.dias .fecha:nth-child(7n+1) .tooltip,
+.dias .fecha:nth-child(7n+2) .tooltip {
+    transform: translateX(-20%);
 }
 
 .gp-info {
@@ -316,4 +323,11 @@ header h1 {
 /* Only show admin editor in dev mode */
 body.dev-mode .admin-editor {
     display: block;
+}
+
+.winner-note {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-top: 5px;
+    font-style: italic;
 }

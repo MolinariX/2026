@@ -8,11 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función principal de inicialización
     function initApp() {
-        // Inicializar el almacenamiento local para los ganadores si no existe
-        if (!localStorage.getItem('f1Ganadores')) {
-            localStorage.setItem('f1Ganadores', JSON.stringify({}));
-        }
-        
         try {
             // Cargar los datos de carreras
             carrerasF1 = obtenerCalendarioF12025();
@@ -30,17 +25,46 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
         
-        // Ocultar los controles de desarrollador por defecto
-        document.getElementById('developer-controls').style.display = 'none';
-        
-        // Eliminar el botón de modo desarrollador
+        // Mantener el botón de desarrollador y sus funcionalidades para poder actualizar ganadores en desarrollo
         const devButton = document.getElementById('dev-mode-toggle');
+        const developerControls = document.getElementById('developer-controls');
+        
+        // Establecer evento para el botón de modo desarrollador
         if (devButton) {
-            devButton.style.display = 'none';
+            devButton.addEventListener('click', function() {
+                document.body.classList.toggle('dev-mode');
+                if (document.body.classList.contains('dev-mode')) {
+                    developerControls.style.display = 'block';
+                } else {
+                    developerControls.style.display = 'none';
+                }
+            });
+        }
+        
+        // Configurar el botón de guardar ganador para desarrollo/pruebas
+        const saveWinnerButton = document.getElementById('save-winner');
+        if (saveWinnerButton) {
+            saveWinnerButton.addEventListener('click', function() {
+                const winnerInput = document.getElementById('winner-input');
+                const carreraId = modalActualCarreraId;
+                
+                if (carreraId && winnerInput.value) {
+                    // Usamos setGanador para actualizar temporalmente
+                    setGanadorTemporal(carreraId, winnerInput.value);
+                    document.getElementById('winner-info').innerHTML = `
+                        <span class="winner-name">${winnerInput.value}</span>
+                        <p class="winner-note">(Nota: Este cambio solo es visible en tu navegador)</p>
+                    `;
+                    winnerInput.value = '';
+                }
+            });
         }
     }
     
-    // Datos reales del calendario F1 2025
+    // Variable para almacenar el ID de la carrera actual en el modal
+    let modalActualCarreraId = null;
+    
+    // Datos reales del calendario F1 2025 con ganadores incluidos
     function obtenerCalendarioF12025() {
         return [
             {
@@ -52,7 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 3, 11), // 11 de abril
                 fechaFin: new Date(2025, 3, 13), // 13 de abril
                 horarioCarrera: '13 Abril - 12:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Bahrain.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Bahrain.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'saudi-arabia-2025',
@@ -63,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 3, 18), // 18 de abril
                 fechaFin: new Date(2025, 3, 20), // 20 de abril
                 horarioCarrera: '20 Abril - 14:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Saudi_Arabia.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Saudi_Arabia.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'australia-2025',
@@ -74,7 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 2, 13), // 13 de marzo
                 fechaFin: new Date(2025, 2, 16), // 16 de marzo
                 horarioCarrera: '16 Marzo - 01:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Australia.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Australia.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'japan-2025',
@@ -85,7 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 3, 3), // 3 de abril
                 fechaFin: new Date(2025, 3, 6), // 6 de abril
                 horarioCarrera: '6 Abril - 02:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Japan.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Japan.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'china-2025',
@@ -96,7 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 2, 21), // 21 de marzo
                 fechaFin: new Date(2025, 2, 23), // 23 de marzo
                 horarioCarrera: '23 Marzo - 04:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/China.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/China.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'miami-2025',
@@ -107,7 +136,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 4, 2), // 2 de mayo
                 fechaFin: new Date(2025, 4, 4), // 4 de mayo
                 horarioCarrera: '4 Mayo - 17:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Miami.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Miami.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'emilia-romagna-2025',
@@ -118,7 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 4, 16), // 16 de mayo
                 fechaFin: new Date(2025, 4, 18), // 18 de mayo
                 horarioCarrera: '18 Mayo - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/EmiliaRomagna.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/EmiliaRomagna.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'monaco-2025',
@@ -129,7 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 4, 23), // 23 de mayo
                 fechaFin: new Date(2025, 4, 25), // 25 de mayo
                 horarioCarrera: '25 Mayo - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Monaco.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Monaco.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'canada-2025',
@@ -140,7 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 5, 13), // 13 de junio
                 fechaFin: new Date(2025, 5, 15), // 15 de junio
                 horarioCarrera: '15 Junio - 15:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Canada.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Canada.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'spain-2025',
@@ -151,7 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 4, 30), // 30 de mayo
                 fechaFin: new Date(2025, 5, 1), // 1 de junio
                 horarioCarrera: '01 Junio - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Spain.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Spain.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'austria-2025',
@@ -162,7 +196,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 5, 27), // 27 de junio
                 fechaFin: new Date(2025, 5, 29), // 29 de junio
                 horarioCarrera: '29 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Austria.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Austria.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'uk-2025',
@@ -173,7 +208,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 6, 4), // 4 de julio
                 fechaFin: new Date(2025, 6, 6), // 6 de julio
                 horarioCarrera: '6 Julio - 11:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/UK.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/UK.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'hungary-2025',
@@ -184,7 +220,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 7, 1), // 1 de agosto
                 fechaFin: new Date(2025, 7, 3), // 3 de agosto
                 horarioCarrera: '3 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Hungary.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Hungary.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'belgium-2025',
@@ -195,7 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 6, 25), // 25 de julio
                 fechaFin: new Date(2025, 6, 27), // 27 de julio
                 horarioCarrera: '27 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Belgium.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Belgium.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'netherlands-2025',
@@ -206,7 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 7, 29), // 29 de agosto
                 fechaFin: new Date(2025, 7, 31), // 31 de agosto
                 horarioCarrera: '31 Agosto - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Netherlands.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Netherlands.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'italy-2025',
@@ -217,7 +256,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 8, 5), // 5 de septiembre
                 fechaFin: new Date(2025, 8, 7), // 7 de septiembre
                 horarioCarrera: '7 Septiembre - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Italy.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Italy.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'azerbaijan-2025',
@@ -228,7 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 8, 19), // 19 de septiembre
                 fechaFin: new Date(2025, 8, 21), // 21 de septiembre
                 horarioCarrera: '21 Septiembre - 08:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Azerbaijan.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Azerbaijan.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'singapore-2025',
@@ -239,7 +280,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 9, 3), // 3 de octubre
                 fechaFin: new Date(2025, 9, 5), // 5 de octubre
                 horarioCarrera: '5 Octubre - 09:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Singapore.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Singapore.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'usa-2025',
@@ -250,7 +292,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 9, 17), // 17 de octubre
                 fechaFin: new Date(2025, 9, 19), // 19 de octubre
                 horarioCarrera: '19 Octubre - 16:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/USA.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/USA.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'mexico-2025',
@@ -261,7 +304,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 9, 24), // 24 de octubre
                 fechaFin: new Date(2025, 9, 26), // 26 de octubre
                 horarioCarrera: '26 Octubre - 17:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Mexico.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Mexico.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'brazil-2025',
@@ -272,7 +316,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 10, 7), // 7 de noviembre
                 fechaFin: new Date(2025, 10, 9), // 9 de noviembre
                 horarioCarrera: '9 Noviembre - 14:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Brazil.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Brazil.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'las-vegas-2025',
@@ -283,7 +328,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 10, 20), // 20 de noviembre
                 fechaFin: new Date(2025, 10, 23), // 23 de noviembre
                 horarioCarrera: '23 Noviembre - 01:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Las_Vegas.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Las_Vegas.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'qatar-2025',
@@ -294,7 +340,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 10, 28), // 28 de noviembre
                 fechaFin: new Date(2025, 10, 30), // 30 de noviembre
                 horarioCarrera: '30 Noviembre - 13:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Qatar.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Qatar.html',
+                ganador: null // Aún sin ganador
             },
             {
                 id: 'abu-dhabi-2025',
@@ -305,7 +352,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 11, 5), // 5 de diciembre
                 fechaFin: new Date(2025, 11, 7), // 7 de diciembre
                 horarioCarrera: '7 Diciembre - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Abu_Dhabi.html'
+                enlace: 'https://www.formula1.com/en/racing/2025/Abu_Dhabi.html',
+                ganador: null // Aún sin ganador
             }
         ];
     }
@@ -388,12 +436,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p>${carrera.horarioCarrera}</p>
                     `;
                     
-                    // Verificar si hay un ganador guardado
-                    const ganadores = JSON.parse(localStorage.getItem('f1Ganadores'));
-                    if (ganadores[carrera.id]) {
+                    // Verificar si hay un ganador 
+                    if (carrera.ganador) {
                         const ganadorElement = document.createElement('p');
                         ganadorElement.className = 'ganador';
-                        ganadorElement.textContent = `Ganador: ${ganadores[carrera.id]}`;
+                        ganadorElement.textContent = `Ganador: ${carrera.ganador}`;
                         gpInfo.appendChild(ganadorElement);
                     }
                     
@@ -433,6 +480,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const winnerInfo = document.getElementById('winner-info');
         const closeButton = document.querySelector('.close-button');
         
+        // Guardar el ID de la carrera actual para el modo desarrollador
+        modalActualCarreraId = carrera.id;
+        
         // Llenar contenido del modal
         modalContent.innerHTML = `
             <h2>${carrera.nombre}</h2>
@@ -443,19 +493,24 @@ document.addEventListener('DOMContentLoaded', function() {
             <p><a href="${carrera.enlace}" target="_blank" style="color: var(--primary);">Ver detalles en Formula 1</a></p>
         `;
         
-        // Verificar si hay un ganador guardado
-        const ganadores = JSON.parse(localStorage.getItem('f1Ganadores'));
-        if (ganadores[carrera.id]) {
-            winnerInfo.innerHTML = `<span class="winner-name">${ganadores[carrera.id]}</span>`;
+        // Verificar si hay un ganador en los datos de la carrera
+        if (carrera.ganador) {
+            winnerInfo.innerHTML = `<span class="winner-name">${carrera.ganador}</span>`;
         } else {
-            winnerInfo.innerHTML = `<span class="empty">Aún no hay ganador registrado</span>`;
+            // Verificar si hay un ganador temporal en localStorage (para desarrollo)
+            const ganadoresTemp = JSON.parse(localStorage.getItem('f1Ganadores') || '{}');
+            if (ganadoresTemp[carrera.id]) {
+                winnerInfo.innerHTML = `
+                    <span class="winner-name">${ganadoresTemp[carrera.id]}</span>
+                    <p class="winner-note">(Vista previa - solo visible en tu navegador)</p>
+                `;
+            } else {
+                winnerInfo.innerHTML = `<span class="empty">Aún no hay ganador registrado</span>`;
+            }
         }
         
         // Mostrar el modal
         modal.style.display = 'block';
-        
-        // Ocultar el modo desarrollador
-        document.getElementById('developer-controls').style.display = 'none';
         
         // Configurar el botón de cerrar
         closeButton.onclick = function() {
@@ -470,9 +525,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
     
-    // Método para guardar ganadores programáticamente
-    // Esta función puede ser usada desde la consola
-    window.setGanador = function(carreraId, nombreGanador) {
+    // Método para guardar ganadores temporalmente (solo para desarrollo)
+    function setGanadorTemporal(carreraId, nombreGanador) {
         if (!carreraId || !nombreGanador) {
             console.error('Se requiere el ID de la carrera y el nombre del ganador');
             return false;
@@ -484,12 +538,16 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
         
-        const ganadores = JSON.parse(localStorage.getItem('f1Ganadores'));
+        const ganadores = JSON.parse(localStorage.getItem('f1Ganadores') || '{}');
         ganadores[carreraId] = nombreGanador;
         localStorage.setItem('f1Ganadores', JSON.stringify(ganadores));
         
-        console.log(`Ganador guardado: ${nombreGanador} para ${carreraId}`);
-        generarCalendario(); // Actualizar el calendario
+        console.log(`Ganador temporal guardado: ${nombreGanador} para ${carreraId}`);
         return true;
+    }
+    
+    // Método para uso desde consola (mantener para desarrollo)
+    window.setGanador = function(carreraId, nombreGanador) {
+        return setGanadorTemporal(carreraId, nombreGanador);
     };
 });
