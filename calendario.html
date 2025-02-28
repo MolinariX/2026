@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario F1 2025</title>
+    <link rel="stylesheet" href="css/calendario.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Calendario Fórmula 1 - 2025</h1>
+            <p>Todas las fechas y horarios de los Grandes Premios</p>
+            <a href="index.html" class="back-button">Volver al Inicio</a>
+        </header>
+        
+        <div id="calendario" class="calendario">
+            <!-- Los meses y días se generarán dinámicamente con JavaScript -->
+            <div class="loading-spinner">Cargando datos de F1</div>
+        </div>
+        
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div id="modal-content"></div>
+                <div class="winner-section">
+                    <h3>Ganador:</h3>
+                    <div id="winner-info" class="winner-info">
+                        <span class="empty">Aún no hay ganador registrado</span>
+                    </div>
+                    <div id="developer-controls" class="developer-controls">
+                        <input type="text" id="winner-input" placeholder="Ingrese el nombre del ganador">
+                        <button id="save-winner">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="dev-mode-toggle" class="dev-mode-toggle" title="Modo desarrollador">⚙️</div>
+    
+    <script src="js/calendario.js"></script>
+</body>
+</html>
