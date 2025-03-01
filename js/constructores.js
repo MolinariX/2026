@@ -73,20 +73,28 @@ document.addEventListener('DOMContentLoaded', () => {
 // Función para obtener datos de la API
 async function fetchConstructorsData() {
     try {
-        // Usamos la API gratuita de Ergast para datos de F1
-        // Nota: Esta API no tiene datos del 2025 (usamos 2023 como ejemplo)
-        // En un entorno real, deberías usar una API que contenga datos actuales
-        const response = await fetch('https://ergast.com/api/f1/current/constructorStandings.json');
+        const currentYear = new Date().getFullYear(); // Obtener año actual (2025)
+        
+        // Verificar si hay datos para la temporada actual
+        const response = await fetch(`https://ergast.com/api/f1/${currentYear}/constructorStandings.json`);
         const data = await response.json();
         
-        // Procesar los datos
-        const constructorStandings = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
+        const standings = data.MRData.StandingsTable.StandingsLists;
         
-        // Convertir datos de la API al formato que necesitamos
-        const processedData = processApiData(constructorStandings);
-        
-        // Actualizar la tabla
-        updateTable(processedData);
+        if (standings.length > 0) {
+            // Hay datos para la temporada actual
+            const constructorStandings = standings[0].ConstructorStandings;
+            
+            // Procesar los datos
+            const processedData = processApiData(constructorStandings);
+            
+            // Actualizar la tabla
+            updateTable(processedData);
+        } else {
+            // No hay datos para la temporada actual (es inicio de temporada)
+            // Mostrar tabla con puntos en cero
+            showEmptyStandings();
+        }
         
         // Actualizar la hora de última actualización
         updateLastUpdated();
@@ -96,11 +104,43 @@ async function fetchConstructorsData() {
     } catch (error) {
         console.error('Error al obtener datos:', error);
         
-        // Para fines de demostración, usar datos de ejemplo si la API falla
-        useExampleData();
+        // Si hay error, mostrar tabla vacía para el inicio de temporada
+        showEmptyStandings();
         
         // Ocultar spinner
         document.getElementById('spinner').style.display = 'none';
+    }
+}
+
+// Mostrar clasificación vacía para inicio de temporada
+function showEmptyStandings() {
+    // Crear datos con todos los equipos en cero puntos
+    const emptyData = constructores.map((constructor, index) => {
+        return {
+            id: constructor.id,
+            name: constructor.name,
+            points: 0,
+            position: index + 1,
+            color: constructor.color,
+            logo: constructor.logo
+        };
+    });
+    
+    // Actualizar tabla con datos en cero
+    updateTable(emptyData);
+    
+    // Mostrar mensaje de inicio de temporada
+    const statusElement = document.createElement('div');
+    statusElement.id = 'season-status';
+    statusElement.className = 'season-status';
+    statusElement.innerHTML = '<p>Temporada 2025 - Aún no ha comenzado</p>';
+    
+    // Insertar antes de la tabla
+    const tableContainer = document.querySelector('.standings-container');
+    const existingStatus = document.getElementById('season-status');
+    
+    if (!existingStatus && tableContainer) {
+        tableContainer.insertBefore(statusElement, tableContainer.firstChild);
     }
 }
 
@@ -137,8 +177,10 @@ function findConstructorByName(apiName) {
         'alpine': 'alpine',
         'haas': 'haas',
         'rb': 'racing_bulls', 
+        'visa cash app rb': 'racing_bulls',
         'williams': 'williams',
-        'sauber': 'stake'
+        'sauber': 'stake',
+        'stake f1 team kick sauber': 'stake'
     };
     
     // Buscar en el mapeo
@@ -153,35 +195,6 @@ function findConstructorByName(apiName) {
         c.name.toLowerCase().includes(normalizedApiName) || 
         normalizedApiName.includes(c.name.toLowerCase())
     );
-}
-
-// Usar datos de ejemplo para demostración
-function useExampleData() {
-    const exampleData = [
-        { id: 'mclaren', name: 'McLaren', points: 666, position: 1 },
-        { id: 'ferrari', name: 'Ferrari', points: 652, position: 2 },
-        { id: 'red_bull', name: 'Red Bull Racing', points: 589, position: 3 },
-        { id: 'mercedes', name: 'Mercedes', points: 468, position: 4 },
-        { id: 'aston_martin', name: 'Aston Martin', points: 94, position: 5 },
-        { id: 'alpine', name: 'Alpine', points: 65, position: 6 },
-        { id: 'haas', name: 'Haas', points: 58, position: 7 },
-        { id: 'racing_bulls', name: 'Racing Bulls', points: 46, position: 8 },
-        { id: 'williams', name: 'Williams', points: 17, position: 9 },
-        { id: 'stake', name: 'Stake', points: 4, position: 10 }
-    ];
-    
-    // Enriquecer los datos con información visual
-    const processedData = exampleData.map(item => {
-        const constructor = constructores.find(c => c.id === item.id);
-        return {
-            ...item,
-            color: constructor.color,
-            logo: constructor.logo
-        };
-    });
-    
-    updateTable(processedData);
-    updateLastUpdated();
 }
 
 // Actualizar la tabla con los datos

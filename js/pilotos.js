@@ -45,20 +45,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para obtener datos de la API de Ergast
     async function fetchDriverStandings() {
         try {
-            const response = await fetch('https://ergast.com/api/f1/current/driverStandings.json');
+            // Especificamos el año 2025 en lugar de "current"
+            const response = await fetch('https://ergast.com/api/f1/2025/driverStandings.json');
             const data = await response.json();
+            
+            // Verificar si hay datos de clasificación disponibles
+            if (data.MRData.StandingsTable.StandingsLists.length === 0) {
+                // No hay datos para 2025 aún, mostrar tabla en cero
+                return createEmptyStandings();
+            }
+            
             return data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
         } catch (error) {
             console.error('Error al obtener los datos:', error);
-            return null;
+            return createEmptyStandings();
         }
+    }
+    
+    // Función para crear clasificación con puntuaciones en cero
+    function createEmptyStandings() {
+        return driversData.map((driver, index) => ({
+            position: (index + 1).toString(),
+            Driver: { driverId: driver.id.replace('-', '_') },
+            points: "0"
+        }));
     }
     
     // Función para obtener resultados de una carrera específica
     async function fetchRaceResults(round) {
         try {
-            const response = await fetch(`https://ergast.com/api/f1/current/${round}/results.json`);
+            // Especificamos el año 2025 en lugar de "current"
+            const response = await fetch(`https://ergast.com/api/f1/2025/${round}/results.json`);
             const data = await response.json();
+            
+            // Verificar si hay resultados disponibles
+            if (data.MRData.RaceTable.Races.length === 0) {
+                // No hay resultados para esta carrera aún
+                return null;
+            }
+            
             return data.MRData.RaceTable.Races[0].Results;
         } catch (error) {
             console.error(`Error al obtener resultados de R${round}:`, error);
@@ -104,43 +129,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (raceData === null || raceData === 'championship') {
             // Obtener clasificación general
             standings = await fetchDriverStandings();
-            if (!standings) {
-                // Usar datos actualizados basados en lo proporcionado por el usuario
-                standings = [ 
-                    {position: "1", Driver: {driverId: "max_verstappen"}, points: "437"},
-                    {position: "2", Driver: {driverId: "lando_norris"}, points: "374"},
-                    {position: "3", Driver: {driverId: "charles_leclerc"}, points: "356"},
-                    {position: "4", Driver: {driverId: "oscar_piastri"}, points: "292"},
-                    {position: "5", Driver: {driverId: "carlos_sainz"}, points: "290"},
-                    {position: "6", Driver: {driverId: "george_russell"}, points: "245"},
-                    {position: "7", Driver: {driverId: "lewis_hamilton"}, points: "223"},
-                    {position: "8", Driver: {driverId: "liam_lawson"}, points: "38"},
-                    {position: "9", Driver: {driverId: "fernando_alonso"}, points: "70"},
-                    {position: "10", Driver: {driverId: "pierre_gasly"}, points: "42"},
-                    {position: "11", Driver: {driverId: "nico_hulkenberg"}, points: "41"},
-                    {position: "12", Driver: {driverId: "yuki_tsunoda"}, points: "30"},
-                    {position: "13", Driver: {driverId: "lance_stroll"}, points: "24"},
-                    {position: "14", Driver: {driverId: "esteban_ocon"}, points: "23"},
-                    {position: "15", Driver: {driverId: "isack_hadjar"}, points: "2"},
-                    {position: "16", Driver: {driverId: "alexander_albon"}, points: "12"},
-                    {position: "17", Driver: {driverId: "gabriel_bortoleto"}, points: "0"},
-                    {position: "18", Driver: {driverId: "oliver_bearman"}, points: "7"},
-                    {position: "19", Driver: {driverId: "andrea_kimi_antonelli"}, points: "10"},
-                    {position: "20", Driver: {driverId: "jack_doohan"}, points: "0"}
-                ];
-            }
         } else {
             // Obtener resultados de una carrera específica
             const round = raceData.replace('R', '');
             const raceResults = await fetchRaceResults(round);
             
             if (!raceResults) {
-                // Simulación de resultados si la API falla
-                standings = driversData.map((driver, index) => ({
-                    position: (index + 1).toString(),
-                    Driver: { driverId: driver.id },
-                    points: Math.floor(Math.random() * 25).toString()
-                }));
+                // Mostrar mensaje de "Carrera no disputada aún"
+                const messageElement = document.createElement('div');
+                messageElement.className = 'race-not-available';
+                messageElement.textContent = 'Esta carrera aún no se ha disputado en la temporada 2025';
+                container.appendChild(messageElement);
+                return;
             } else {
                 standings = raceResults.map(result => ({
                     position: result.position,

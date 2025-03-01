@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 3, 11), // 11 de abril
                 fechaFin: new Date(2025, 3, 13), // 13 de abril
                 horarioCarrera: '13 Abril - 12:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Bahrain.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052048',
                 ganador: null // Aún sin ganador
             },
             {
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 3, 18), // 18 de abril
                 fechaFin: new Date(2025, 3, 20), // 20 de abril
                 horarioCarrera: '20 Abril - 14:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Saudi_Arabia.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052049',
                 ganador: null // Aún sin ganador
             },
             {
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 2, 13), // 13 de marzo
                 fechaFin: new Date(2025, 2, 16), // 16 de marzo
                 horarioCarrera: '16 Marzo - 01:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Australia.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052045',
                 ganador: null // Aún sin ganador
             },
             {
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 3, 3), // 3 de abril
                 fechaFin: new Date(2025, 3, 6), // 6 de abril
                 horarioCarrera: '6 Abril - 02:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Japan.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052047',
                 ganador: null // Aún sin ganador
             },
             {
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 2, 21), // 21 de marzo
                 fechaFin: new Date(2025, 2, 23), // 23 de marzo
                 horarioCarrera: '23 Marzo - 04:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/China.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052046',
                 ganador: null // Aún sin ganador
             },
             {
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 4, 2), // 2 de mayo
                 fechaFin: new Date(2025, 4, 4), // 4 de mayo
                 horarioCarrera: '4 Mayo - 17:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Miami.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052050',
                 ganador: null // Aún sin ganador
             },
             {
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 4, 16), // 16 de mayo
                 fechaFin: new Date(2025, 4, 18), // 18 de mayo
                 horarioCarrera: '18 Mayo - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/EmiliaRomagna.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052051',
                 ganador: null // Aún sin ganador
             },
             {
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 4, 23), // 23 de mayo
                 fechaFin: new Date(2025, 4, 25), // 25 de mayo
                 horarioCarrera: '25 Mayo - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Monaco.html',
+                enlace: 'https://www.espn.com.ar/f1/circuito/_/id/600052052',
                 ganador: null // Aún sin ganador
             },
             {
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 5, 13), // 13 de junio
                 fechaFin: new Date(2025, 5, 15), // 15 de junio
                 horarioCarrera: '15 Junio - 15:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Canada.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052054',
                 ganador: null // Aún sin ganador
             },
             {
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 4, 30), // 30 de mayo
                 fechaFin: new Date(2025, 5, 1), // 1 de junio
                 horarioCarrera: '01 Junio - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Spain.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052053',
                 ganador: null // Aún sin ganador
             },
             {
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 5, 27), // 27 de junio
                 fechaFin: new Date(2025, 5, 29), // 29 de junio
                 horarioCarrera: '29 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Austria.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052055',
                 ganador: null // Aún sin ganador
             },
             {
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 6, 4), // 4 de julio
                 fechaFin: new Date(2025, 6, 6), // 6 de julio
                 horarioCarrera: '6 Julio - 11:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/UK.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052056',
                 ganador: null // Aún sin ganador
             },
             {
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 7, 1), // 1 de agosto
                 fechaFin: new Date(2025, 7, 3), // 3 de agosto
                 horarioCarrera: '3 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Hungary.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052058',
                 ganador: null // Aún sin ganador
             },
             {
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 6, 25), // 25 de julio
                 fechaFin: new Date(2025, 6, 27), // 27 de julio
                 horarioCarrera: '27 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Belgium.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052057',
                 ganador: null // Aún sin ganador
             },
             {
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 7, 29), // 29 de agosto
                 fechaFin: new Date(2025, 7, 31), // 31 de agosto
                 horarioCarrera: '31 Agosto - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Netherlands.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052059',
                 ganador: null // Aún sin ganador
             },
             {
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 8, 5), // 5 de septiembre
                 fechaFin: new Date(2025, 8, 7), // 7 de septiembre
                 horarioCarrera: '7 Septiembre - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Italy.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052060',
                 ganador: null // Aún sin ganador
             },
             {
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 8, 19), // 19 de septiembre
                 fechaFin: new Date(2025, 8, 21), // 21 de septiembre
                 horarioCarrera: '21 Septiembre - 08:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Azerbaijan.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052101',
                 ganador: null // Aún sin ganador
             },
             {
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 9, 3), // 3 de octubre
                 fechaFin: new Date(2025, 9, 5), // 5 de octubre
                 horarioCarrera: '5 Octubre - 09:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Singapore.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052102',
                 ganador: null // Aún sin ganador
             },
             {
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 9, 17), // 17 de octubre
                 fechaFin: new Date(2025, 9, 19), // 19 de octubre
                 horarioCarrera: '19 Octubre - 16:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/USA.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052103',
                 ganador: null // Aún sin ganador
             },
             {
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 9, 24), // 24 de octubre
                 fechaFin: new Date(2025, 9, 26), // 26 de octubre
                 horarioCarrera: '26 Octubre - 17:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Mexico.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052104',
                 ganador: null // Aún sin ganador
             },
             {
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 10, 7), // 7 de noviembre
                 fechaFin: new Date(2025, 10, 9), // 9 de noviembre
                 horarioCarrera: '9 Noviembre - 14:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Brazil.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052105',
                 ganador: null // Aún sin ganador
             },
             {
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 10, 20), // 20 de noviembre
                 fechaFin: new Date(2025, 10, 23), // 23 de noviembre
                 horarioCarrera: '23 Noviembre - 01:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Las_Vegas.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052106',
                 ganador: null // Aún sin ganador
             },
             {
@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 10, 28), // 28 de noviembre
                 fechaFin: new Date(2025, 10, 30), // 30 de noviembre
                 horarioCarrera: '30 Noviembre - 13:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Qatar.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052107',
                 ganador: null // Aún sin ganador
             },
             {
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaInicio: new Date(2025, 11, 5), // 5 de diciembre
                 fechaFin: new Date(2025, 11, 7), // 7 de diciembre
                 horarioCarrera: '7 Diciembre - 10:00 (Argentina)',
-                enlace: 'https://www.formula1.com/en/racing/2025/Abu_Dhabi.html',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052108',
                 ganador: null // Aún sin ganador
             }
         ];
