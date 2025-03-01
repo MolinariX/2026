@@ -24,45 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
         }
-        
-        // Mantener el botón de desarrollador y sus funcionalidades para poder actualizar ganadores en desarrollo
-        const devButton = document.getElementById('dev-mode-toggle');
-        const developerControls = document.getElementById('developer-controls');
-        
-        // Establecer evento para el botón de modo desarrollador
-        if (devButton) {
-            devButton.addEventListener('click', function() {
-                document.body.classList.toggle('dev-mode');
-                if (document.body.classList.contains('dev-mode')) {
-                    developerControls.style.display = 'block';
-                } else {
-                    developerControls.style.display = 'none';
-                }
-            });
-        }
-        
-        // Configurar el botón de guardar ganador para desarrollo/pruebas
-        const saveWinnerButton = document.getElementById('save-winner');
-        if (saveWinnerButton) {
-            saveWinnerButton.addEventListener('click', function() {
-                const winnerInput = document.getElementById('winner-input');
-                const carreraId = modalActualCarreraId;
-                
-                if (carreraId && winnerInput.value) {
-                    // Usamos setGanador para actualizar temporalmente
-                    setGanadorTemporal(carreraId, winnerInput.value);
-                    document.getElementById('winner-info').innerHTML = `
-                        <span class="winner-name">${winnerInput.value}</span>
-                        <p class="winner-note">(Nota: Este cambio solo es visible en tu navegador)</p>
-                    `;
-                    winnerInput.value = '';
-                }
-            });
-        }
     }
-    
-    // Variable para almacenar el ID de la carrera actual en el modal
-    let modalActualCarreraId = null;
     
     // Datos reales del calendario F1 2025 con ganadores incluidos
     function obtenerCalendarioF12025() {
@@ -480,9 +442,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const winnerInfo = document.getElementById('winner-info');
         const closeButton = document.querySelector('.close-button');
         
-        // Guardar el ID de la carrera actual para el modo desarrollador
-        modalActualCarreraId = carrera.id;
-        
         // Llenar contenido del modal
         modalContent.innerHTML = `
             <h2>${carrera.nombre}</h2>
@@ -497,16 +456,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (carrera.ganador) {
             winnerInfo.innerHTML = `<span class="winner-name">${carrera.ganador}</span>`;
         } else {
-            // Verificar si hay un ganador temporal en localStorage (para desarrollo)
-            const ganadoresTemp = JSON.parse(localStorage.getItem('f1Ganadores') || '{}');
-            if (ganadoresTemp[carrera.id]) {
-                winnerInfo.innerHTML = `
-                    <span class="winner-name">${ganadoresTemp[carrera.id]}</span>
-                    <p class="winner-note">(Vista previa - solo visible en tu navegador)</p>
-                `;
-            } else {
-                winnerInfo.innerHTML = `<span class="empty">Aún no hay ganador registrado</span>`;
-            }
+            winnerInfo.innerHTML = `<span class="empty">Aún no hay ganador registrado</span>`;
         }
         
         // Mostrar el modal
@@ -524,30 +474,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
     }
-    
-    // Método para guardar ganadores temporalmente (solo para desarrollo)
-    function setGanadorTemporal(carreraId, nombreGanador) {
-        if (!carreraId || !nombreGanador) {
-            console.error('Se requiere el ID de la carrera y el nombre del ganador');
-            return false;
-        }
-        
-        const carreraExiste = carrerasF1.some(carrera => carrera.id === carreraId);
-        if (!carreraExiste) {
-            console.error(`La carrera con ID ${carreraId} no existe`);
-            return false;
-        }
-        
-        const ganadores = JSON.parse(localStorage.getItem('f1Ganadores') || '{}');
-        ganadores[carreraId] = nombreGanador;
-        localStorage.setItem('f1Ganadores', JSON.stringify(ganadores));
-        
-        console.log(`Ganador temporal guardado: ${nombreGanador} para ${carreraId}`);
-        return true;
-    }
-    
-    // Método para uso desde consola (mantener para desarrollo)
-    window.setGanador = function(carreraId, nombreGanador) {
-        return setGanadorTemporal(carreraId, nombreGanador);
-    };
 });
