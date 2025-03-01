@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&display=swap');
 
 * {
     margin: 0;
@@ -39,19 +39,19 @@ body {
     border-radius: 30px;
     font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
     width: 180px;
 }
 
 .nav-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 15px rgba(255, 0, 0, 0.4);
     background-color: #ff3333;
 }
 
 .nav-button:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(255, 0, 0, 0.2);
 }
 
 .button-icon {
@@ -61,10 +61,12 @@ body {
 
 .home-button {
     background-color: #333;
+    box-shadow: 0 4px 12px rgba(51, 51, 51, 0.3);
 }
 
 .home-button:hover {
     background-color: #444;
+    box-shadow: 0 6px 15px rgba(51, 51, 51, 0.4);
 }
 
 .drivers-button {
@@ -81,69 +83,101 @@ h1 {
     font-size: 2.5rem;
     font-weight: 700;
     color: #f1f1f1;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    letter-spacing: 1px;
 }
 
 .table-container {
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
     overflow: hidden;
+    background-color: #181818;
+    padding: 3px;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    background-color: #1a1a1a;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    background-color: #181818;
 }
 
 .constructor-row {
     height: 70px;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
 }
 
 .constructor-row:hover {
     transform: scale(1.01);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+}
+
+.constructor-row td {
+    padding: 0;
+}
+
+.constructor-row td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.constructor-row td:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .position {
-    width: 40px;
+    width: 50px;
     text-align: center;
     font-weight: bold;
-    font-size: 1.2rem;
-    padding-left: 10px;
-    /* Añadir contraste con un borde/sombra para todos los números */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    font-size: 1.3rem;
+    padding: 0 15px;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(51, 51, 51, 0.7);
+    height: 100%;
 }
 
-/* Estilos específicos para cada posición */
+.position::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    z-index: -1;
+}
+
+/* Estilos específicos para cada posición - se mantienen tamaños pero se eliminan colores especiales */
 .position-1, .position-2, .position-3 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 800;
 }
 
-.position-1 {
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-    color: #FFD700; /* Dorado para el 1er lugar */
-}
-
-.position-2 {
-    text-shadow: 0 0 10px rgba(192, 192, 192, 0.7);
-    color: #C0C0C0; /* Plateado para el 2do lugar */
-}
-
-.position-3 {
-    text-shadow: 0 0 10px rgba(205, 127, 50, 0.7);
-    color: #CD7F32; /* Bronce para el 3er lugar */
-}
-
 .logo {
-    width: 60px;
+    width: 70px;
     text-align: center;
+    padding: 0 10px;
 }
 
 .logo img {
     height: 40px;
     width: auto;
     vertical-align: middle;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease;
+}
+
+.constructor-row:hover .logo img {
+    transform: scale(1.1);
 }
 
 .constructor-name {
@@ -153,6 +187,7 @@ table {
     text-transform: uppercase;
     letter-spacing: 1px;
     padding-left: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .points {
@@ -160,61 +195,99 @@ table {
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
-    background-color: #333;
+    background-color: rgba(51, 51, 51, 0.7);
     color: white;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Colores específicos para cada constructor */
+.points::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    z-index: 1;
+}
+
+.points span {
+    position: relative;
+    z-index: 2;
+    padding: 0 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Colores específicos para cada constructor con gradientes mejorados */
 .mclaren {
-    background-color: #F29F05;
+    background: linear-gradient(90deg, #F29F05 0%, #FF9900 100%);
+    box-shadow: 0 3px 10px rgba(242, 159, 5, 0.4);
 }
 
 .ferrari {
-    background-color: #FF0000;
+    background: linear-gradient(90deg, #FF0000 0%, #FF3333 100%);
+    box-shadow: 0 3px 10px rgba(255, 0, 0, 0.4);
 }
 
 .red-bull {
-    background-color: #0600EF;
+    background: linear-gradient(90deg, #0600EF 0%, #0033FF 100%);
+    box-shadow: 0 3px 10px rgba(6, 0, 239, 0.4);
 }
 
 .mercedes {
-    background-color: #00D2BE;
+    background: linear-gradient(90deg, #00D2BE 0%, #00E5CC 100%);
+    box-shadow: 0 3px 10px rgba(0, 210, 190, 0.4);
 }
 
 .aston-martin {
-    background-color: #006F62;
+    background: linear-gradient(90deg, #006F62 0%, #00857A 100%);
+    box-shadow: 0 3px 10px rgba(0, 111, 98, 0.4);
 }
 
 .alpine {
-    background-color: #FF87BC;
+    background: linear-gradient(90deg, #FF87BC 0%, #FFA6CE 100%);
+    box-shadow: 0 3px 10px rgba(255, 135, 188, 0.4);
 }
 
 .haas {
-    background-color: #FFFFFF;
-    color: #000000 !important; /* Forzar color negro para todos los textos en Haas */
+    background: linear-gradient(90deg, #FFFFFF 0%, #F0F0F0 100%);
+    color: #000000 !important;
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
 }
 
-/* Asegurar que el nombre de Haas sea negro */
 .haas .constructor-name {
     color: #000000;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.haas .position::before {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .racing-bulls {
-    background-color: #0032FF;
+    background: linear-gradient(90deg, #0032FF 0%, #0050FF 100%);
+    box-shadow: 0 3px 10px rgba(0, 50, 255, 0.4);
 }
 
 .williams {
-    background-color: #041E42;
+    background: linear-gradient(90deg, #041E42 0%, #0A2E5A 100%);
+    box-shadow: 0 3px 10px rgba(4, 30, 66, 0.4);
 }
 
 .stake {
-    background-color: #52FF00;
+    background: linear-gradient(90deg, #52FF00 0%, #70FF33 100%);
     color: #000000;
+    box-shadow: 0 3px 10px rgba(82, 255, 0, 0.4);
 }
 
-/* Asegurar que el nombre de Stake sea negro */
 .stake .constructor-name {
     color: #000000;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stake .position::before {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .footer {
@@ -241,6 +314,7 @@ table {
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
 @keyframes spin {
@@ -248,35 +322,298 @@ table {
     100% { transform: rotate(360deg); }
 }
 
+/* Estilos para modal constructor */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.constructor-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100%;
+    background-color: #1a1a1a;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.7);
+    z-index: 1001;
+    overflow-y: auto;
+    display: none;
+    animation: slideIn 0.4s ease-in-out;
+    padding: 25px;
+    border-left: 1px solid #333;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1002;
+    transition: transform 0.2s ease;
+}
+
+.close-button:hover {
+    transform: scale(1.2);
+    color: #ff3333;
+}
+
+.constructor-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.constructor-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.constructor-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+.constructor-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+}
+
+.constructor-type {
+    font-size: 18px;
+    color: #aaa;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.total-points {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.divider {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #444, transparent);
+    margin: 10px 0 20px;
+}
+
+.team-drivers-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ddd;
+}
+
+.driver-list {
+    width: 100%;
+}
+
+.driver-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #222;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.driver-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.driver-logo {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.driver-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.driver-name {
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.driver-points {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    border-radius: 15px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.total-team-points {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px;
+    background: linear-gradient(135deg, #333, #222);
+    border-radius: 12px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.total-team-label {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.total-team-value {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 @media (max-width: 768px) {
     h1 {
         font-size: 1.8rem;
+        margin: 15px 0 25px;
+    }
+    
+    .table-container {
+        border-radius: 10px;
+        padding: 2px;
+    }
+    
+    table {
+        border-spacing: 0 6px;
+    }
+    
+    .constructor-row {
+        height: 60px;
     }
     
     .constructor-name {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        padding-left: 8px;
     }
     
     .points {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        width: 80px;
     }
     
     .position {
         font-size: 1rem;
+        width: 40px;
+        padding: 0 10px;
+    }
+    
+    .logo {
+        width: 50px;
+        padding: 0 5px;
     }
     
     .logo img {
-        height: 30px;
+        height: 25px;
     }
     
     .navigation-buttons {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         align-items: center;
+        margin-bottom: 20px;
     }
     
     .nav-button {
         width: 100%;
         max-width: 200px;
+    }
+    
+    .constructor-modal {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .constructor-logo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .constructor-title {
+        font-size: 24px;
+    }
+    
+    .driver-item {
+        padding: 12px;
+    }
+    
+    .driver-logo {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
+    
+    .driver-name {
+        font-size: 16px;
+    }
+    
+    .driver-points {
+        font-size: 16px;
+        min-width: 50px;
     }
 }

@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: "antonelli", name: "Andrea Kimi Antonelli", team: "mercedes", logoPath: "images/logos/mercedes.png", photoPath: "images/drivers/antonelli.png" },
         
         // McLaren
-        { id: "norris", name: "Lando Norris", team: "mclaren", logoPath: "images/logos/mclaren.png", photoPath: "images/drivers/norris.png" },
-        { id: "piastri", name: "Oscar Piastri", team: "mclaren", logoPath: "images/logos/mclaren.png", photoPath: "images/drivers/piastri.png" },
+        { id: "norris", name: "Lando Norris", team: "mclaren", logoPath: "images/logos/mclaren2.png", photoPath: "images/drivers/norris.png" },
+        { id: "piastri", name: "Oscar Piastri", team: "mclaren", logoPath: "images/logos/mclaren2.png", photoPath: "images/drivers/piastri.png" },
         
         // Aston Martin
         { id: "alonso", name: "Fernando Alonso", team: "aston-martin", logoPath: "images/logos/aston-martin.png", photoPath: "images/drivers/alonso.png" },
@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: "hulkenberg", name: "Nico Hulkenberg", team: "sauber", logoPath: "images/logos/stake.png", photoPath: "images/drivers/hulkenberg.png" },
         { id: "bortoleto", name: "Gabriel Bortoleto", team: "sauber", logoPath: "images/logos/stake.png", photoPath: "images/drivers/bortoleto.png" }
     ];
+    
+    // Objeto para almacenar los resultados de las carreras por piloto
+    let driverRaceResults = {};
     
     // Función para obtener datos de la API de Ergast
     async function fetchDriverStandings() {
@@ -88,6 +91,45 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error(`Error al obtener resultados de R${round}:`, error);
             return null;
+        }
+    }
+    
+    // Función para obtener todos los resultados de todas las carreras
+    async function fetchAllRaceResults() {
+        try {
+            const response = await fetch('https://ergast.com/api/f1/2025/results.json?limit=1000');
+            const data = await response.json();
+            
+            if (data.MRData.RaceTable.Races.length === 0) {
+                return [];
+            }
+            
+            // Organizar los resultados por piloto
+            const races = data.MRData.RaceTable.Races;
+            const results = {};
+            
+            races.forEach(race => {
+                const raceNumber = race.round;
+                const raceName = `R${raceNumber}`;
+                
+                race.Results.forEach(result => {
+                    const driverId = result.Driver.driverId;
+                    if (!results[driverId]) {
+                        results[driverId] = [];
+                    }
+                    
+                    results[driverId].push({
+                        race: raceName,
+                        position: result.position,
+                        points: result.points
+                    });
+                });
+            });
+            
+            return results;
+        } catch (error) {
+            console.error('Error al obtener todos los resultados:', error);
+            return {};
         }
     }
     
@@ -150,10 +192,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
+        // Cargar los resultados de carreras para todos los pilotos
+        if (Object.keys(driverRaceResults).length === 0) {
+            driverRaceResults = await fetchAllRaceResults();
+        }
+        
         // Crear filas de pilotos
         standings.forEach(driverStanding => {
             const position = driverStanding.position;
-            const driverId = mapDriverId(driverStanding.Driver.driverId);
+            const apiDriverId = driverStanding.Driver.driverId;
+            const driverId = mapDriverId(apiDriverId);
             const points = driverStanding.points;
             
             // Buscar los datos del piloto en nuestro array
@@ -163,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Crear la fila del piloto
                 const driverRow = document.createElement('div');
                 driverRow.className = `driver-row ${driverInfo.team}`;
+                driverRow.setAttribute('data-driver-id', apiDriverId);
                 
                 driverRow.innerHTML = `
                     <div class="position">${position}</div>
@@ -172,9 +221,72 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="points">${points}</div>
                 `;
                 
+                // Agregar evento de clic para mostrar detalles del piloto
+                driverRow.addEventListener('click', function() {
+                    showDriverDetails(apiDriverId, driverInfo, points);
+                    openDriverPanel(); // Añadir esta llamada para activar el efecto blur
+                });
+                
                 container.appendChild(driverRow);
             }
         });
+    }
+    
+    // Función para mostrar los detalles del piloto seleccionado
+    function showDriverDetails(apiDriverId, driverInfo, points) {
+        const detailsPanel = document.getElementById('driver-details-panel');
+        
+        // Preparar los resultados de las carreras del piloto
+        const raceResults = driverRaceResults[apiDriverId] || [];
+        
+        // Construir el contenido del panel
+        detailsPanel.innerHTML = `
+            <button class="panel-close">✕</button>
+            <img class="panel-logo" src="${driverInfo.logoPath}" alt="${driverInfo.team} logo">
+            <h2 class="panel-driver-name">${driverInfo.name}</h2>
+            <div class="panel-team">${getTeamName(driverInfo.team)}</div>
+            <div class="panel-points">Total Points: ${points}</div>
+            <div class="divider"></div>
+            <div class="race-results">
+                ${raceResults.length > 0 ? 
+                    raceResults.map(result => `
+                        <div class="race-result-item">
+                            <span class="race-name">${result.race}</span>
+                            <span class="race-position">P${result.position}</span>
+                            <span class="race-points">${result.points} pts</span>
+                        </div>
+                    `).join('') : 
+                    '<div class="no-results">No hay resultados disponibles aún</div>'
+                }
+            </div>
+        `;
+        
+        // Agregar evento al botón de cerrar
+        detailsPanel.querySelector('.panel-close').addEventListener('click', function(e) {
+            e.stopPropagation(); // Evitar que el clic se propague
+            closeDriverPanel();
+        });
+        
+        // Mostrar el panel
+        detailsPanel.classList.add('panel-active');
+    }
+    
+    // Función para obtener el nombre completo del equipo
+    function getTeamName(teamId) {
+        const teamNames = {
+            'redbull': 'Red Bull Racing',
+            'ferrari': 'Scuderia Ferrari',
+            'mercedes': 'Mercedes-AMG F1',
+            'mclaren': 'McLaren F1 Team',
+            'aston-martin': 'Aston Martin F1',
+            'alpine': 'Alpine F1 Team',
+            'williams': 'Williams Racing',
+            'rb': 'RB F1 Team',
+            'haas': 'Haas F1 Team',
+            'sauber': 'Stake F1 Team Sauber'
+        };
+        
+        return teamNames[teamId] || teamId;
     }
     
     // Cargar la clasificación inicial
@@ -201,4 +313,60 @@ document.addEventListener('DOMContentLoaded', function() {
         const activeRace = document.querySelector('.race.active').getAttribute('data-race');
         createDriversTable(activeRace);
     }, 300000); // 5 minutos
+    
+    // Función para abrir el panel y aplicar blur
+    function openDriverPanel() {
+        // Aplicar clase para hacer blur al contenido
+        document.getElementById('standings-container').classList.add('blur-content');
+        document.querySelector('.races-container').classList.add('blur-content');
+        document.querySelector('.navigation-buttons').classList.add('blur-content');
+        document.querySelector('h1').classList.add('blur-content');
+        
+        // Crear y mostrar overlay
+        let overlay = document.querySelector('.overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            document.body.appendChild(overlay);
+            
+            // Agregar evento de clic al overlay para cerrar el panel
+            overlay.addEventListener('click', function() {
+                closeDriverPanel();
+            });
+        }
+        overlay.style.display = 'block';
+    }
+    
+    // Función para cerrar el panel y quitar blur
+    function closeDriverPanel() {
+        document.getElementById('driver-details-panel').classList.remove('panel-active');
+        
+        // Quitar clase de blur
+        document.getElementById('standings-container').classList.remove('blur-content');
+        document.querySelector('.races-container').classList.remove('blur-content');
+        document.querySelector('.navigation-buttons').classList.remove('blur-content');
+        document.querySelector('h1').classList.remove('blur-content');
+        
+        // Ocultar overlay
+        const overlay = document.querySelector('.overlay');
+        if (overlay) {
+            overlay.style.display = 'none';
+        }
+    }
+    
+    // Detectar clics en la página para cerrar el panel al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        const panel = document.getElementById('driver-details-panel');
+        const isActive = panel.classList.contains('panel-active');
+        
+        // Si el panel está abierto y se hace clic en la página (fuera del panel)
+        if (isActive && !panel.contains(e.target) && !e.target.closest('.driver-row')) {
+            closeDriverPanel();
+        }
+    });
+    
+    // Evitar la propagación de clics dentro del panel
+    document.getElementById('driver-details-panel').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
 });

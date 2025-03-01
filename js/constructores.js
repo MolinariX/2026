@@ -4,7 +4,7 @@ const constructores = [
         id: 'mclaren',
         name: 'McLaren',
         color: 'mclaren',
-        logo: 'images/logos/mclaren.png'
+        logo: 'images/logos/mclaren2.png'
     },
     {
         id: 'ferrari',
@@ -62,15 +62,102 @@ const constructores = [
     }
 ];
 
+// Lista de pilotos por equipo (2025)
+const pilotosPorEquipo = {
+    'mclaren': [
+        { nombre: 'Norris', logo: 'images/logos/mclaren.png' },
+        { nombre: 'Piastri', logo: 'images/logos/mclaren.png' }
+    ],
+    'ferrari': [
+        { nombre: 'Leclerc', logo: 'images/logos/ferrari.png' },
+        { nombre: 'Hamilton', logo: 'images/logos/ferrari.png' }
+    ],
+    'red_bull': [
+        { nombre: 'Verstappen', logo: 'images/logos/redbull.png' },
+        { nombre: 'Lawson', logo: 'images/logos/redbull.png' }
+    ],
+    'mercedes': [
+        { nombre: 'Russell', logo: 'images/logos/mercedes.png' },
+        { nombre: 'Antonelli', logo: 'images/logos/mercedes.png' }
+    ],
+    'aston_martin': [
+        { nombre: 'Alonso', logo: 'images/logos/aston-martin.png' },
+        { nombre: 'Stroll', logo: 'images/logos/aston-martin.png' }
+    ],
+    'alpine': [
+        { nombre: 'Gasly', logo: 'images/logos/alpine.png' },
+        { nombre: 'Doohan', logo: 'images/logos/alpine.png' }
+    ],
+    'haas': [
+        { nombre: 'Ocon', logo: 'images/logos/haas.png' },
+        { nombre: 'Bearman', logo: 'images/logos/haas.png' }
+    ],
+    'racing_bulls': [
+        { nombre: 'Tsunoda', logo: 'images/logos/rb.png' },
+        { nombre: 'Hadjar', logo: 'images/logos/rb.png' }
+    ],
+    'williams': [
+        { nombre: 'Albon', logo: 'images/logos/williams.png' },
+        { nombre: 'Sainz', logo: 'images/logos/williams.png' }
+    ],
+    'stake': [
+        { nombre: 'Hulkenberg', logo: 'images/logos/stake.png' },
+        { nombre: 'Bortoleto', logo: 'images/logos/stake.png' }
+    ]
+};
+
+// Almacenamiento de datos globales
+let constructorData = [];
+let driverData = [];
+
 // Punto de entrada principal
 document.addEventListener('DOMContentLoaded', () => {
+    // Crear elementos del modal
+    createModalElements();
+    
+    // Cargar datos de constructores
     fetchConstructorsData();
     
+    // Cargar datos de pilotos
+    fetchDriversData();
+    
     // Actualizar datos cada 30 minutos
-    setInterval(fetchConstructorsData, 30 * 60 * 1000);
+    setInterval(() => {
+        fetchConstructorsData();
+        fetchDriversData();
+    }, 30 * 60 * 1000);
 });
 
-// Función para obtener datos de la API
+// Crear elementos del modal
+function createModalElements() {
+    // Crear el overlay
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    overlay.className = 'overlay';
+    
+    // Crear el modal del constructor
+    const modal = document.createElement('div');
+    modal.id = 'constructor-modal';
+    modal.className = 'constructor-modal';
+    
+    // Estructura interna inicial del modal
+    modal.innerHTML = `
+        <div class="close-button" id="close-modal">✕</div>
+        <div class="constructor-details" id="constructor-details">
+            <!-- Se llenará dinámicamente -->
+        </div>
+    `;
+    
+    // Añadir al DOM
+    document.body.appendChild(overlay);
+    document.body.appendChild(modal);
+    
+    // Configurar evento para cerrar el modal
+    overlay.addEventListener('click', closeModal);
+    document.getElementById('close-modal').addEventListener('click', closeModal);
+}
+
+// Función para obtener datos de constructores de la API
 async function fetchConstructorsData() {
     try {
         const currentYear = new Date().getFullYear(); // Obtener año actual (2025)
@@ -86,10 +173,10 @@ async function fetchConstructorsData() {
             const constructorStandings = standings[0].ConstructorStandings;
             
             // Procesar los datos
-            const processedData = processApiData(constructorStandings);
+            constructorData = processApiData(constructorStandings);
             
             // Actualizar la tabla
-            updateTable(processedData);
+            updateTable(constructorData);
         } else {
             // No hay datos para la temporada actual (es inicio de temporada)
             // Mostrar tabla con puntos en cero
@@ -102,7 +189,7 @@ async function fetchConstructorsData() {
         // Ocultar spinner
         document.getElementById('spinner').style.display = 'none';
     } catch (error) {
-        console.error('Error al obtener datos:', error);
+        console.error('Error al obtener datos de constructores:', error);
         
         // Si hay error, mostrar tabla vacía para el inicio de temporada
         showEmptyStandings();
@@ -112,10 +199,58 @@ async function fetchConstructorsData() {
     }
 }
 
+// Función para obtener datos de pilotos de la API
+async function fetchDriversData() {
+    try {
+        const currentYear = new Date().getFullYear();
+        
+        const response = await fetch(`https://ergast.com/api/f1/${currentYear}/driverStandings.json`);
+        const data = await response.json();
+        
+        const standings = data.MRData.StandingsTable.StandingsLists;
+        
+        if (standings.length > 0) {
+            // Hay datos para la temporada actual
+            const driverStandings = standings[0].DriverStandings;
+            
+            // Almacenar datos de pilotos
+            driverData = driverStandings.map(driver => {
+                return {
+                    driverId: driver.Driver.driverId,
+                    name: `${driver.Driver.givenName} ${driver.Driver.familyName}`,
+                    code: driver.Driver.code,
+                    teamId: findTeamIdByName(driver.Constructors[0].name),
+                    team: driver.Constructors[0].name,
+                    points: parseInt(driver.points)
+                };
+            });
+        } else {
+            // No hay datos, crear pilotos con 0 puntos
+            driverData = [];
+            for (const [teamId, drivers] of Object.entries(pilotosPorEquipo)) {
+                drivers.forEach(driver => {
+                    driverData.push({
+                        driverId: driver.nombre.toLowerCase(),
+                        name: driver.nombre,
+                        code: driver.nombre.substring(0, 3).toUpperCase(),
+                        teamId: teamId,
+                        team: findTeamNameById(teamId),
+                        points: 0
+                    });
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error al obtener datos de pilotos:', error);
+        // Crear datos de pilotos vacíos en caso de error
+        driverData = [];
+    }
+}
+
 // Mostrar clasificación vacía para inicio de temporada
 function showEmptyStandings() {
     // Crear datos con todos los equipos en cero puntos
-    const emptyData = constructores.map((constructor, index) => {
+    constructorData = constructores.map((constructor, index) => {
         return {
             id: constructor.id,
             name: constructor.name,
@@ -127,7 +262,7 @@ function showEmptyStandings() {
     });
     
     // Actualizar tabla con datos en cero
-    updateTable(emptyData);
+    updateTable(constructorData);
     
     // Mostrar mensaje de inicio de temporada
     const statusElement = document.createElement('div');
@@ -136,7 +271,7 @@ function showEmptyStandings() {
     statusElement.innerHTML = '<p>Temporada 2025 - Aún no ha comenzado</p>';
     
     // Insertar antes de la tabla
-    const tableContainer = document.querySelector('.standings-container');
+    const tableContainer = document.querySelector('.table-container');
     const existingStatus = document.getElementById('season-status');
     
     if (!existingStatus && tableContainer) {
@@ -144,7 +279,7 @@ function showEmptyStandings() {
     }
 }
 
-// Procesar datos de la API
+// Procesar datos de la API de constructores
 function processApiData(apiData) {
     // Mapear los datos de la API a nuestro formato
     return apiData.map(item => {
@@ -197,6 +332,27 @@ function findConstructorByName(apiName) {
     );
 }
 
+// Encontrar ID de equipo por nombre
+function findTeamIdByName(teamName) {
+    const normalizedName = teamName.toLowerCase();
+    
+    // Buscar en el mapeo
+    for (const constructor of constructores) {
+        if (normalizedName.includes(constructor.name.toLowerCase()) || 
+            constructor.name.toLowerCase().includes(normalizedName)) {
+            return constructor.id;
+        }
+    }
+    
+    return 'unknown';
+}
+
+// Encontrar nombre de equipo por ID
+function findTeamNameById(teamId) {
+    const constructor = constructores.find(c => c.id === teamId);
+    return constructor ? constructor.name : 'Unknown';
+}
+
 // Actualizar la tabla con los datos
 function updateTable(data) {
     // Ordenar por puntos (de mayor a menor)
@@ -213,6 +369,10 @@ function updateTable(data) {
         
         const row = document.createElement('tr');
         row.className = `constructor-row ${constructor.color}`;
+        row.setAttribute('data-constructor-id', constructor.id);
+        
+        // Añadir evento de clic para mostrar detalles
+        row.addEventListener('click', () => showConstructorDetails(constructor.id));
         
         // Añadir la clase position-number para estilizar específicamente
         row.innerHTML = `
@@ -226,14 +386,77 @@ function updateTable(data) {
     });
 }
 
+// Mostrar detalles del constructor seleccionado
+function showConstructorDetails(constructorId) {
+    // Encontrar el constructor por ID
+    const constructor = constructorData.find(c => c.id === constructorId);
+    
+    if (!constructor) return;
+    
+    // Filtrar pilotos de este equipo
+    const teamDrivers = driverData.filter(driver => driver.teamId === constructorId);
+    
+    // Obtener el contenedor de detalles
+    const detailsContainer = document.getElementById('constructor-details');
+    
+    // Generar contenido HTML
+    let detailsHTML = `
+        <div class="constructor-logo">
+            <img src="${constructor.logo}" alt="${constructor.name} logo">
+        </div>
+        <div class="constructor-title">${constructor.name}</div>
+        <div class="constructor-type">Constructor</div>
+        <div class="total-points">Total Points: ${constructor.points}</div>
+        <div class="divider"></div>
+        <div class="team-drivers-title">Team Drivers</div>
+        <div class="driver-list">
+    `;
+    
+    // Añadir cada piloto
+    teamDrivers.forEach(driver => {
+        detailsHTML += `
+            <div class="driver-item">
+                <div class="driver-logo">
+                    <img src="${constructor.logo}" alt="${driver.name}">
+                </div>
+                <div class="driver-name">${driver.name}</div>
+                <div class="driver-points">${driver.points} pts</div>
+            </div>
+        `;
+    });
+    
+    // Cerrar la lista de pilotos y añadir total
+    detailsHTML += `
+        </div>
+        <div class="total-team-points">
+            <div class="total-team-label">Total Team Points: </div>
+            <div class="total-team-value">${constructor.points}</div>
+        </div>
+    `;
+    
+    // Actualizar el contenido
+    detailsContainer.innerHTML = detailsHTML;
+    
+    // Mostrar el overlay y el modal
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('constructor-modal').style.display = 'block';
+    
+    // Evitar scroll en el body
+    document.body.style.overflow = 'hidden';
+}
+
+// Cerrar el modal
+function closeModal() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('constructor-modal').style.display = 'none';
+    
+    // Restaurar scroll en el body
+    document.body.style.overflow = 'auto';
+}
+
 // Actualizar la hora de última actualización
 function updateLastUpdated() {
     const now = new Date();
     const formattedDate = now.toLocaleString();
     document.getElementById('last-update').textContent = formattedDate;
-}
-
-// Función para animar cambios en la tabla
-function animateTableChanges(oldData, newData) {
-    // Implementación futura para animaciones suaves
 }
