@@ -337,7 +337,15 @@ function findConstructorByName(apiName) {
 function findTeamIdByName(teamName) {
     const normalizedName = teamName.toLowerCase();
     
-    // Buscar en el mapeo
+    // Mapeo directo para casos problemáticos
+    if (normalizedName.includes('rb') || normalizedName.includes('visa cash app')) {
+        return 'racing_bulls';
+    }
+    if (normalizedName.includes('sauber') || normalizedName.includes('stake')) {
+        return 'stake';
+    }
+    
+    // Buscar en el mapeo para otros casos
     for (const constructor of constructores) {
         if (normalizedName.includes(constructor.name.toLowerCase()) || 
             constructor.name.toLowerCase().includes(normalizedName)) {
@@ -414,22 +422,28 @@ function showConstructorDetails(constructorId) {
     `;
     
     // Añadir cada piloto
-teamDrivers.forEach(driver => {
-    // Extraer solo el apellido del nombre completo
-    const driverNames = driver.name.split(' ');
-    const lastName = driverNames[driverNames.length - 1].toLowerCase();
-    const driverImagePath = `images/drivers/${lastName}.png`;
-    
-    detailsHTML += `
-        <div class="driver-item">
-            <div class="driver-logo">
-                <img src="${driverImagePath}" alt="${driver.name}">
+    teamDrivers.forEach(driver => {
+        // Extraer solo el apellido del nombre completo
+        const driverNames = driver.name.split(' ');
+        const lastName = driverNames[driverNames.length - 1].toLowerCase();
+        
+        // Normalizar el apellido para quitar caracteres especiales
+        const normalizedLastName = lastName
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, ""); // Elimina acentos y diéresis
+        
+        const driverImagePath = `images/drivers/${normalizedLastName}.png`;
+        
+        detailsHTML += `
+            <div class="driver-item">
+                <div class="driver-logo">
+                    <img src="${driverImagePath}" alt="${driver.name}">
+                </div>
+                <div class="driver-name">${driver.name}</div>
+                <div class="driver-points">${driver.points} pts</div>
             </div>
-            <div class="driver-name">${driver.name}</div>
-            <div class="driver-points">${driver.points} pts</div>
-        </div>
-    `;
-});
+        `;
+    });
     
     // Cerrar la lista de pilotos y añadir total
     detailsHTML += `
