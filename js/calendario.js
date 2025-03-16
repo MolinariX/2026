@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 2, 16), // 16 de marzo
                 horarioCarrera: '16 Marzo - 01:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052045',
-                ganador: null // Aún sin ganador
+                ganador: "Lando Norris"
             },
             {
                 id: 'japan-2025',
