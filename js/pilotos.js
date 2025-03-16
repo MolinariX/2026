@@ -45,25 +45,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Objeto para almacenar los resultados de las carreras por piloto
     let driverRaceResults = {};
     
-    // Función para obtener datos de la API de Ergast
-    async function fetchDriverStandings() {
-        try {
-            // Especificamos el año 2025 en lugar de "current"
-            const response = await fetch('https://ergast.com/api/f1/2025/driverStandings.json');
-            const data = await response.json();
-            
-            // Verificar si hay datos de clasificación disponibles
-            if (data.MRData.StandingsTable.StandingsLists.length === 0) {
-                // No hay datos para 2025 aún, mostrar tabla en cero
-                return createEmptyStandings();
-            }
-            
-            return data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-        } catch (error) {
-            console.error('Error al obtener los datos:', error);
+    // Función para obtener datos de la API de Jolpi.ca
+async function fetchDriverStandings() {
+    try {
+        // Cambiamos a la API de Jolpi.ca
+        const response = await fetch('https://api.jolpi.ca/ergast/f1/2025/driverStandings.json');
+        const data = await response.json();
+        
+        // Verificar si hay datos de clasificación disponibles
+        if (data.MRData.StandingsTable.StandingsLists.length === 0) {
+            // No hay datos para 2025 aún, mostrar tabla en cero
             return createEmptyStandings();
         }
+        
+        return data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+    } catch (error) {
+        console.error('Error al obtener los datos:', error);
+        return createEmptyStandings();
     }
+}
     
     // Función para crear clasificación con puntuaciones en cero
     function createEmptyStandings() {
@@ -75,63 +75,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Función para obtener resultados de una carrera específica
-    async function fetchRaceResults(round) {
-        try {
-            // Especificamos el año 2025 en lugar de "current"
-            const response = await fetch(`https://ergast.com/api/f1/2025/${round}/results.json`);
-            const data = await response.json();
-            
-            // Verificar si hay resultados disponibles
-            if (data.MRData.RaceTable.Races.length === 0) {
-                // No hay resultados para esta carrera aún
-                return null;
-            }
-            
-            return data.MRData.RaceTable.Races[0].Results;
-        } catch (error) {
-            console.error(`Error al obtener resultados de R${round}:`, error);
+async function fetchRaceResults(round) {
+    try {
+        // Cambiamos a la API de Jolpi.ca
+        const response = await fetch(`https://api.jolpi.ca/ergast/f1/2025/${round}/results.json`);
+        const data = await response.json();
+        
+        // Verificar si hay resultados disponibles
+        if (data.MRData.RaceTable.Races.length === 0) {
+            // No hay resultados para esta carrera aún
             return null;
         }
+        
+        return data.MRData.RaceTable.Races[0].Results;
+    } catch (error) {
+        console.error(`Error al obtener resultados de R${round}:`, error);
+        return null;
     }
+}
     
-    // Función para obtener todos los resultados de todas las carreras
-    async function fetchAllRaceResults() {
-        try {
-            const response = await fetch('https://ergast.com/api/f1/2025/results.json?limit=1000');
-            const data = await response.json();
+// Función para obtener todos los resultados de todas las carreras
+async function fetchAllRaceResults() {
+    try {
+        // Cambiamos a la API de Jolpi.ca
+        const response = await fetch('https://api.jolpi.ca/ergast/f1/2025/results.json?limit=1000');
+        const data = await response.json();
+        
+        if (data.MRData.RaceTable.Races.length === 0) {
+            return [];
+        }
+        
+        // Organizar los resultados por piloto
+        const races = data.MRData.RaceTable.Races;
+        const results = {};
+        
+        races.forEach(race => {
+            const raceNumber = race.round;
+            const raceName = `R${raceNumber}`;
             
-            if (data.MRData.RaceTable.Races.length === 0) {
-                return [];
-            }
-            
-            // Organizar los resultados por piloto
-            const races = data.MRData.RaceTable.Races;
-            const results = {};
-            
-            races.forEach(race => {
-                const raceNumber = race.round;
-                const raceName = `R${raceNumber}`;
+            race.Results.forEach(result => {
+                const driverId = result.Driver.driverId;
+                if (!results[driverId]) {
+                    results[driverId] = [];
+                }
                 
-                race.Results.forEach(result => {
-                    const driverId = result.Driver.driverId;
-                    if (!results[driverId]) {
-                        results[driverId] = [];
-                    }
-                    
-                    results[driverId].push({
-                        race: raceName,
-                        position: result.position,
-                        points: result.points
-                    });
+                results[driverId].push({
+                    race: raceName,
+                    position: result.position,
+                    points: result.points
                 });
             });
-            
-            return results;
-        } catch (error) {
-            console.error('Error al obtener todos los resultados:', error);
-            return {};
-        }
+        });
+        
+        return results;
+    } catch (error) {
+        console.error('Error al obtener todos los resultados:', error);
+        return {};
     }
+}
     
     // Función para mapear el ID del piloto de la API con nuestros datos
     function mapDriverId(driverId) {
@@ -242,8 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Construir el contenido del panel
         detailsPanel.innerHTML = `
             <button class="panel-close">✕</button>
-            <img class="panel-logo" src="${driverInfo.logoPath}" alt="${driverInfo.team} logo">
-            <h2 class="panel-driver-name">${driverInfo.name}</h2>
+            <img class="panel-logo" src="${driverInfo.photoPath}" alt="${driverInfo.name}">            <h2 class="panel-driver-name">${driverInfo.name}</h2>
             <div class="panel-team">${getTeamName(driverInfo.team)}</div>
             <div class="panel-points">Total Points: ${points}</div>
             <div class="divider"></div>

@@ -162,12 +162,13 @@ async function fetchConstructorsData() {
     try {
         const currentYear = new Date().getFullYear(); // Obtener año actual (2025)
         
-        // Verificar si hay datos para la temporada actual
-        const response = await fetch(`https://ergast.com/api/f1/${currentYear}/constructorStandings.json`);
+        // Usar la API de Jolpica
+        const response = await fetch(`https://api.jolpi.ca/ergast/f1/${currentYear}/constructorStandings.json`);
         const data = await response.json();
         
         const standings = data.MRData.StandingsTable.StandingsLists;
         
+        // El resto del código permanece igual
         if (standings.length > 0) {
             // Hay datos para la temporada actual
             const constructorStandings = standings[0].ConstructorStandings;
@@ -204,7 +205,7 @@ async function fetchDriversData() {
     try {
         const currentYear = new Date().getFullYear();
         
-        const response = await fetch(`https://ergast.com/api/f1/${currentYear}/driverStandings.json`);
+        const response = await fetch(`https://api.jolpi.ca/ergast/f1/${currentYear}/driverStandings.json`);
         const data = await response.json();
         
         const standings = data.MRData.StandingsTable.StandingsLists;
@@ -413,17 +414,22 @@ function showConstructorDetails(constructorId) {
     `;
     
     // Añadir cada piloto
-    teamDrivers.forEach(driver => {
-        detailsHTML += `
-            <div class="driver-item">
-                <div class="driver-logo">
-                    <img src="${constructor.logo}" alt="${driver.name}">
-                </div>
-                <div class="driver-name">${driver.name}</div>
-                <div class="driver-points">${driver.points} pts</div>
+teamDrivers.forEach(driver => {
+    // Extraer solo el apellido del nombre completo
+    const driverNames = driver.name.split(' ');
+    const lastName = driverNames[driverNames.length - 1].toLowerCase();
+    const driverImagePath = `images/drivers/${lastName}.png`;
+    
+    detailsHTML += `
+        <div class="driver-item">
+            <div class="driver-logo">
+                <img src="${driverImagePath}" alt="${driver.name}">
             </div>
-        `;
-    });
+            <div class="driver-name">${driver.name}</div>
+            <div class="driver-points">${driver.points} pts</div>
+        </div>
+    `;
+});
     
     // Cerrar la lista de pilotos y añadir total
     detailsHTML += `
