@@ -46,24 +46,24 @@ document.addEventListener('DOMContentLoaded', function() {
     let driverRaceResults = {};
     
     // Función para obtener datos de la API de Jolpi.ca
-async function fetchDriverStandings() {
-    try {
-        // Cambiamos a la API de Jolpi.ca
-        const response = await fetch('https://api.jolpi.ca/ergast/f1/2025/driverStandings.json');
-        const data = await response.json();
-        
-        // Verificar si hay datos de clasificación disponibles
-        if (data.MRData.StandingsTable.StandingsLists.length === 0) {
-            // No hay datos para 2025 aún, mostrar tabla en cero
+    async function fetchDriverStandings() {
+        try {
+            // Cambiamos a la API de Jolpi.ca
+            const response = await fetch('https://api.jolpi.ca/ergast/f1/2025/driverStandings.json');
+            const data = await response.json();
+            
+            // Verificar si hay datos de clasificación disponibles
+            if (data.MRData.StandingsTable.StandingsLists.length === 0) {
+                // No hay datos para 2025 aún, mostrar tabla en cero
+                return createEmptyStandings();
+            }
+            
+            return data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+        } catch (error) {
+            console.error('Error al obtener los datos:', error);
             return createEmptyStandings();
         }
-        
-        return data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-    } catch (error) {
-        console.error('Error al obtener los datos:', error);
-        return createEmptyStandings();
     }
-}
     
     // Función para crear clasificación con puntuaciones en cero
     function createEmptyStandings() {
@@ -75,64 +75,64 @@ async function fetchDriverStandings() {
     }
     
     // Función para obtener resultados de una carrera específica
-async function fetchRaceResults(round) {
-    try {
-        // Cambiamos a la API de Jolpi.ca
-        const response = await fetch(`https://api.jolpi.ca/ergast/f1/2025/${round}/results.json`);
-        const data = await response.json();
-        
-        // Verificar si hay resultados disponibles
-        if (data.MRData.RaceTable.Races.length === 0) {
-            // No hay resultados para esta carrera aún
+    async function fetchRaceResults(round) {
+        try {
+            // Cambiamos a la API de Jolpi.ca
+            const response = await fetch(`https://api.jolpi.ca/ergast/f1/2025/${round}/results.json`);
+            const data = await response.json();
+            
+            // Verificar si hay resultados disponibles
+            if (data.MRData.RaceTable.Races.length === 0) {
+                // No hay resultados para esta carrera aún
+                return null;
+            }
+            
+            return data.MRData.RaceTable.Races[0].Results;
+        } catch (error) {
+            console.error(`Error al obtener resultados de R${round}:`, error);
             return null;
         }
-        
-        return data.MRData.RaceTable.Races[0].Results;
-    } catch (error) {
-        console.error(`Error al obtener resultados de R${round}:`, error);
-        return null;
     }
-}
     
-// Función para obtener todos los resultados de todas las carreras
-async function fetchAllRaceResults() {
-    try {
-        // Cambiamos a la API de Jolpi.ca
-        const response = await fetch('https://api.jolpi.ca/ergast/f1/2025/results.json?limit=1000');
-        const data = await response.json();
-        
-        if (data.MRData.RaceTable.Races.length === 0) {
-            return [];
-        }
-        
-        // Organizar los resultados por piloto
-        const races = data.MRData.RaceTable.Races;
-        const results = {};
-        
-        races.forEach(race => {
-            const raceNumber = race.round;
-            const raceName = `R${raceNumber}`;
+    // Función para obtener todos los resultados de todas las carreras
+    async function fetchAllRaceResults() {
+        try {
+            // Cambiamos a la API de Jolpi.ca
+            const response = await fetch('https://api.jolpi.ca/ergast/f1/2025/results.json?limit=1000');
+            const data = await response.json();
             
-            race.Results.forEach(result => {
-                const driverId = result.Driver.driverId;
-                if (!results[driverId]) {
-                    results[driverId] = [];
-                }
+            if (data.MRData.RaceTable.Races.length === 0) {
+                return [];
+            }
+            
+            // Organizar los resultados por piloto
+            const races = data.MRData.RaceTable.Races;
+            const results = {};
+            
+            races.forEach(race => {
+                const raceNumber = race.round;
+                const raceName = `R${raceNumber}`;
                 
-                results[driverId].push({
-                    race: raceName,
-                    position: result.position,
-                    points: result.points
+                race.Results.forEach(result => {
+                    const driverId = result.Driver.driverId;
+                    if (!results[driverId]) {
+                        results[driverId] = [];
+                    }
+                    
+                    results[driverId].push({
+                        race: raceName,
+                        position: result.position,
+                        points: result.points
+                    });
                 });
             });
-        });
-        
-        return results;
-    } catch (error) {
-        console.error('Error al obtener todos los resultados:', error);
-        return {};
+            
+            return results;
+        } catch (error) {
+            console.error('Error al obtener todos los resultados:', error);
+            return {};
+        }
     }
-}
     
     // Función para mapear el ID del piloto de la API con nuestros datos
     function mapDriverId(driverId) {
@@ -199,8 +199,8 @@ async function fetchAllRaceResults() {
         }
         
         // Crear filas de pilotos
-        standings.forEach(driverStanding => {
-            const position = driverStanding.position;
+        standings.forEach((driverStanding, index) => {
+            const position = driverStanding.position || (index + 1).toString(); // Usar índice+1 si la posición es undefined
             const apiDriverId = driverStanding.Driver.driverId;
             const driverId = mapDriverId(apiDriverId);
             const points = driverStanding.points;
