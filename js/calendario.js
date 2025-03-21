@@ -83,11 +83,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 circuito: 'Shanghai International Circuit',
                 pais: 'China',
                 bandera: 'https://flagcdn.com/w80/cn.png',
-                fechaInicio: new Date(2025, 2, 21), // 21 de marzo
-                fechaFin: new Date(2025, 2, 23), // 23 de marzo
+                fechaInicio: new Date(2025, 2, 21),
+                fechaFin: new Date(2025, 2, 23),
                 horarioCarrera: '23 Marzo - 04:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052046',
-                ganador: null // Aún sin ganador
+                ganador: "Max Verstappen",
+                ganadorImagen: "images/drivers/verstappen.png",
+                ganadorBandera: 'https://flagcdn.com/w80/nl.png',
+                sesiones: [
+                    { 
+                        nombre: 'Práctica Libre 1', 
+                        horario: '21 Marzo - 12:30',
+                        ganador: 'Charles Leclerc',
+                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
+                    },
+                    { 
+                        nombre: 'Clasificación Sprint', 
+                        horario: '21 Marzo - 04:30',
+                        ganador: 'Max Verstappen',
+                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
+                    },
+                    { 
+                        nombre: 'Carrera Sprint', 
+                        horario: '22 Marzo - 12:00',
+                        ganador: 'Max Verstappen',
+                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
+                    },
+                    { 
+                        nombre: 'Clasificación', 
+                        horario: '22 Marzo - 4:00',
+                        ganador: 'Lando Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Carrera', 
+                        horario: '23 Marzo - 04:00',
+                        ganador: 'Max Verstappen',
+                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
+                    }
+                ]
             },
             {
                 id: 'miami-2025',
@@ -395,14 +429,89 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p>${formatearFecha(carrera.fechaInicio)} - ${formatearFecha(carrera.fechaFin)}</p>
                         <p>${carrera.circuito}</p>
                         <img src="${carrera.bandera}" alt="Bandera de ${carrera.pais}">
-                        <p>${carrera.horarioCarrera}</p>
                     `;
                     
-                    // Verificar si hay un ganador 
+                    // Agregar sesiones si existen
+if (carrera.sesiones && carrera.sesiones.length > 0) {
+    const sesionesContainer = document.createElement('div');
+    sesionesContainer.className = 'sesiones-container';
+    
+    const sesionesTitle = document.createElement('p');
+    sesionesTitle.className = 'sesiones-title';
+    sesionesTitle.textContent = 'Sesiones:';
+    sesionesContainer.appendChild(sesionesTitle);
+    
+    const sesionesList = document.createElement('ul');
+    sesionesList.className = 'sesiones-list';
+    
+    carrera.sesiones.forEach(sesion => {
+        const sesionItem = document.createElement('li');
+        
+        // Base info with session name and time
+        let sesionText = `${sesion.nombre}: ${sesion.horario}`;
+        
+        // If there's a winner, add it to the text
+        if (sesion.ganador) {
+            sesionText += ` - ${sesion.ganador}`;
+            
+            // If there's a flag for the winner, create an img element
+            if (sesion.ganadorBandera) {
+                const banderaImg = document.createElement('img');
+                banderaImg.src = sesion.ganadorBandera;
+                banderaImg.alt = "Bandera";
+                banderaImg.className = "ganador-bandera";
+                
+                // Set the text content first
+                sesionItem.textContent = sesionText;
+                
+                // Then append the flag image
+                sesionItem.appendChild(banderaImg);
+            } else {
+                // If no flag, just set the text
+                sesionItem.textContent = sesionText;
+            }
+        } else {
+            // If no winner, just show session name and time
+            sesionItem.textContent = sesionText;
+        }
+        
+            sesionesList.appendChild(sesionItem);
+    });
+    
+            sesionesContainer.appendChild(sesionesList);
+            gpInfo.appendChild(sesionesContainer);
+    } else {
+            // Si no hay sesiones definidas, mostrar el horario de carrera general
+            const horarioElement = document.createElement('p');
+            horarioElement.textContent = carrera.horarioCarrera;
+            gpInfo.appendChild(horarioElement);
+    }
+                    
+                    // Verificar si hay un ganador
                     if (carrera.ganador) {
-                        const ganadorElement = document.createElement('p');
+                        const ganadorElement = document.createElement('div');
                         ganadorElement.className = 'ganador';
-                        ganadorElement.textContent = `Ganador: ${carrera.ganador}`;
+                        
+                        // Crear contenedor para nombre y bandera en la misma línea
+                        const nombreContainer = document.createElement('p');
+                        nombreContainer.innerHTML = `Ganador: ${carrera.ganador}`;
+                        
+                        // Agregar la bandera al lado del nombre si está disponible
+                        if (carrera.ganadorBandera) {
+                            nombreContainer.innerHTML += ` <img src="${carrera.ganadorBandera}" alt="Bandera" class="ganador-bandera">`;
+                        }
+                        
+                        ganadorElement.appendChild(nombreContainer);
+                        
+                        // Agregar imagen del ganador debajo del nombre
+                        if (carrera.ganadorImagen) {
+                            const imagenElement = document.createElement('img');
+                            imagenElement.src = carrera.ganadorImagen;
+                            imagenElement.alt = carrera.ganador;
+                            imagenElement.className = 'ganador-imagen';
+                            ganadorElement.appendChild(imagenElement);
+                        }
+                        
                         gpInfo.appendChild(ganadorElement);
                     }
                     
@@ -448,13 +557,63 @@ document.addEventListener('DOMContentLoaded', function() {
             <p><strong>Circuito:</strong> ${carrera.circuito}</p>
             <p><strong>País:</strong> ${carrera.pais} <img src="${carrera.bandera}" alt="Bandera de ${carrera.pais}" style="width: 30px; vertical-align: middle;"></p>
             <p><strong>Fechas:</strong> ${formatearFecha(carrera.fechaInicio)} - ${formatearFecha(carrera.fechaFin)}</p>
-            <p><strong>Horario de carrera:</strong> ${carrera.horarioCarrera}</p>
-            <p><a href="${carrera.enlace}" target="_blank" style="color: var(--primary);">Ver detalles en Formula 1</a></p>
         `;
+        
+        // Agregar sesiones al modal si existen
+if (carrera.sesiones && carrera.sesiones.length > 0) {
+    let sesionesHTML = '<div class="sesiones-modal"><h3>Horarios:</h3><ul>';
+    
+    carrera.sesiones.forEach(sesion => {
+        let sesionInfo = `<li><strong>${sesion.nombre}:</strong> ${sesion.horario}`;
+        
+        // Agregar información del ganador si existe
+        if (sesion.ganador) {
+            sesionInfo += ` - <span class="winner-name">${sesion.ganador}`;
+            
+            // Agregar bandera del ganador si existe
+            if (sesion.ganadorBandera) {
+                sesionInfo += ` <img src="${sesion.ganadorBandera}" alt="Bandera" class="ganador-bandera-modal">`;
+            }
+            
+            sesionInfo += `</span>`;
+        }
+        
+        sesionInfo += `</li>`;
+        sesionesHTML += sesionInfo;
+    });
+    
+    sesionesHTML += '</ul></div>';
+    modalContent.innerHTML += sesionesHTML;
+} else {
+    // Si no hay sesiones definidas, mostrar solo el horario de carrera
+    modalContent.innerHTML += `<p><strong>Horario de carrera:</strong> ${carrera.horarioCarrera}</p>`;
+}
+        
+        // Agregar enlace
+        modalContent.innerHTML += `<p><a href="${carrera.enlace}" target="_blank" style="color: var(--primary);">Ver detalles en Formula 1</a></p>`;
         
         // Verificar si hay un ganador en los datos de la carrera
         if (carrera.ganador) {
-            winnerInfo.innerHTML = `<span class="winner-name">${carrera.ganador}</span>`;
+            let ganadorHTML = '';
+            
+            // Agregar imagen del ganador primero
+            if (carrera.ganadorImagen) {
+                ganadorHTML += `<div class="ganador-imagen-container">
+                    <img src="${carrera.ganadorImagen}" alt="${carrera.ganador}" class="ganador-imagen-modal">
+                </div>`;
+            }
+            
+            // Agregar nombre y bandera después de la imagen
+            ganadorHTML += `<span class="winner-name">${carrera.ganador}`;
+            
+            // Agregar bandera del país del ganador al lado del nombre
+            if (carrera.ganadorBandera) {
+                ganadorHTML += ` <img src="${carrera.ganadorBandera}" alt="Bandera" class="ganador-bandera-modal">`;
+            }
+            
+            ganadorHTML += `</span>`;
+            
+            winnerInfo.innerHTML = ganadorHTML;
         } else {
             winnerInfo.innerHTML = `<span class="empty">Aún no hay ganador registrado</span>`;
         }
