@@ -30,6 +30,99 @@ document.addEventListener('DOMContentLoaded', function() {
     function obtenerCalendarioF12025() {
         return [
             {
+                id: 'australia-2025',
+                nombre: 'GP de Australia',
+                circuito: 'Albert Park Circuit',
+                pais: 'Australia',
+                bandera: 'https://flagcdn.com/w80/au.png',
+                fechaInicio: new Date(2025, 2, 13), // 13 de marzo
+                fechaFin: new Date(2025, 2, 16), // 16 de marzo
+                horarioCarrera: '16 Marzo - 01:00 (Argentina)',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052045',
+                ganador: "Lando Norris",
+                ganadorImagen: "images/drivers/norris.png",
+                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                sesiones: [
+                    { 
+                        nombre: 'Práctica Libre 1', 
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Práctica Libre 2', 
+                        horario: '',
+                        ganador: 'Leclerc',
+                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
+                    },
+                    { 
+                        nombre: 'Práctica Libre 3', 
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Clasificación', 
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Carrera', 
+                        horario: '',
+                        ganador: '',
+                        ganadorBandera: null
+                    }
+                ]
+                
+            },
+            {
+                id: 'china-2025',
+                nombre: 'GP de China',
+                circuito: 'Shanghai International Circuit',
+                pais: 'China',
+                bandera: 'https://flagcdn.com/w80/cn.png',
+                fechaInicio: new Date(2025, 2, 21),
+                fechaFin: new Date(2025, 2, 23),
+                horarioCarrera: '23 Marzo - 04:00 (Argentina)',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052046',
+               // ganador: "Max Verstappen",
+                //ganadorImagen: "images/drivers/verstappen.png",
+                //ganadorBandera: 'https://flagcdn.com/w80/nl.png',
+                sesiones: [
+                    { 
+                        nombre: 'Práctica Libre 1', 
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Clasificación Sprint', 
+                        horario: '',
+                        ganador: 'Hamilton',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Carrera Sprint', 
+                        horario: '',
+                        ganador: 'Hamilton',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Clasificación', 
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Carrera', 
+                        horario: '23 Marzo - 04:00',
+                        ganador: '',
+                        ganadorBandera: null
+                    }
+                ]
+            },
+            {
                 id: 'bahrain-2025',
                 nombre: 'GP de Bahrein',
                 circuito: 'Bahrain International Circuit',
@@ -53,18 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052049',
                 ganador: null // Aún sin ganador
             },
-            {
-                id: 'australia-2025',
-                nombre: 'GP de Australia',
-                circuito: 'Albert Park Circuit',
-                pais: 'Australia',
-                bandera: 'https://flagcdn.com/w80/au.png',
-                fechaInicio: new Date(2025, 2, 13), // 13 de marzo
-                fechaFin: new Date(2025, 2, 16), // 16 de marzo
-                horarioCarrera: '16 Marzo - 01:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052045',
-                ganador: "Lando Norris"
-            },
+            
             {
                 id: 'japan-2025',
                 nombre: 'GP de Japón',
@@ -77,52 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052047',
                 ganador: null // Aún sin ganador
             },
-            {
-                id: 'china-2025',
-                nombre: 'GP de China',
-                circuito: 'Shanghai International Circuit',
-                pais: 'China',
-                bandera: 'https://flagcdn.com/w80/cn.png',
-                fechaInicio: new Date(2025, 2, 21),
-                fechaFin: new Date(2025, 2, 23),
-                horarioCarrera: '23 Marzo - 04:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052046',
-                ganador: "Max Verstappen",
-                ganadorImagen: "images/drivers/verstappen.png",
-                ganadorBandera: 'https://flagcdn.com/w80/nl.png',
-                sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '21 Marzo - 12:30',
-                        ganador: 'Charles Leclerc',
-                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
-                    },
-                    { 
-                        nombre: 'Clasificación Sprint', 
-                        horario: '21 Marzo - 04:30',
-                        ganador: 'Max Verstappen',
-                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
-                    },
-                    { 
-                        nombre: 'Carrera Sprint', 
-                        horario: '22 Marzo - 12:00',
-                        ganador: 'Max Verstappen',
-                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '22 Marzo - 4:00',
-                        ganador: 'Lando Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '23 Marzo - 04:00',
-                        ganador: 'Max Verstappen',
-                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
-                    }
-                ]
-            },
+            
             {
                 id: 'miami-2025',
                 nombre: 'GP de Miami',
