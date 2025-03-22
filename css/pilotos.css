@@ -83,16 +83,27 @@ h1 {
 .races-container {
     display: flex;
     overflow-x: auto;
-    gap: 5px;
-    padding: 10px 0;
+    gap: 8px; /* Aumentar espacio entre botones */
+    padding: 15px;
     margin-bottom: 20px;
     background-color: #1e1e1e;
     border-radius: 10px;
-    padding: 15px;
+}
+
+@media (max-width: 768px) {
+    .race {
+        min-width: 50px;
+        font-size: 11px;
+        padding: 0 3px;
+    }
+    
+    .race[data-race*="-Sprint"] {
+        min-width: 70px;
+    }
 }
 
 .race {
-    min-width: 40px;
+    min-width: 60px;
     height: 40px;
     border-radius: 50%;
     display: flex;
@@ -102,6 +113,8 @@ h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: bold;
+    padding: 0 5px;
+    font-size: 12px;
 }
 
 .race:hover, .race.active {
@@ -422,13 +435,62 @@ h1 {
     border-left: 3px solid #e10600;
 }
 
-/* Estilo para botones de sprint en la navegación */
-.race[data-race*="-Sprint"] {
-    background-color: #444;
+.race {
+    min-width: 60px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    padding: 0 5px;
+    font-size: 12px;
 }
 
-.race[data-race*="-Sprint"].active,
-.race[data-race*="-Sprint"]:hover {
-    background-color: #e10600;
+/* Nuevos estilos específicos para los botones de Sprint */
+.race[data-race*="-Sprint"] {
+    min-width: 80px;
+    border-radius: 20px;
+    background-color: #444;
+    flex-direction: column; /* Organizar elementos verticalmente */
+    height: auto;
+    min-height: 40px;
+    padding: 5px;
 }
+
+/* Estilo para el texto "Sprint" */
+.sprint-text {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1;
+}
+
+/* Estilo para el número de carrera */
+.race-number {
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Mantenemos los estilos para hover y active */
+.race:hover, .race.active {
+    background-color: #e10600;
+    color: white;
+    transform: scale(1.1);
+}
+
+@media (min-width: 769px) {
+    .race[data-race*="-Sprint"] {
+        min-width: 90px;
+        padding: 6px;
+        font-size: 13px;
+    }
+}
+
 }
