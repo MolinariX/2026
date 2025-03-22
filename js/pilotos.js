@@ -94,22 +94,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Función para obtener todos los resultados de todas las carreras
-    async function fetchAllRaceResults() {
-        try {
-            // Cambiamos a la API de Jolpi.ca
-            const response = await fetch('https://api.jolpi.ca/ergast/f1/2025/results.json?limit=1000');
-            const data = await response.json();
-            
-            if (data.MRData.RaceTable.Races.length === 0) {
-                return [];
-            }
-            
-            // Organizar los resultados por piloto
-            const races = data.MRData.RaceTable.Races;
-            const results = {};
-            
-            races.forEach(race => {
+    // Función para obtener todos los resultados de todas las carreras y sprints
+async function fetchAllRaceResults() {
+    try {
+        // Obtener resultados de carreras
+        const raceResponse = await fetch('https://api.jolpi.ca/ergast/f1/2025/results.json?limit=1000');
+        const raceData = await raceResponse.json();
+        
+        // Obtener resultados de sprint
+        const sprintResponse = await fetch('https://api.jolpi.ca/ergast/f1/2025/sprint.json?limit=1000');
+        const sprintData = await sprintResponse.json();
+        
+        const results = {};
+        
+        // Procesar resultados de carreras
+        if (raceData.MRData.RaceTable.Races.length > 0) {
+            raceData.MRData.RaceTable.Races.forEach(race => {
                 const raceNumber = race.round;
                 const raceName = `R${raceNumber}`;
                 
@@ -122,17 +122,41 @@ document.addEventListener('DOMContentLoaded', function() {
                     results[driverId].push({
                         race: raceName,
                         position: result.position,
-                        points: result.points
+                        points: result.points,
+                        type: 'race'
                     });
                 });
             });
-            
-            return results;
-        } catch (error) {
-            console.error('Error al obtener todos los resultados:', error);
-            return {};
         }
+        
+        // Procesar resultados de sprint
+        if (sprintData.MRData.RaceTable.Races.length > 0) {
+            sprintData.MRData.RaceTable.Races.forEach(race => {
+                const raceNumber = race.round;
+                const raceName = `Sprint R${raceNumber}`;
+                
+                race.SprintResults.forEach(result => {
+                    const driverId = result.Driver.driverId;
+                    if (!results[driverId]) {
+                        results[driverId] = [];
+                    }
+                    
+                    results[driverId].push({
+                        race: raceName,
+                        position: result.position,
+                        points: result.points,
+                        type: 'sprint'
+                    });
+                });
+            });
+        }
+        
+        return results;
+    } catch (error) {
+        console.error('Error al obtener todos los resultados:', error);
+        return {};
     }
+}
     
     // Función para mapear el ID del piloto de la API con nuestros datos
     function mapDriverId(driverId) {
@@ -162,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return mapping[driverId] || driverId;
     }
     
-    // Función para crear la tabla de pilotos con datos actualizados
     async function createDriversTable(raceData = null) {
         const container = document.getElementById('standings-container');
         container.innerHTML = ''; // Limpiar contenido existente
@@ -172,8 +195,27 @@ document.addEventListener('DOMContentLoaded', function() {
         if (raceData === null || raceData === 'championship') {
             // Obtener clasificación general
             standings = await fetchDriverStandings();
+        } else if (raceData.includes('-Sprint')) {
+            // Es una carrera sprint
+            const round = raceData.replace('R', '').replace('-Sprint', '');
+            const sprintResults = await fetchSprintResults(round);
+            
+            if (!sprintResults) {
+                // Mostrar mensaje de "Sprint no disputada aún"
+                const messageElement = document.createElement('div');
+                messageElement.className = 'race-not-available';
+                messageElement.textContent = 'Esta carrera sprint aún no se ha disputado en la temporada 2025';
+                container.appendChild(messageElement);
+                return;
+            } else {
+                standings = sprintResults.map(result => ({
+                    position: result.position,
+                    Driver: result.Driver,
+                    points: result.points
+                }));
+            }
         } else {
-            // Obtener resultados de una carrera específica
+            // Es una carrera normal
             const round = raceData.replace('R', '');
             const raceResults = await fetchRaceResults(round);
             
@@ -193,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Cargar los resultados de carreras para todos los pilotos
+        // Cargar los resultados de carreras para todos los pilotos si aún no se han cargado
         if (Object.keys(driverRaceResults).length === 0) {
             driverRaceResults = await fetchAllRaceResults();
         }
@@ -232,34 +274,73 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Función para obtener resultados de una carrera sprint
+async function fetchSprintResults(round) {
+    try {
+        // Usar la API de Jolpi.ca para obtener resultados de sprint
+        const response = await fetch(`https://api.jolpi.ca/ergast/f1/2025/${round}/sprint.json`);
+        const data = await response.json();
+        
+        // Verificar si hay resultados disponibles
+        if (data.MRData.RaceTable.Races.length === 0) {
+            // No hay resultados para esta sprint aún
+            return null;
+        }
+        
+        return data.MRData.RaceTable.Races[0].SprintResults;
+    } catch (error) {
+        console.error(`Error al obtener resultados de Sprint R${round}:`, error);
+        return null;
+    }
+}
     
-    // Función para mostrar los detalles del piloto seleccionado
-    function showDriverDetails(apiDriverId, driverInfo, points) {
-        const detailsPanel = document.getElementById('driver-details-panel');
+function showDriverDetails(apiDriverId, driverInfo, points) {
+    const detailsPanel = document.getElementById('driver-details-panel');
+    
+    // Preparar los resultados de las carreras del piloto
+    const raceResults = driverRaceResults[apiDriverId] || [];
+    
+    // Ordenar los resultados por número de carrera
+    raceResults.sort((a, b) => {
+        // Extraer el número de la carrera
+        const getNumber = (str) => {
+            const match = str.match(/R(\d+)/);
+            return match ? parseInt(match[1]) : 0;
+        };
         
-        // Preparar los resultados de las carreras del piloto
-        const raceResults = driverRaceResults[apiDriverId] || [];
+        const aNum = getNumber(a.race);
+        const bNum = getNumber(b.race);
         
-        // Construir el contenido del panel
-        detailsPanel.innerHTML = `
-            <button class="panel-close">✕</button>
-            <img class="panel-logo" src="${driverInfo.photoPath}" alt="${driverInfo.name}">            <h2 class="panel-driver-name">${driverInfo.name}</h2>
-            <div class="panel-team">${getTeamName(driverInfo.team)}</div>
-            <div class="panel-points">Total Points: ${points}</div>
-            <div class="divider"></div>
-            <div class="race-results">
-                ${raceResults.length > 0 ? 
-                    raceResults.map(result => `
-                        <div class="race-result-item">
-                            <span class="race-name">${result.race}</span>
-                            <span class="race-position">P${result.position}</span>
-                            <span class="race-points">${result.points} pts</span>
-                        </div>
-                    `).join('') : 
-                    '<div class="no-results">No hay resultados disponibles aún</div>'
-                }
-            </div>
-        `;
+        // Si los números son iguales, poner la carrera normal después de la sprint
+        if (aNum === bNum) {
+            return a.type === 'sprint' ? -1 : 1;
+        }
+        
+        return aNum - bNum;
+    });
+    
+    // Construir el contenido del panel
+    detailsPanel.innerHTML = `
+        <button class="panel-close">✕</button>
+        <img class="panel-logo" src="${driverInfo.photoPath}" alt="${driverInfo.name}">
+        <h2 class="panel-driver-name">${driverInfo.name}</h2>
+        <div class="panel-team">${getTeamName(driverInfo.team)}</div>
+        <div class="panel-points">Total Points: ${points}</div>
+        <div class="divider"></div>
+        <div class="race-results">
+            ${raceResults.length > 0 ? 
+                raceResults.map(result => `
+                    <div class="race-result-item ${result.type === 'sprint' ? 'sprint-result' : ''}">
+                        <span class="race-name">${result.race}</span>
+                        <span class="race-position">P${result.position}</span>
+                        <span class="race-points">${result.points} pts</span>
+                    </div>
+                `).join('') : 
+                '<div class="no-results">No hay resultados disponibles aún</div>'
+            }
+        </div>
+    `;
         
         // Agregar evento al botón de cerrar
         detailsPanel.querySelector('.panel-close').addEventListener('click', function(e) {

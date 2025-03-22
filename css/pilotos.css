@@ -415,4 +415,20 @@ h1 {
     .driver-photo {
         margin-right: 8px;
     }
+
+    /* Estilo para resultados de sprint */
+.sprint-result {
+    background-color: #3a3a3a;
+    border-left: 3px solid #e10600;
+}
+
+/* Estilo para botones de sprint en la navegación */
+.race[data-race*="-Sprint"] {
+    background-color: #444;
+}
+
+.race[data-race*="-Sprint"].active,
+.race[data-race*="-Sprint"]:hover {
+    background-color: #e10600;
+}
 }
