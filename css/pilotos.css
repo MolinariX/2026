@@ -493,4 +493,29 @@ h1 {
     }
 }
 
+/* Estilo para la carrera resaltada en el panel de detalles */
+.highlighted-race {
+    background-color: #e10600 !important;
+    border-left: 3px solid #fff !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-weight: bold;
+    color: white;
+}
+
+.highlighted-race .race-name,
+.highlighted-race .race-position,
+.highlighted-race .race-points {
+    color: white;
+    font-weight: bold;
+}
+
+/* Asegurarse de que funcione bien en móvil */
+@media (max-width: 768px) {
+    .highlighted-race {
+        transform: scale(1.03);
+    }
+}
+
 }

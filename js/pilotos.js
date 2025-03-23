@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Objeto para almacenar los resultados de las carreras por piloto
     let driverRaceResults = {};
+    // Variable para almacenar la carrera actual seleccionada
+    let currentRaceSelected = 'championship';
     
     // Función para obtener datos de la API de Jolpi.ca
     async function fetchDriverStandings() {
@@ -320,6 +322,33 @@ function showDriverDetails(apiDriverId, driverInfo, points) {
         return aNum - bNum;
     });
     
+    // Determinar qué carrera debe destacarse
+    let highlightRace = '';
+if (currentRaceSelected !== 'championship') {
+    if (currentRaceSelected.includes('-Sprint')) {
+        // Es una carrera sprint
+        const round = currentRaceSelected.replace('R', '').replace('-Sprint', '');
+        highlightRace = `Sprint R${round}`;
+    } else {
+        // Es una carrera normal
+        highlightRace = currentRaceSelected;
+    }
+}
+
+// Función para verificar si una carrera debe destacarse
+function shouldHighlight(resultRace) {
+    if (currentRaceSelected === 'championship') {
+        return false;
+    }
+    
+    if (currentRaceSelected.includes('-Sprint')) {
+        const round = currentRaceSelected.replace('R', '').replace('-Sprint', '');
+        return resultRace === `Sprint R${round}`;
+    } else {
+        return resultRace === currentRaceSelected;
+    }
+}
+    
     // Construir el contenido del panel
     detailsPanel.innerHTML = `
         <button class="panel-close">✕</button>
@@ -331,7 +360,7 @@ function showDriverDetails(apiDriverId, driverInfo, points) {
         <div class="race-results">
             ${raceResults.length > 0 ? 
                 raceResults.map(result => `
-                    <div class="race-result-item ${result.type === 'sprint' ? 'sprint-result' : ''}">
+                    <div class="race-result-item ${result.type === 'sprint' ? 'sprint-result' : ''} ${shouldHighlight(result.race) ? 'highlighted-race' : ''}">
                         <span class="race-name">${result.race}</span>
                         <span class="race-position">P${result.position}</span>
                         <span class="race-points">${result.points} pts</span>
@@ -342,15 +371,15 @@ function showDriverDetails(apiDriverId, driverInfo, points) {
         </div>
     `;
         
-        // Agregar evento al botón de cerrar
-        detailsPanel.querySelector('.panel-close').addEventListener('click', function(e) {
-            e.stopPropagation(); // Evitar que el clic se propague
-            closeDriverPanel();
-        });
-        
-        // Mostrar el panel
-        detailsPanel.classList.add('panel-active');
-    }
+    // Agregar evento al botón de cerrar
+    detailsPanel.querySelector('.panel-close').addEventListener('click', function(e) {
+        e.stopPropagation(); // Evitar que el clic se propague
+        closeDriverPanel();
+    });
+    
+    // Mostrar el panel
+    detailsPanel.classList.add('panel-active');
+}
     
     // Función para obtener el nombre completo del equipo
     function getTeamName(teamId) {
@@ -374,20 +403,22 @@ function showDriverDetails(apiDriverId, driverInfo, points) {
     createDriversTable();
     
     // Configurar eventos para los botones de carreras
-    const raceButtons = document.querySelectorAll('.race');
-    raceButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Desactivar el botón activo actual
-            document.querySelector('.race.active').classList.remove('active');
-            
-            // Activar el botón actual
-            this.classList.add('active');
-            
-            // Actualizar la tabla con los datos de la carrera seleccionada
-            const raceData = this.getAttribute('data-race');
-            createDriversTable(raceData);
-        });
+const raceButtons = document.querySelectorAll('.race');
+raceButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Desactivar el botón activo actual
+        document.querySelector('.race.active').classList.remove('active');
+        
+        // Activar el botón actual
+        this.classList.add('active');
+        
+        // Actualizar la carrera actual seleccionada
+        currentRaceSelected = this.getAttribute('data-race');
+        
+        // Actualizar la tabla con los datos de la carrera seleccionada
+        createDriversTable(currentRaceSelected);
     });
+});
     
     // Actualizar los datos cada 5 minutos
     setInterval(() => {
