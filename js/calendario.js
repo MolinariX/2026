@@ -86,9 +86,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 2, 23),
                 horarioCarrera: '23 Marzo - 04:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052046',
-               // ganador: "Max Verstappen",
-                //ganadorImagen: "images/drivers/verstappen.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/nl.png',
+                ganador: "Oscar Piastri",
+                ganadorImagen: "images/drivers/piastri.png",
+                ganadorBandera: 'https://flagcdn.com/w80/au.png',
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
@@ -116,12 +116,63 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: '23 Marzo - 04:00',
+                        horario: '',
                         ganador: '',
                         ganadorBandera: null
                     }
                 ]
             },
+
+            
+            {
+                id: 'japan-2025',
+                nombre: 'GP de Japón',
+                circuito: 'Suzuka International Racing Course',
+                pais: 'Japan',
+                bandera: 'https://flagcdn.com/w80/jp.png',
+                fechaInicio: new Date(2025, 3, 3), // 3 de abril
+                fechaFin: new Date(2025, 3, 6), // 6 de abril
+                horarioCarrera: '6 Abril - 02:00 (Argentina)',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052047',
+                ganador: null, // Aún sin ganador
+                //ganadorImagen: "images/drivers/piastri.png",
+                //ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                sesiones: [
+                    { 
+                        nombre: 'Práctica Libre 1', 
+                        horario: '03 Abril - 23:30',
+                        ganador: '',
+                        ganadorBandera: ''
+                    },
+                    { 
+                        nombre: 'Práctica Libre 2', 
+                        horario: '04 Abril - 03:00',
+                        ganador: '',
+                        ganadorBandera: ''
+                    },
+                    { 
+                        nombre: 'Práctica Libre 3', 
+                        horario: '04 Abril - 23:30',
+                        ganador: '',
+                        ganadorBandera: ''
+                    },
+                    { 
+                        nombre: 'Clasificación', 
+                        horario: '05 Abril - 03:00',
+                        ganador: '',
+                        ganadorBandera: ''
+                    },
+                    { 
+                        nombre: 'Carrera', 
+                        horario: '06 Abril - 02:00',
+                        ganador: '',
+                        ganadorBandera: null
+                    }
+                ]
+            },
+            
+
+
             {
                 id: 'bahrain-2025',
                 nombre: 'GP de Bahrein',
@@ -148,19 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             
             {
-                id: 'japan-2025',
-                nombre: 'GP de Japón',
-                circuito: 'Suzuka International Racing Course',
-                pais: 'Japan',
-                bandera: 'https://flagcdn.com/w80/jp.png',
-                fechaInicio: new Date(2025, 3, 3), // 3 de abril
-                fechaFin: new Date(2025, 3, 6), // 6 de abril
-                horarioCarrera: '6 Abril - 02:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052047',
-                ganador: null // Aún sin ganador
-            },
-            
-            {
                 id: 'miami-2025',
                 nombre: 'GP de Miami',
                 circuito: 'Miami International Autodrome',
@@ -172,6 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052050',
                 ganador: null // Aún sin ganador
             },
+
             {
                 id: 'emilia-romagna-2025',
                 nombre: 'GP de Emilia Romagna',
