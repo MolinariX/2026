@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const driversData = [
         // Red Bull
         { id: "verstappen", name: "Max Verstappen", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/verstappen.png" },
-        { id: "lawson", name: "Liam Lawson", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/lawson.png" },
+        {  id: "tsunoda", name: "Yuki Tsunoda", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/tsunoda.png" },
         
         // Ferrari
         { id: "leclerc", name: "Charles Leclerc", team: "ferrari", logoPath: "images/logos/ferrari.png", photoPath: "images/drivers/leclerc.png" },
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: "sainz", name: "Carlos Sainz", team: "williams", logoPath: "images/logos/williams.png", photoPath: "images/drivers/sainz.png" },
         
         // RB
-        { id: "tsunoda", name: "Yuki Tsunoda", team: "rb", logoPath: "images/logos/rb.png", photoPath: "images/drivers/tsunoda.png" },
+        { id: "lawson", name: "Liam Lawson", team: "rb", logoPath: "images/logos/rb.png", photoPath: "images/drivers/lawson.png" },
         { id: "hadjar", name: "Isack Hadjar", team: "rb", logoPath: "images/logos/rb.png", photoPath: "images/drivers/hadjar.png" },
         
         // Haas
