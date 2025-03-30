@@ -74,7 +74,7 @@ const pilotosPorEquipo = {
     ],
     'red_bull': [
         { nombre: 'Verstappen', logo: 'images/logos/redbull.png' },
-        { nombre: 'Lawson', logo: 'images/logos/redbull.png' }
+        { nombre: 'Tsunoda', logo: 'images/logos/redbull.png' }
     ],
     'mercedes': [
         { nombre: 'Russell', logo: 'images/logos/mercedes.png' },
@@ -93,7 +93,7 @@ const pilotosPorEquipo = {
         { nombre: 'Bearman', logo: 'images/logos/haas.png' }
     ],
     'racing_bulls': [
-        { nombre: 'Tsunoda', logo: 'images/logos/rb.png' },
+        { nombre: 'Lawson', logo: 'images/logos/rb.png' },
         { nombre: 'Hadjar', logo: 'images/logos/rb.png' }
     ],
     'williams': [
