@@ -134,37 +134,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 3, 6), // 6 de abril
                 horarioCarrera: '6 Abril - 02:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052047',
-                ganador: null, // Aún sin ganador
-                //ganadorImagen: "images/drivers/piastri.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                ganador: "Max Verstappen", 
+                ganadorImagen: "images/drivers/verstappen.png",
+                ganadorBandera: 'https://flagcdn.com/w80/nl.png',
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
-                        horario: '03 Abril - 23:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Práctica Libre 2', 
-                        horario: '04 Abril - 03:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
                     },
                     { 
                         nombre: 'Práctica Libre 3', 
-                        horario: '04 Abril - 23:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Clasificación', 
-                        horario: '05 Abril - 03:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Verstappen',
+                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: '06 Abril - 02:00',
+                        horario: '',
                         ganador: '',
                         ganadorBandera: null
                     }
@@ -183,7 +183,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 3, 13), // 13 de abril
                 horarioCarrera: '13 Abril - 12:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052048',
-                ganador: null // Aún sin ganador
+                ganador: "Oscar Piastri",
+                ganadorImagen: "images/drivers/piastri.png",
+                ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                sesiones: [
+                    { 
+                        nombre: 'Práctica Libre 1', 
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Práctica Libre 2', 
+                        horario: 'Piastri',
+                        ganador: '',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Práctica Libre 3', 
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Clasificación', 
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Carrera', 
+                        horario: '',
+                        ganador: '',
+                        ganadorBandera: null
+                    }
+                ]
             },
             {
                 id: 'saudi-arabia-2025',
