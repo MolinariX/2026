@@ -612,3 +612,22 @@ table {
         min-width: 50px;
     }
 }
+
+/* Estilos para pilotos históricos */
+.historic-driver {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #FF0000;
+    position: relative;
+}
+
+.historic-driver::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background-color: #FF0000;
+    border-radius: 50%;
+    margin: 5px;
+}
