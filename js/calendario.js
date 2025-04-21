@@ -229,7 +229,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 3, 20), // 20 de abril
                 horarioCarrera: '20 Abril - 14:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052049',
-                ganador: null // Aún sin ganador
+                ganador: "Oscar Piastri",
+                ganadorImagen: "images/drivers/piastri.png",
+                ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                sesiones: [
+                    { 
+                        nombre: 'Práctica Libre 1', 
+                        horario: '',
+                        ganador: 'Gasly',
+                        ganadorBandera: 'https://flagcdn.com/w80/fr.png'
+                    },
+                    { 
+                        nombre: 'Práctica Libre 2', 
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Práctica Libre 3', 
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Clasificación', 
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Carrera', 
+                        horario: '',
+                        ganador: '',
+                        ganadorBandera: null
+                    }
+                ]
             },
             
             {
