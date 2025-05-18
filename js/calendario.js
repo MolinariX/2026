@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 4, 4), // 4 de mayo
                 horarioCarrera: '4 Mayo - 17:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052050',
-                ganador: "Oscar Piastri" ,// Aún sin ganador,
+                ganador: "Oscar Piastri" ,
                 ganadorImagen: "images/drivers/piastri.png",
                 ganadorBandera: 'https://flagcdn.com/w80/au.png',
                 sesiones: [
@@ -324,37 +324,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 4, 18), // 18 de mayo
                 horarioCarrera: '18 Mayo - 10:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052051',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                ganador: "Max Verstappen",
+                ganadorImagen: "images/drivers/verstappen.png",
+                ganadorBandera: 'https://flagcdn.com/w80/nl.png',
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
                     },
                     { 
                         nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
                     },
                     { 
                         nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
+                        horario: '',
                         ganador: '',
                         ganadorBandera: null
                     }

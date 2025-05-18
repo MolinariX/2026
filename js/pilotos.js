@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Alpine
         { id: "gasly", name: "Pierre Gasly", team: "alpine", logoPath: "images/logos/alpine.png", photoPath: "images/drivers/gasly.png" },
         { id: "doohan", name: "Jack Doohan", team: "alpine", logoPath: "images/logos/alpine.png", photoPath: "images/drivers/doohan.png" },
+        { id: "colapinto", name: "Franco Colapinto", team: "alpine", logoPath: "images/logos/alpine.png", photoPath: "images/drivers/colapinto.png" },
         
         // Williams
         { id: "albon", name: "Alexander Albon", team: "williams", logoPath: "images/logos/williams.png", photoPath: "images/drivers/albon.png" },
@@ -175,6 +176,7 @@ async function fetchAllRaceResults() {
             'lance_stroll': 'stroll',
             'pierre_gasly': 'gasly',
             'jack_doohan': 'doohan',
+            'franco_colapinto': 'colapinto',
             'alexander_albon': 'albon',
             'carlos_sainz': 'sainz',
             'yuki_tsunoda': 'tsunoda',

@@ -86,7 +86,7 @@ const pilotosPorEquipo = {
     ],
     'alpine': [
         { nombre: 'Gasly', logo: 'images/logos/alpine.png' },
-        { nombre: 'Doohan', logo: 'images/logos/alpine.png' }
+        { nombre: 'Colapinto', logo: 'images/logos/alpine.png' }
     ],
     'haas': [
         { nombre: 'Ocon', logo: 'images/logos/haas.png' },
