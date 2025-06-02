@@ -371,37 +371,84 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 4, 25), // 25 de mayo
                 horarioCarrera: '25 Mayo - 10:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/f1/circuito/_/id/600052052',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                ganador: "Lando Norris",
+                ganadorImagen: "images/drivers/norris.png",
+                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Leclerc',
+                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
                     },
                     { 
                         nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Leclerc',
+                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
                     },
                     { 
                         nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Lecrerc',
+                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
                     },
                     { 
                         nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
+                        horario: '',
+                        ganador: '',
+                        ganadorBandera: null
+                    }
+                ]
+                
+            },
+            {
+                id: 'spain-2025',
+                nombre: 'GP de España',
+                circuito: 'Circuit de Barcelona-Catalunya',
+                pais: 'Spain',
+                bandera: 'https://flagcdn.com/w80/es.png',
+                fechaInicio: new Date(2025, 4, 30), // 30 de mayo
+                fechaFin: new Date(2025, 5, 1), // 1 de junio
+                horarioCarrera: '01 Junio - 10:00 (Argentina)',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052053',
+                ganador: "Oscar Piastri",
+                ganadorImagen: "images/drivers/piastri.png",
+                ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                sesiones: [
+                    { 
+                        nombre: 'Práctica Libre 1', 
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
+                    },
+                    { 
+                        nombre: 'Práctica Libre 2', 
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Práctica Libre 3', 
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Clasificación', 
+                        horario: '',
+                        ganador: 'Piastri',
+                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
+                    },
+                    { 
+                        nombre: 'Carrera', 
+                        horario: '',
                         ganador: '',
                         ganadorBandera: null
                     }
@@ -424,84 +471,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
+                        horario: 'Viernes 13/06 - 14:30',
                         ganador: '',
                         ganadorBandera: ''
                     },
                     { 
                         nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
+                        horario: 'Viernes 13/06 - 18:00',
                         ganador: '',
                         ganadorBandera: ''
                     },
                     { 
                         nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
+                        horario: 'Sábado 14/06 - 13:30',
                         ganador: '',
                         ganadorBandera: ''
                     },
                     { 
                         nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
+                        horario: 'Sábado 14/06 - 17:00',
                         ganador: '',
                         ganadorBandera: ''
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
+                        horario: 'Domingo 15/06 - 15:00',
                         ganador: '',
                         ganadorBandera: null
                     }
                 ]
                 
             },
-            {
-                id: 'spain-2025',
-                nombre: 'GP de España',
-                circuito: 'Circuit de Barcelona-Catalunya',
-                pais: 'Spain',
-                bandera: 'https://flagcdn.com/w80/es.png',
-                fechaInicio: new Date(2025, 4, 30), // 30 de mayo
-                fechaFin: new Date(2025, 5, 1), // 1 de junio
-                horarioCarrera: '01 Junio - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052053',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
-                sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
-                ]
-                
-            },
+            
             {
                 id: 'austria-2025',
                 nombre: 'GP de Austria',
