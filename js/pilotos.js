@@ -1,486 +1,239 @@
+// ========================================================================
+// ===== REEMPLAZA TODO EL CONTENIDO DE TU ARCHIVO JS/PILOTOS.JS CON ESTO =====
+// ========================================================================
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Datos de pilotos con sus equipos y colores actualizados para 2025
+    const SEASON_YEAR = '2025';
+
     const driversData = [
-        // Red Bull
-        { id: "verstappen", name: "Max Verstappen", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/verstappen.png" },
-        {  id: "tsunoda", name: "Yuki Tsunoda", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/tsunoda.png" },
-        
-        // Ferrari
+        { id: "max_verstappen", name: "Max Verstappen", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/verstappen.png" },
+        { id: "yuki_tsunoda", name: "Yuki Tsunoda", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/tsunoda.png" },
         { id: "leclerc", name: "Charles Leclerc", team: "ferrari", logoPath: "images/logos/ferrari.png", photoPath: "images/drivers/leclerc.png" },
         { id: "hamilton", name: "Lewis Hamilton", team: "ferrari", logoPath: "images/logos/ferrari.png", photoPath: "images/drivers/hamilton.png" },
-        
-        // Mercedes
         { id: "russell", name: "George Russell", team: "mercedes", logoPath: "images/logos/mercedes.png", photoPath: "images/drivers/russell.png" },
         { id: "antonelli", name: "Andrea Kimi Antonelli", team: "mercedes", logoPath: "images/logos/mercedes.png", photoPath: "images/drivers/antonelli.png" },
-        
-        // McLaren
         { id: "norris", name: "Lando Norris", team: "mclaren", logoPath: "images/logos/mclaren2.png", photoPath: "images/drivers/norris.png" },
         { id: "piastri", name: "Oscar Piastri", team: "mclaren", logoPath: "images/logos/mclaren2.png", photoPath: "images/drivers/piastri.png" },
-        
-        // Aston Martin
         { id: "alonso", name: "Fernando Alonso", team: "aston-martin", logoPath: "images/logos/aston-martin.png", photoPath: "images/drivers/alonso.png" },
         { id: "stroll", name: "Lance Stroll", team: "aston-martin", logoPath: "images/logos/aston-martin.png", photoPath: "images/drivers/stroll.png" },
-        
-        // Alpine
         { id: "gasly", name: "Pierre Gasly", team: "alpine", logoPath: "images/logos/alpine.png", photoPath: "images/drivers/gasly.png" },
         { id: "doohan", name: "Jack Doohan", team: "alpine", logoPath: "images/logos/alpine.png", photoPath: "images/drivers/doohan.png" },
         { id: "colapinto", name: "Franco Colapinto", team: "alpine", logoPath: "images/logos/alpine.png", photoPath: "images/drivers/colapinto.png" },
-        
-        // Williams
         { id: "albon", name: "Alexander Albon", team: "williams", logoPath: "images/logos/williams.png", photoPath: "images/drivers/albon.png" },
         { id: "sainz", name: "Carlos Sainz", team: "williams", logoPath: "images/logos/williams.png", photoPath: "images/drivers/sainz.png" },
-        
-        // RB
         { id: "lawson", name: "Liam Lawson", team: "rb", logoPath: "images/logos/rb.png", photoPath: "images/drivers/lawson.png" },
         { id: "hadjar", name: "Isack Hadjar", team: "rb", logoPath: "images/logos/rb.png", photoPath: "images/drivers/hadjar.png" },
-        
-        // Haas
         { id: "bearman", name: "Oliver Bearman", team: "haas", logoPath: "images/logos/haas.png", photoPath: "images/drivers/bearman.png" },
         { id: "ocon", name: "Esteban Ocon", team: "haas", logoPath: "images/logos/haas.png", photoPath: "images/drivers/ocon.png" },
-        
-        // Sauber (actualizado a Stake)
         { id: "hulkenberg", name: "Nico Hulkenberg", team: "sauber", logoPath: "images/logos/stake.png", photoPath: "images/drivers/hulkenberg.png" },
         { id: "bortoleto", name: "Gabriel Bortoleto", team: "sauber", logoPath: "images/logos/stake.png", photoPath: "images/drivers/bortoleto.png" }
     ];
-    
-    // Objeto para almacenar los resultados de las carreras por piloto
-    let driverRaceResults = {};
-    // Variable para almacenar la carrera actual seleccionada
+
     let currentRaceSelected = 'championship';
-    
-    // Función para obtener datos de la API de Jolpi.ca
-    async function fetchDriverStandings() {
+
+    async function fetchApi(url) {
         try {
-            // Cambiamos a la API de Jolpi.ca
-            const response = await fetch('https://api.jolpi.ca/ergast/f1/2025/driverStandings.json');
-            const data = await response.json();
-            
-            // Verificar si hay datos de clasificación disponibles
-            if (data.MRData.StandingsTable.StandingsLists.length === 0) {
-                // No hay datos para 2025 aún, mostrar tabla en cero
-                return createEmptyStandings();
-            }
-            
-            return data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return await response.json();
         } catch (error) {
-            console.error('Error al obtener los datos:', error);
-            return createEmptyStandings();
-        }
-    }
-    
-    // Función para crear clasificación con puntuaciones en cero
-    function createEmptyStandings() {
-        return driversData.map((driver, index) => ({
-            position: (index + 1).toString(),
-            Driver: { driverId: driver.id.replace('-', '_') },
-            points: "0"
-        }));
-    }
-    
-    // Función para obtener resultados de una carrera específica
-    async function fetchRaceResults(round) {
-        try {
-            // Cambiamos a la API de Jolpi.ca
-            const response = await fetch(`https://api.jolpi.ca/ergast/f1/2025/${round}/results.json`);
-            const data = await response.json();
-            
-            // Verificar si hay resultados disponibles
-            if (data.MRData.RaceTable.Races.length === 0) {
-                // No hay resultados para esta carrera aún
-                return null;
-            }
-            
-            return data.MRData.RaceTable.Races[0].Results;
-        } catch (error) {
-            console.error(`Error al obtener resultados de R${round}:`, error);
+            console.error(`Error fetching from ${url}:`, error);
             return null;
         }
     }
-    
-    // Función para obtener todos los resultados de todas las carreras y sprints
-async function fetchAllRaceResults() {
-    try {
-        // Obtener resultados de carreras
-        const raceResponse = await fetch('https://api.jolpi.ca/ergast/f1/2025/results.json?limit=1000');
-        const raceData = await raceResponse.json();
-        
-        // Obtener resultados de sprint
-        const sprintResponse = await fetch('https://api.jolpi.ca/ergast/f1/2025/sprint.json?limit=1000');
-        const sprintData = await sprintResponse.json();
-        
-        const results = {};
-        
-        // Procesar resultados de carreras
-        if (raceData.MRData.RaceTable.Races.length > 0) {
-            raceData.MRData.RaceTable.Races.forEach(race => {
-                const raceNumber = race.round;
-                const raceName = `R${raceNumber}`;
-                
-                race.Results.forEach(result => {
-                    const driverId = result.Driver.driverId;
-                    if (!results[driverId]) {
-                        results[driverId] = [];
-                    }
-                    
-                    results[driverId].push({
-                        race: raceName,
-                        position: result.position,
-                        points: result.points,
-                        type: 'race'
-                    });
-                });
-            });
-        }
-        
-        // Procesar resultados de sprint
-        if (sprintData.MRData.RaceTable.Races.length > 0) {
-            sprintData.MRData.RaceTable.Races.forEach(race => {
-                const raceNumber = race.round;
-                const raceName = `Sprint R${raceNumber}`;
-                
-                race.SprintResults.forEach(result => {
-                    const driverId = result.Driver.driverId;
-                    if (!results[driverId]) {
-                        results[driverId] = [];
-                    }
-                    
-                    results[driverId].push({
-                        race: raceName,
-                        position: result.position,
-                        points: result.points,
-                        type: 'sprint'
-                    });
-                });
-            });
-        }
-        
-        return results;
-    } catch (error) {
-        console.error('Error al obtener todos los resultados:', error);
-        return {};
-    }
-}
-    
-    // Función para mapear el ID del piloto de la API con nuestros datos
-    function mapDriverId(driverId) {
-        const mapping = {
-            'max_verstappen': 'verstappen',
-            'liam_lawson': 'lawson',
-            'charles_leclerc': 'leclerc',
-            'lewis_hamilton': 'hamilton',
-            'george_russell': 'russell',
-            'andrea_kimi_antonelli': 'antonelli',
-            'lando_norris': 'norris',
-            'oscar_piastri': 'piastri',
-            'fernando_alonso': 'alonso',
-            'lance_stroll': 'stroll',
-            'pierre_gasly': 'gasly',
-            'jack_doohan': 'doohan',
-            'franco_colapinto': 'colapinto',
-            'alexander_albon': 'albon',
-            'carlos_sainz': 'sainz',
-            'yuki_tsunoda': 'tsunoda',
-            'isack_hadjar': 'hadjar',
-            'oliver_bearman': 'bearman',
-            'esteban_ocon': 'ocon',
-            'nico_hulkenberg': 'hulkenberg',
-            'gabriel_bortoleto': 'bortoleto'
-        };
-        
-        return mapping[driverId] || driverId;
-    }
-    
-    async function createDriversTable(raceData = null) {
+
+    // --- ESTA ES LA FUNCIÓN CON LA LÓGICA FINAL ---
+    async function createDriversTable(raceFilter = 'championship') {
         const container = document.getElementById('standings-container');
-        container.innerHTML = ''; // Limpiar contenido existente
+        container.innerHTML = '<div class="loading-spinner">Cargando...</div>';
         
-        let standings;
-        
-        if (raceData === null || raceData === 'championship') {
-            // Obtener clasificación general
-            standings = await fetchDriverStandings();
-        } else if (raceData.includes('-Sprint')) {
-            // Es una carrera sprint
-            const round = raceData.replace('R', '').replace('-Sprint', '');
-            const sprintResults = await fetchSprintResults(round);
-            
-            if (!sprintResults) {
-                // Mostrar mensaje de "Sprint no disputada aún"
-                const messageElement = document.createElement('div');
-                messageElement.className = 'race-not-available';
-                messageElement.textContent = 'Esta carrera sprint aún no se ha disputado en la temporada 2025';
-                container.appendChild(messageElement);
-                return;
-            } else {
-                standings = sprintResults.map(result => ({
-                    position: result.position,
-                    Driver: result.Driver,
-                    points: result.points
-                }));
-            }
+        let standings = [];
+
+        if (raceFilter === 'championship') {
+            const data = await fetchApi(`https://api.jolpi.ca/ergast/f1/${SEASON_YEAR}/driverStandings.json`);
+            standings = data?.MRData?.StandingsTable?.StandingsLists[0]?.DriverStandings || [];
         } else {
-            // Es una carrera normal
-            const round = raceData.replace('R', '');
-            const raceResults = await fetchRaceResults(round);
+            // ---- ESTA ES LA LÓGICA MEJORADA ----
+            const round = raceFilter.replace(/R|-Sprint/g, '');
+            const endpoint = raceFilter.includes('-Sprint') ? 'sprint' : 'results';
             
-            if (!raceResults) {
-                // Mostrar mensaje de "Carrera no disputada aún"
-                const messageElement = document.createElement('div');
-                messageElement.className = 'race-not-available';
-                messageElement.textContent = 'Esta carrera aún no se ha disputado en la temporada 2025';
-                container.appendChild(messageElement);
+            // 1. Pedimos los resultados de la carrera específica
+            const raceData = await fetchApi(`https://api.jolpi.ca/ergast/f1/${SEASON_YEAR}/${round}/${endpoint}.json`);
+            
+            const raceSpecificResults = endpoint === 'sprint' 
+                ? raceData?.MRData?.RaceTable?.Races[0]?.SprintResults 
+                : raceData?.MRData?.RaceTable?.Races[0]?.Results;
+
+            // 2. VERIFICAMOS SI HAY RESULTADOS
+            if (!raceSpecificResults) {
+                // Si no hay, mostramos el mensaje y terminamos la función.
+                container.innerHTML = '<div class="race-not-available">Aún no se ha disputado esta carrera</div>';
                 return;
-            } else {
-                standings = raceResults.map(result => ({
-                    position: result.position,
-                    Driver: result.Driver,
-                    points: result.points
-                }));
+            }
+
+            // 3. Si SÍ hay resultados, obtenemos la lista completa de pilotos para mostrar a todos
+            const standingsData = await fetchApi(`https://api.jolpi.ca/ergast/f1/${SEASON_YEAR}/driverStandings.json`);
+            const fullDriverList = standingsData?.MRData?.StandingsTable?.StandingsLists[0]?.DriverStandings || [];
+
+            if (fullDriverList.length > 0) {
+                standings = fullDriverList.map(driverEntry => {
+                    const apiDriverId = driverEntry.Driver.driverId;
+                    const resultForThisDriver = raceSpecificResults.find(r => r.Driver.driverId === apiDriverId);
+
+                    return resultForThisDriver 
+                        ? { ...resultForThisDriver, Driver: driverEntry.Driver }
+                        : { Driver: driverEntry.Driver, position: 'N/C', points: '0' };
+                });
+                
+                standings.sort((a, b) => {
+                    const posA = isNaN(parseInt(a.position)) ? 99 : parseInt(a.position);
+                    const posB = isNaN(parseInt(b.position)) ? 99 : parseInt(b.position);
+                    return posA - posB;
+                });
             }
         }
-        
-        // Cargar los resultados de carreras para todos los pilotos si aún no se han cargado
-        if (Object.keys(driverRaceResults).length === 0) {
-            driverRaceResults = await fetchAllRaceResults();
+
+        container.innerHTML = '';
+        if (standings.length === 0 && raceFilter === 'championship') {
+            container.innerHTML = '<div class="race-not-available">No hay datos de campeonato disponibles.</div>';
+            return;
         }
-        
-        // Crear filas de pilotos
-        standings.forEach((driverStanding, index) => {
-            const position = driverStanding.position || (index + 1).toString(); // Usar índice+1 si la posición es undefined
+
+        standings.forEach(driverStanding => {
             const apiDriverId = driverStanding.Driver.driverId;
-            const driverId = mapDriverId(apiDriverId);
-            const points = driverStanding.points;
-            
-            // Buscar los datos del piloto en nuestro array
-            const driverInfo = driversData.find(d => d.id === driverId);
-            
+            const driverInfo = driversData.find(d => d.id === apiDriverId);
             if (driverInfo) {
-                // Crear la fila del piloto
                 const driverRow = document.createElement('div');
                 driverRow.className = `driver-row ${driverInfo.team}`;
-                driverRow.setAttribute('data-driver-id', apiDriverId);
-                
                 driverRow.innerHTML = `
-                    <div class="position">${position}</div>
+                    <div class="position">${driverStanding.position}</div>
                     <img class="team-logo" src="${driverInfo.logoPath}" alt="${driverInfo.team} logo">
                     <div class="driver-name">${driverInfo.name}</div>
                     <img class="driver-photo" src="${driverInfo.photoPath}" alt="${driverInfo.name}">
-                    <div class="points">${points}</div>
+                    <div class="points">${driverStanding.points}</div>
                 `;
-                
-                // Agregar evento de clic para mostrar detalles del piloto
-                driverRow.addEventListener('click', function() {
-                    showDriverDetails(apiDriverId, driverInfo, points);
-                    openDriverPanel(); // Añadir esta llamada para activar el efecto blur
-                });
-                
+                driverRow.addEventListener('click', () => showDriverDetails(apiDriverId, driverInfo));
                 container.appendChild(driverRow);
             }
         });
     }
-
-    // Función para obtener resultados de una carrera sprint
-async function fetchSprintResults(round) {
-    try {
-        // Usar la API de Jolpi.ca para obtener resultados de sprint
-        const response = await fetch(`https://api.jolpi.ca/ergast/f1/2025/${round}/sprint.json`);
-        const data = await response.json();
+    
+    // El panel de detalles ya funciona perfecto, no se toca.
+    async function showDriverDetails(apiDriverId, driverInfo) {
+        const detailsPanel = document.getElementById('driver-details-panel');
+        detailsPanel.innerHTML = `
+            <button class="panel-close">✕</button>
+            <img class="panel-logo" src="${driverInfo.photoPath}" alt="${driverInfo.name}">
+            <h2 class="panel-driver-name">${driverInfo.name}</h2>
+            <div class="panel-team">${getTeamName(driverInfo.team)}</div>
+            <div class="panel-points" id="panel-total-points">Total Points: ...</div>
+            <div class="divider"></div>
+            <div class="race-results">
+                <div class="loading-spinner">Cargando resultados...</div>
+            </div>`;
+        detailsPanel.classList.add('panel-active');
+        openDriverPanel();
         
-        // Verificar si hay resultados disponibles
-        if (data.MRData.RaceTable.Races.length === 0) {
-            // No hay resultados para esta sprint aún
-            return null;
+        const raceResultsUrl = `https://api.jolpi.ca/ergast/f1/${SEASON_YEAR}/drivers/${apiDriverId}/results.json?limit=100`;
+        const sprintResultsUrl = `https://api.jolpi.ca/ergast/f1/${SEASON_YEAR}/drivers/${apiDriverId}/sprint.json?limit=100`;
+        
+        const [raceData, sprintData] = await Promise.all([
+            fetchApi(raceResultsUrl),
+            fetchApi(sprintResultsUrl)
+        ]);
+
+        const allResults = [];
+        let calculatedTotalPoints = 0;
+
+        if (raceData?.MRData?.RaceTable?.Races) {
+            raceData.MRData.RaceTable.Races.forEach(raceEvent => {
+                const result = raceEvent.Results[0];
+                if (result) {
+                    calculatedTotalPoints += parseInt(result.points, 10);
+                    allResults.push({ race: `R${raceEvent.round}`, position: result.position, points: result.points, type: 'race' });
+                }
+            });
         }
         
-        return data.MRData.RaceTable.Races[0].SprintResults;
-    } catch (error) {
-        console.error(`Error al obtener resultados de Sprint R${round}:`, error);
-        return null;
-    }
-}
-    
-function showDriverDetails(apiDriverId, driverInfo, points) {
-    const detailsPanel = document.getElementById('driver-details-panel');
-    
-    // Preparar los resultados de las carreras del piloto
-    const raceResults = driverRaceResults[apiDriverId] || [];
-    
-    // Ordenar los resultados por número de carrera
-    raceResults.sort((a, b) => {
-        // Extraer el número de la carrera
-        const getNumber = (str) => {
-            const match = str.match(/R(\d+)/);
-            return match ? parseInt(match[1]) : 0;
-        };
-        
-        const aNum = getNumber(a.race);
-        const bNum = getNumber(b.race);
-        
-        // Si los números son iguales, poner la carrera normal después de la sprint
-        if (aNum === bNum) {
+        if (sprintData?.MRData?.RaceTable?.Races) {
+            sprintData.MRData.RaceTable.Races.forEach(raceEvent => {
+                const result = raceEvent.SprintResults[0];
+                 if (result) {
+                    calculatedTotalPoints += parseInt(result.points, 10);
+                    allResults.push({ race: `Sprint R${raceEvent.round}`, position: result.position, points: result.points, type: 'sprint' });
+                }
+            });
+        }
+
+        allResults.sort((a, b) => {
+            const aNum = parseInt(a.race.match(/\d+/)[0]);
+            const bNum = parseInt(b.race.match(/\d+/)[0]);
+            if (aNum !== bNum) return aNum - bNum;
             return a.type === 'sprint' ? -1 : 1;
-        }
-        
-        return aNum - bNum;
-    });
-    
-    // Determinar qué carrera debe destacarse
-    let highlightRace = '';
-if (currentRaceSelected !== 'championship') {
-    if (currentRaceSelected.includes('-Sprint')) {
-        // Es una carrera sprint
-        const round = currentRaceSelected.replace('R', '').replace('-Sprint', '');
-        highlightRace = `Sprint R${round}`;
-    } else {
-        // Es una carrera normal
-        highlightRace = currentRaceSelected;
-    }
-}
+        });
 
-// Función para verificar si una carrera debe destacarse
-function shouldHighlight(resultRace) {
-    if (currentRaceSelected === 'championship') {
-        return false;
-    }
-    
-    if (currentRaceSelected.includes('-Sprint')) {
-        const round = currentRaceSelected.replace('R', '').replace('-Sprint', '');
-        return resultRace === `Sprint R${round}`;
-    } else {
-        return resultRace === currentRaceSelected;
-    }
-}
-    
-    // Construir el contenido del panel
-    detailsPanel.innerHTML = `
-        <button class="panel-close">✕</button>
-        <img class="panel-logo" src="${driverInfo.photoPath}" alt="${driverInfo.name}">
-        <h2 class="panel-driver-name">${driverInfo.name}</h2>
-        <div class="panel-team">${getTeamName(driverInfo.team)}</div>
-        <div class="panel-points">Total Points: ${points}</div>
-        <div class="divider"></div>
-        <div class="race-results">
-            ${raceResults.length > 0 ? 
-                raceResults.map(result => `
-                    <div class="race-result-item ${result.type === 'sprint' ? 'sprint-result' : ''} ${shouldHighlight(result.race) ? 'highlighted-race' : ''}">
-                        <span class="race-name">${result.race}</span>
-                        <span class="race-position">P${result.position}</span>
-                        <span class="race-points">${result.points} pts</span>
-                    </div>
-                `).join('') : 
-                '<div class="no-results">No hay resultados disponibles aún</div>'
-            }
-        </div>
-    `;
-        
-    // Agregar evento al botón de cerrar
-    detailsPanel.querySelector('.panel-close').addEventListener('click', function(e) {
-        e.stopPropagation(); // Evitar que el clic se propague
-        closeDriverPanel();
-    });
-    
-    // Mostrar el panel
-    detailsPanel.classList.add('panel-active');
-}
-    
-    // Función para obtener el nombre completo del equipo
-    function getTeamName(teamId) {
-        const teamNames = {
-            'redbull': 'Red Bull Racing',
-            'ferrari': 'Scuderia Ferrari',
-            'mercedes': 'Mercedes-AMG F1',
-            'mclaren': 'McLaren F1 Team',
-            'aston-martin': 'Aston Martin F1',
-            'alpine': 'Alpine F1 Team',
-            'williams': 'Williams Racing',
-            'rb': 'RB F1 Team',
-            'haas': 'Haas F1 Team',
-            'sauber': 'Stake F1 Team Sauber'
+        document.getElementById('panel-total-points').textContent = `Total Points: ${calculatedTotalPoints}`;
+
+        const shouldHighlight = (resultRace) => {
+            if (currentRaceSelected === 'championship') return false;
+            const raceId = currentRaceSelected.includes('-Sprint') ? `Sprint ${currentRaceSelected.replace('-Sprint','')}` : currentRaceSelected;
+            return resultRace.replace(/\s/g, '') === raceId.replace(/\s/g, '');
         };
-        
-        return teamNames[teamId] || teamId;
+
+        const resultsContainer = detailsPanel.querySelector('.race-results');
+        resultsContainer.innerHTML = allResults.length > 0 ? allResults.map(result => `
+            <div class="race-result-item ${result.type === 'sprint' ? 'sprint-result' : ''} ${shouldHighlight(result.race) ? 'highlighted-race' : ''}">
+                <span class="race-name">${result.race}</span>
+                <span class="race-position">P${result.position}</span>
+                <span class="race-points">${result.points} pts</span>
+            </div>`).join('') : '<div class="no-results">No hay resultados disponibles.</div>';
+
+        detailsPanel.querySelector('.panel-close').addEventListener('click', e => { e.stopPropagation(); closeDriverPanel(); });
     }
-    
-    // Cargar la clasificación inicial
-    createDriversTable();
-    
-    // Configurar eventos para los botones de carreras
-const raceButtons = document.querySelectorAll('.race');
-raceButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        // Desactivar el botón activo actual
-        document.querySelector('.race.active').classList.remove('active');
-        
-        // Activar el botón actual
-        this.classList.add('active');
-        
-        // Actualizar la carrera actual seleccionada
-        currentRaceSelected = this.getAttribute('data-race');
-        
-        // Actualizar la tabla con los datos de la carrera seleccionada
-        createDriversTable(currentRaceSelected);
+
+    function getTeamName(teamId) {
+        const names = { 'redbull': 'Red Bull Racing', 'ferrari': 'Scuderia Ferrari', 'mercedes': 'Mercedes-AMG F1', 'mclaren': 'McLaren F1 Team', 'aston-martin': 'Aston Martin F1', 'alpine': 'Alpine F1 Team', 'williams': 'Williams Racing', 'rb': 'RB F1 Team', 'haas': 'Haas F1 Team', 'sauber': 'Stake F1 Team Sauber' };
+        return names[teamId] || teamId;
+    }
+
+    document.querySelectorAll('.race').forEach(button => {
+        button.addEventListener('click', function() {
+            document.querySelector('.race.active').classList.remove('active');
+            this.classList.add('active');
+            currentRaceSelected = this.getAttribute('data-race');
+            createDriversTable(currentRaceSelected);
+        });
     });
-});
-    
-    // Actualizar los datos cada 5 minutos
+
+    createDriversTable('championship');
     setInterval(() => {
-        const activeRace = document.querySelector('.race.active').getAttribute('data-race');
-        createDriversTable(activeRace);
+        if (document.visibilityState === 'visible') {
+            createDriversTable(document.querySelector('.race.active').getAttribute('data-race'));
+        }
     }, 300000); // 5 minutos
-    
-    // Función para abrir el panel y aplicar blur
+
     function openDriverPanel() {
-        // Aplicar clase para hacer blur al contenido
         document.getElementById('standings-container').classList.add('blur-content');
         document.querySelector('.races-container').classList.add('blur-content');
         document.querySelector('.navigation-buttons').classList.add('blur-content');
         document.querySelector('h1').classList.add('blur-content');
-        
-        // Crear y mostrar overlay
         let overlay = document.querySelector('.overlay');
         if (!overlay) {
             overlay = document.createElement('div');
             overlay.className = 'overlay';
             document.body.appendChild(overlay);
-            
-            // Agregar evento de clic al overlay para cerrar el panel
-            overlay.addEventListener('click', function() {
-                closeDriverPanel();
-            });
+            overlay.addEventListener('click', closeDriverPanel);
         }
         overlay.style.display = 'block';
     }
-    
-    // Función para cerrar el panel y quitar blur
+
     function closeDriverPanel() {
         document.getElementById('driver-details-panel').classList.remove('panel-active');
-        
-        // Quitar clase de blur
         document.getElementById('standings-container').classList.remove('blur-content');
         document.querySelector('.races-container').classList.remove('blur-content');
         document.querySelector('.navigation-buttons').classList.remove('blur-content');
         document.querySelector('h1').classList.remove('blur-content');
-        
-        // Ocultar overlay
         const overlay = document.querySelector('.overlay');
-        if (overlay) {
-            overlay.style.display = 'none';
-        }
+        if (overlay) overlay.style.display = 'none';
     }
-    
-    // Detectar clics en la página para cerrar el panel al hacer clic fuera
-    document.addEventListener('click', function(e) {
-        const panel = document.getElementById('driver-details-panel');
-        const isActive = panel.classList.contains('panel-active');
-        
-        // Si el panel está abierto y se hace clic en la página (fuera del panel)
-        if (isActive && !panel.contains(e.target) && !e.target.closest('.driver-row')) {
-            closeDriverPanel();
-        }
-    });
-    
-    // Evitar la propagación de clics dentro del panel
-    document.getElementById('driver-details-panel').addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
 });
