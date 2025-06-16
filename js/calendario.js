@@ -465,37 +465,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 5, 15), // 15 de junio
                 horarioCarrera: '15 Junio - 15:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052054',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                ganador: "George Russell",
+                ganadorImagen: "images/drivers/russell.png",
+                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 13/06 - 14:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Verstappen',
+                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
                     },
                     { 
                         nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 13/06 - 18:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Russell',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 14/06 - 13:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Clasificación', 
-                        horario: 'Sábado 14/06 - 17:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Russell',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: 'Domingo 15/06 - 15:00',
+                        horario: '',
                         ganador: '',
                         ganadorBandera: null
                     }
@@ -519,31 +519,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
+                        horario: 'Viernes 27/06 - 08:30',
                         ganador: '',
                         ganadorBandera: ''
                     },
                     { 
                         nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
+                        horario: 'Viernes 27/06 - 12:00',
                         ganador: '',
                         ganadorBandera: ''
                     },
                     { 
                         nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
+                        horario: 'Sábado 28/06 - 07:30',
                         ganador: '',
                         ganadorBandera: ''
                     },
                     { 
                         nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
+                        horario: 'Sábado 28/06 - 11:00',
                         ganador: '',
                         ganadorBandera: ''
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
+                        horario: 'Domingo 29/06 - 10:00',
                         ganador: '',
                         ganadorBandera: null
                     }
