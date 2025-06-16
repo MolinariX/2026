@@ -1,3 +1,7 @@
+/* ======================================================================== */
+/* ===== REEMPLAZA TODO TU ARCHIVO CSS CON ESTE CÓDIGO CORREGIDO ===== */
+/* ======================================================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -88,18 +92,6 @@ h1 {
     margin-bottom: 20px;
     background-color: #1e1e1e;
     border-radius: 10px;
-}
-
-@media (max-width: 768px) {
-    .race {
-        min-width: 50px;
-        font-size: 11px;
-        padding: 0 3px;
-    }
-    
-    .race[data-race*="-Sprint"] {
-        min-width: 70px;
-    }
 }
 
 .race {
@@ -199,52 +191,19 @@ h1 {
 }
 
 /* Colores de equipos */
-.redbull {
-    background-color: #0600ef;
-}
+.redbull { background-color: #0600ef; }
+.ferrari { background-color: #dc0000; }
+.mercedes { background-color: #00d2be; }
+.mclaren { background-color: #ff8700; }
+.aston-martin { background-color: #006f62; }
+.alpine { background-color: #0090ff; }
+.williams { background-color: #005aff; }
+.rb { background-color: #00226c; }
+.haas { background-color: #ffffff; color: black; }
+.haas .driver-name, .haas .points { color: black; }
+.sauber { background-color: #5cdb95; }
 
-.ferrari {
-    background-color: #dc0000;
-}
-
-.mercedes {
-    background-color: #00d2be;
-}
-
-.mclaren {
-    background-color: #ff8700;
-}
-
-.aston-martin {
-    background-color: #006f62;
-}
-
-.alpine {
-    background-color: #0090ff;
-}
-
-.williams {
-    background-color: #005aff;
-}
-
-.rb {
-    background-color: #00226c;
-}
-
-.haas {
-    background-color: #ffffff;
-    color: black;
-}
-
-.haas .driver-name, .haas .points {
-    color: black;
-}
-
-.sauber {
-    background-color: #5cdb95;
-}
-
-/* Estilos actualizados para el panel de detalles del piloto */
+/* Estilos para el panel de detalles del piloto */
 .content-container {
     display: flex;
     gap: 20px;
@@ -362,7 +321,84 @@ h1 {
     font-weight: bold;
 }
 
+/* ---------------------------------------------------- */
+/* --- ESTILOS MOVIDOS A LA SECCIÓN GLOBAL (CORREGIDO) --- */
+/* ---------------------------------------------------- */
+
+/* Estilo para resultados de sprint */
+.sprint-result {
+    background-color: #3a3a3a;
+    border-left: 3px solid #e10600;
+}
+
+/* Nuevos estilos específicos para los botones de Sprint */
+.race[data-race*="-Sprint"] {
+    min-width: 80px;
+    border-radius: 20px;
+    background-color: #444;
+    flex-direction: column;
+    height: auto;
+    min-height: 40px;
+    padding: 5px;
+}
+
+.sprint-text {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1;
+}
+
+.race-number {
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Estilo para la carrera resaltada en el panel de detalles */
+.highlighted-race {
+    background-color: #e10600 !important;
+    border-left: 3px solid #fff !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-weight: bold;
+    color: white;
+}
+
+.highlighted-race .race-name,
+.highlighted-race .race-position,
+.highlighted-race .race-points {
+    color: white;
+    font-weight: bold;
+}
+
+
+/* ---------------------------------------------------- */
+/* ---             MEDIA QUERIES (MÓVIL)             --- */
+/* ---------------------------------------------------- */
+
+@media (min-width: 769px) {
+    .race[data-race*="-Sprint"] {
+        min-width: 90px;
+        padding: 6px;
+        font-size: 13px;
+    }
+}
+
 @media (max-width: 768px) {
+    .race {
+        min-width: 50px;
+        font-size: 11px;
+        padding: 0 3px;
+    }
+    
+    .race[data-race*="-Sprint"] {
+        min-width: 70px;
+    }
+
     .driver-row {
         height: 60px;
     }
@@ -406,7 +442,7 @@ h1 {
         z-index: 1000;
     }
     
-    /* Fixed alignment for position and points on mobile */
+    /* Alineación para posición y puntos en móvil */
     .position {
         width: 40px;
         min-width: 40px;
@@ -429,93 +465,8 @@ h1 {
         margin-right: 8px;
     }
 
-    /* Estilo para resultados de sprint */
-.sprint-result {
-    background-color: #3a3a3a;
-    border-left: 3px solid #e10600;
-}
-
-.race {
-    min-width: 60px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #333;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: bold;
-    padding: 0 5px;
-    font-size: 12px;
-}
-
-/* Nuevos estilos específicos para los botones de Sprint */
-.race[data-race*="-Sprint"] {
-    min-width: 80px;
-    border-radius: 20px;
-    background-color: #444;
-    flex-direction: column; /* Organizar elementos verticalmente */
-    height: auto;
-    min-height: 40px;
-    padding: 5px;
-}
-
-/* Estilo para el texto "Sprint" */
-.sprint-text {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
-    line-height: 1;
-}
-
-/* Estilo para el número de carrera */
-.race-number {
-    display: block;
-    width: 100%;
-    text-align: center;
-    line-height: 1.2;
-}
-
-/* Mantenemos los estilos para hover y active */
-.race:hover, .race.active {
-    background-color: #e10600;
-    color: white;
-    transform: scale(1.1);
-}
-
-@media (min-width: 769px) {
-    .race[data-race*="-Sprint"] {
-        min-width: 90px;
-        padding: 6px;
-        font-size: 13px;
-    }
-}
-
-/* Estilo para la carrera resaltada en el panel de detalles */
-.highlighted-race {
-    background-color: #e10600 !important;
-    border-left: 3px solid #fff !important;
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-    font-weight: bold;
-    color: white;
-}
-
-.highlighted-race .race-name,
-.highlighted-race .race-position,
-.highlighted-race .race-points {
-    color: white;
-    font-weight: bold;
-}
-
-/* Asegurarse de que funcione bien en móvil */
-@media (max-width: 768px) {
+    /* Asegurarse de que el resaltado funcione bien en móvil */
     .highlighted-race {
         transform: scale(1.03);
     }
-}
-
 }

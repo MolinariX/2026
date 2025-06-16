@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await fetchApi(`https://api.jolpi.ca/ergast/f1/${SEASON_YEAR}/driverStandings.json`);
             standings = data?.MRData?.StandingsTable?.StandingsLists[0]?.DriverStandings || [];
         } else {
-            // ---- ESTA ES LA LÓGICA MEJORADA ----
+            // ---- LÓGICA SIMPLIFICADA Y CORREGIDA ----
             const round = raceFilter.replace(/R|-Sprint/g, '');
             const endpoint = raceFilter.includes('-Sprint') ? 'sprint' : 'results';
             
@@ -64,38 +64,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 ? raceData?.MRData?.RaceTable?.Races[0]?.SprintResults 
                 : raceData?.MRData?.RaceTable?.Races[0]?.Results;
 
-            // 2. VERIFICAMOS SI HAY RESULTADOS
-            if (!raceSpecificResults) {
-                // Si no hay, mostramos el mensaje y terminamos la función.
-                container.innerHTML = '<div class="race-not-available">Aún no se ha disputado esta carrera</div>';
-                return;
-            }
-
-            // 3. Si SÍ hay resultados, obtenemos la lista completa de pilotos para mostrar a todos
-            const standingsData = await fetchApi(`https://api.jolpi.ca/ergast/f1/${SEASON_YEAR}/driverStandings.json`);
-            const fullDriverList = standingsData?.MRData?.StandingsTable?.StandingsLists[0]?.DriverStandings || [];
-
-            if (fullDriverList.length > 0) {
-                standings = fullDriverList.map(driverEntry => {
-                    const apiDriverId = driverEntry.Driver.driverId;
-                    const resultForThisDriver = raceSpecificResults.find(r => r.Driver.driverId === apiDriverId);
-
-                    return resultForThisDriver 
-                        ? { ...resultForThisDriver, Driver: driverEntry.Driver }
-                        : { Driver: driverEntry.Driver, position: 'N/C', points: '0' };
-                });
-                
-                standings.sort((a, b) => {
-                    const posA = isNaN(parseInt(a.position)) ? 99 : parseInt(a.position);
-                    const posB = isNaN(parseInt(b.position)) ? 99 : parseInt(b.position);
-                    return posA - posB;
-                });
-            }
+            // 2. Si hay resultados, esa es nuestra tabla. Si no, estará vacía.
+            standings = raceSpecificResults || [];
         }
 
         container.innerHTML = '';
-        if (standings.length === 0 && raceFilter === 'championship') {
-            container.innerHTML = '<div class="race-not-available">No hay datos de campeonato disponibles.</div>';
+        
+        // 3. Verificamos si la tabla está vacía para mostrar el mensaje correspondiente
+        if (standings.length === 0) {
+            if (raceFilter === 'championship') {
+                container.innerHTML = '<div class="race-not-available">No hay datos de campeonato disponibles.</div>';
+            } else {
+                container.innerHTML = '<div class="race-not-available">Aún no se ha disputado esta carrera</div>';
+            }
             return;
         }
 
