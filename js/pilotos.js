@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const driversData = [
         { id: "max_verstappen", name: "Max Verstappen", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/verstappen.png" },
-        { id: "yuki_tsunoda", name: "Yuki Tsunoda", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/tsunoda.png" },
+        { id: "tsunoda", name: "Yuki Tsunoda", team: "redbull", logoPath: "images/logos/redbull.png", photoPath: "images/drivers/tsunoda.png" },
         { id: "leclerc", name: "Charles Leclerc", team: "ferrari", logoPath: "images/logos/ferrari.png", photoPath: "images/drivers/leclerc.png" },
         { id: "hamilton", name: "Lewis Hamilton", team: "ferrari", logoPath: "images/logos/ferrari.png", photoPath: "images/drivers/hamilton.png" },
         { id: "russell", name: "George Russell", team: "mercedes", logoPath: "images/logos/mercedes.png", photoPath: "images/drivers/russell.png" },

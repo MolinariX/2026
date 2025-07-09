@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campeones de Fórmula 1</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/campeones.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+    <!-- Menú -->
+    <div class="menu-container">
+        <div class="hamburger-icon" id="hamburger-btn">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+        <div class="menu-items" id="menu-items">
+            <a href="index.html" class="menu-btn">EQUIPOS</a>
+            <a href="calendario.html" class="menu-btn">CALENDARIO</a>
+            <a href="pilotos.html" class="menu-btn">PILOTOS</a>
+            <a href="constructores.html" class="menu-btn">CONSTRUCTORES</a>
+            <a href="motores.html" class="menu-btn">MOTORES</a>
+            <a href="campeones.html" class="menu-btn active">CAMPEONES</a>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="hall-of-fame-container">
+        
+        <div class="selection-screen" id="selection-screen">
+            <div class="cover-image-container">
+                <img src="images/drivers/portada.png" alt="Portada Campeones F1" class="cover-image">
+            </div>
+            <div class="selection-options">
+                <button class="selection-btn" data-type="drivers">CAMPEONES DE PILOTOS</button>
+                <button class="selection-btn" data-type="constructors">CAMPEONES DE CONSTRUCTORES</button>
+            </div>
+        </div>
+
+        <div class="grid-view" id="grid-view">
+            <button class="back-btn" id="back-btn">← Volver a la Selección</button>
+            <h1 class="grid-title" id="grid-title"></h1>
+            <div class="champions-grid" id="champions-grid"></div>
+        </div>
+
+    </div>
+
+    <!-- Modal Interactivo (Carrusel) -->
+    <div class="modal-overlay" id="champion-modal">
+        <div class="modal-carousel-wrapper">
+            <button class="modal-nav-btn prev" id="modal-prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <div class="modal-content">
+                <button class="modal-close-btn" id="modal-close-btn">×</button>
+                <div id="modal-body"></div>
+            </div>
+            <button class="modal-nav-btn next" id="modal-next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/campeones.js"></script>
+</body>
+</html>

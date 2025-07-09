@@ -513,37 +513,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 5, 29), // 29 de junio
                 horarioCarrera: '29 Julio - 10:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052055',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                ganador: "Lando Norris",
+                ganadorImagen: "images/drivers/norris.png",
+                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 27/06 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Russell',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 27/06 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 28/06 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Clasificación', 
-                        horario: 'Sábado 28/06 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: 'Domingo 29/06 - 10:00',
+                        horario: '',
                         ganador: '',
                         ganadorBandera: null
                     }
@@ -560,42 +560,88 @@ document.addEventListener('DOMContentLoaded', function() {
                 fechaFin: new Date(2025, 6, 6), // 6 de julio
                 horarioCarrera: '6 Julio - 11:00 (Argentina)',
                 enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052056',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                ganador: "Lando Norris",
+                ganadorImagen: "images/drivers/norris.png",
+                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
                 sesiones: [
                     { 
                         nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Hamilton',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Norris',
+                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
                     },
                     { 
                         nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Leclerc',
+                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
                     },
                     { 
                         nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
+                        horario: '',
+                        ganador: 'Verstappen',
+                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
                     },
                     { 
                         nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
+                        horario: '',
                         ganador: '',
                         ganadorBandera: null
                     }
                 ]
                 
+            },
+            {
+                id: 'belgium-2025',
+                nombre: 'GP de Bélgica',
+                circuito: 'Circuit de Spa-Francorchamps',
+                pais: 'Belgium',
+                bandera: 'https://flagcdn.com/w80/be.png',
+                fechaInicio: new Date(2025, 6, 25), // 25 de julio
+                fechaFin: new Date(2025, 6, 27), // 27 de julio
+                horarioCarrera: '27 Julio - 10:00 (Argentina)',
+                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052057',
+                ganador: null ,// Aún sin ganador,
+               // ganadorImagen: "images/drivers/piastri.png",
+               //ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                sesiones: [
+                    { 
+                        nombre: 'Práctica Libre 1', 
+                        horario: 'Viernes 25/07 - 07:30',
+                        ganador: '',
+                        ganadorBandera: ''
+                    },
+                    { 
+                        nombre: 'Clasificación Sprint', 
+                        horario: 'Viernes 25/07 - 11:30',
+                        ganador: '',
+                        ganadorBandera: ''
+                    },
+                    { 
+                        nombre: 'Carrera Sprint', 
+                        horario: 'Sábado 26/07 - 07:00',
+                        ganador: '',
+                        ganadorBandera: ''
+                    },
+                    { 
+                        nombre: 'Clasificación', 
+                        horario: 'Sábado 26/07 - 11:00',
+                        ganador: '',
+                        ganadorBandera: ''
+                    },
+                    { 
+                        nombre: 'Carrera', 
+                        horario: 'Domingo 27/07 - 10:00',
+                        ganador: '',
+                        ganadorBandera: null
+                    }
+                ]
             },
             {
                 id: 'hungary-2025',
@@ -642,54 +688,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         ganadorBandera: null
                     }
                 ]
-                
+
             },
-            {
-                id: 'belgium-2025',
-                nombre: 'GP de Bélgica',
-                circuito: 'Circuit de Spa-Francorchamps',
-                pais: 'Belgium',
-                bandera: 'https://flagcdn.com/w80/be.png',
-                fechaInicio: new Date(2025, 6, 25), // 25 de julio
-                fechaFin: new Date(2025, 6, 27), // 27 de julio
-                horarioCarrera: '27 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052057',
-                ganador: null ,// Aún sin ganador,
-               // ganadorImagen: "images/drivers/piastri.png",
-               //ganadorBandera: 'https://flagcdn.com/w80/au.png',
-                sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 02/05 - 13:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación Sprint', 
-                        horario: 'Viernes 02/05 - 17:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera Sprint', 
-                        horario: 'Sábado 03/05 - 13:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 03/05 - 17:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 04/05 - 17:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
-                ]
-            },
+            
             {
                 id: 'netherlands-2025',
                 nombre: 'Dutch GP',

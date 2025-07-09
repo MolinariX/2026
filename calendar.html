@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario F1 2025</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
+</head>
+<body>
+    <!-- Menú hamburguesa -->
+    <div class="menu-container">
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" id="hamburger-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu-items">
+                <a href="https://f1-dash.com/dashboard" target="_blank" class="menu-btn">VIVO</a>
+                <a href="calendario.html" class="menu-btn active">CALENDARIO</a>
+                <a href="pilotos.html" class="menu-btn">MUNDIAL DE PILOTOS</a>
+                <a href="constructores.html" class="menu-btn">MUNDIAL DE CONSTRUCTORES</a>
+                <a href="https://www.f1-tempo.com/" target="_blank" class="menu-btn">TELEMETRÍA</a>
+                <a href="https://simulador-f1.onrender.com/" class="menu-btn">SIMULADOR</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="calendar-container">
+        <h1>CALENDARIO F1 2025</h1>
+        <div class="calendar-grid" id="calendar-grid">
+            <div class="loading-message">Cargando calendario...</div>
+        </div>
+    </div>
+
+    <!-- Tooltip para ESCRITORIO -->
+    <div id="race-tooltip" class="tooltip"></div>
+
+    <!-- Modal para MÓVIL -->
+    <div id="race-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="modal-close-btn">×</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/calendar.js"></script>
+</body>
+</html>
