@@ -28,7 +28,8 @@
     <!-- Contenedor Principal -->
     <div class="hall-of-fame-container">
         
-        <div class="selection-screen" id="selection-screen">
+        <!-- Pantalla de Selección Inicial -->
+        <div class="selection-screen active" id="selection-screen">
             <div class="cover-image-container">
                 <img src="images/drivers/portada.png" alt="Portada Campeones F1" class="cover-image">
             </div>
@@ -38,10 +39,15 @@
             </div>
         </div>
 
-        <div class="grid-view" id="grid-view">
-            <button class="back-btn" id="back-btn">← Volver a la Selección</button>
+        <!-- Vista de la Grilla y Ranking (Contenedor común) -->
+        <div class="content-view" id="content-view">
+            <div class="view-controls">
+                <button class="back-btn" id="back-btn">← Volver a la Selección</button>
+                <button class="view-toggle-btn" id="view-toggle-btn">Ver Ranking</button>
+            </div>
             <h1 class="grid-title" id="grid-title"></h1>
             <div class="champions-grid" id="champions-grid"></div>
+            <div class="ranking-list" id="ranking-list"></div>
         </div>
 
     </div>
