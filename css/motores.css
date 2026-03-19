@@ -1,17 +1,19 @@
 /* Contenido para: css/motores.css */
 :root {
     --wheel-size: 600px;
-    --ferrari: #DC0000;
-    --mercedes: #00D2BE;
-    --rbpt: #0600EF;
-    --honda: #006400;
-    --audi: #e0e0e0;
+    --ferrari: #ff2800; /* Rojo vibrante neon */
+    --mercedes: #00f0ca; /* Cyan brillante y moderno */
+    --rbpt: #1a4dff; /* Azul eléctrico vivo */
+    --honda: #00e65c; /* Verde racing neon intenso */
+    --audi: #e8e8e8; /* Plata luminoso */
 }
 
 body {
     background: radial-gradient(circle, #2a0a0a 0%, #101010 60%);
     color: #fff;
     font-family: 'Titillium Web', sans-serif;
+    margin: 0;
+    min-height: 100vh;
 }
 
 .engine-page-container {
@@ -32,6 +34,7 @@ h1 {
     opacity: 0;
     animation: fadeIn 1s forwards 1s;
     margin-top: 40px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .engine-wheel-wrapper {
@@ -45,67 +48,76 @@ h1 {
     width: var(--wheel-size);
     height: var(--wheel-size);
     border-radius: 50%;
-    transition: background 0.5s ease;
     transform: scale(0);
     animation: scaleUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
     box-shadow: 0 0 60px rgba(0,0,0,0.6), inset 0 0 40px rgba(0,0,0,0.8);
+    background: #111; /* fallback oscuro para el fondo del hueco */
+    transition: box-shadow 0.4s ease;
 }
 
-.team-logo {
+/* El SVG es absoluto al contenedor y ocupa todo el espacio */
+.engine-svg-chart {
     position: absolute;
-    width: 15%; height: 15%;
-    display: flex; justify-content: center; align-items: center;
-    cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-    will-change: transform;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* por debajo del centro */
 }
-.team-logo img {
-    max-width: 90%; max-height: 90%;
-    object-fit: contain;
-    transition: filter 0.4s ease;
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+
+.engine-slice {
+    transform-origin: 50px 50px;
+}
+
+.svg-team-logo {
+    transition: transform 0.4s, filter 0.4s;
+    transform-origin: center;
+}
+
+.svg-team-logo:hover {
+    transform: scale(1.3);
 }
 
 .center-logo-container {
-    position: absolute; top: 50%; left: 50%;
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 40%; height: 40%;
-    opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    display: flex; justify-content: center; align-items: center;
+    width: 40%; 
+    height: 40%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    z-index: 5;
+    pointer-events: none; /* No bloquear eventos a los gajos del centro */
 }
+
 .center-logo-container img {
-    max-width: 100%; max-height: 100%;
+    max-width: 100%; 
+    max-height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+    animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.engine-wheel.is-hovering .team-logo:not(.highlight) {
-    opacity: 0.1; transform: scale(0.7);
-}
-.engine-wheel.is-hovering .team-logo.highlight {
-    opacity: 1; transform: scale(1.35); z-index: 10;
-}
-.engine-wheel.is-hovering .center-logo-container {
-    opacity: 1; transform: translate(-50%, -50%) scale(1.1);
+/* Logos que necesitan ser blancos sobre fondos oscuros o mejorar su visual */
+.svg-logo-mclaren, .svg-logo-alpine, .svg-logo-haas, .svg-logo-aston-martin {
+    filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
-.engine-wheel.group-ferrari-active .logo-haas.highlight img {
-    filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.7));
+/* Audi logo: sobre el fondo plata intenso, queda mejor forzarlo a negro sólido */
+.svg-logo-audi-team, .center-logo-container img[alt="audi"] {
+    filter: brightness(0) drop-shadow(0 2px 4px rgba(255,255,255,0.4));
 }
 
-/* Logos que necesitan ser blancos sobre fondos oscuros */
-/* CORREGIDO: Se excluye el logo de redbull del filtro */
-.logo-rbpt img, .logo-audi img, .logo-alpine img, .logo-mclaren img {
-    filter: brightness(0) invert(1) drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+@keyframes scaleUp { 
+    from { transform: scale(0); } 
+    to { transform: scale(1); } 
 }
-/* El logo de Red Bull no necesita filtro, así que lo reseteamos por si acaso */
-.logo-redbull img {
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
 }
-
-@keyframes scaleUp { from { transform: scale(0); } to { transform: scale(1); } }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 992px) {
     :root { --wheel-size: 500px; }
@@ -114,6 +126,6 @@ h1 {
 
 @media (max-width: 768px) {
     :root { --wheel-size: 85vw; }
-    h1 { font-size: 1.5rem; margin-top: 30px; }
+    h1 { font-size: 1.5rem; margin-top: 30px; text-align: center; }
     .engine-wheel-wrapper { margin-top: 5vh; }
 }

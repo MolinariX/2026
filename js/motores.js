@@ -1,9 +1,9 @@
 // ========================================================================
-// ===== REEMPLAZA TODO TU ARCHIVO JS/MOTORES.JS CON ESTE CÓDIGO =====
+// ===== LÓGICA SVG INTERACTIVA PARA EL GRÁFICO CIRCULAR DE MOTORES =====
 // ========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- BASE DE DATOS ESTRUCTURADA Y CORREGIDA ---
+    // --- BASE DE DATOS ESTRUCTURADA ---
     const suppliers = [
         {
             group: 'ferrari',
@@ -57,84 +57,170 @@ document.addEventListener('DOMContentLoaded', () => {
     const centerLogoContainer = document.getElementById('center-logo-container');
     if (!wheel || !centerLogoContainer) return;
 
-    // --- LÓGICA DE CONSTRUCCIÓN CORREGIDA ---
+    // --- GRÁFICO SVG INTERACTIVO ---
 
-    // 1. Calcular el total de EQUIPOS (no de proveedores) para dividir el círculo
+    const svgNamespace = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNamespace, "svg");
+    svg.setAttribute('viewBox', '-10 -10 120 120');
+    svg.classList.add('engine-svg-chart');
+
+    // Añadir definición de filtro glow
+    const defs = document.createElementNS(svgNamespace, "defs");
+    defs.innerHTML = `
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    `;
+    svg.appendChild(defs);
+
     const totalTeamsOnGrid = suppliers.reduce((acc, s) => acc + s.teams.length, 0);
-    let gradientStops = [];
     let currentAngle = 0;
-    let allTeamLogos = [];
+
+    // Dimensiones en el espacio de coordenadas (100x100 de las porciones)
+    const rInner = 24;  // Radio del hueco central (donde va el logo principal)
+    const rOuter = 50;  // Radio exterior
+    const rMid = 37;    // Radio donde se sitúan los logos de equipo
+    const logoSize = 13; // Tamaño del logo dentro del SVG
+
+    function getPieSliceDef(startAngle, endAngle, innerRadius, outerRadius, cx, cy) {
+        // Separación sutil entre las porciones para mejor estética (0.5 grados)
+        const padAngle = 0.5;
+        const sA = (startAngle + padAngle - 90) * Math.PI / 180;
+        const eA = (endAngle - padAngle - 90) * Math.PI / 180;
+        const angleDiff = endAngle - startAngle;
+
+        const x1_outer = cx + outerRadius * Math.cos(sA);
+        const y1_outer = cy + outerRadius * Math.sin(sA);
+        const x2_outer = cx + outerRadius * Math.cos(eA);
+        const y2_outer = cy + outerRadius * Math.sin(eA);
+
+        const x1_inner = cx + innerRadius * Math.cos(sA);
+        const y1_inner = cy + innerRadius * Math.sin(sA);
+        const x2_inner = cx + innerRadius * Math.cos(eA);
+        const y2_inner = cy + innerRadius * Math.sin(eA);
+
+        const largeArcFlag = angleDiff > 180 ? 1 : 0;
+
+        return [
+            "M", x1_inner, y1_inner,
+            "L", x1_outer, y1_outer,
+            "A", outerRadius, outerRadius, 0, largeArcFlag, 1, x2_outer, y2_outer,
+            "L", x2_inner, y2_inner,
+            "A", innerRadius, innerRadius, 0, largeArcFlag, 0, x1_inner, y1_inner,
+            "Z"
+        ].join(" ");
+    }
 
     suppliers.forEach(supplier => {
         const teamCount = supplier.teams.length;
-        if (teamCount === 0) return; // No crear una porción si no hay equipos
+        if (teamCount === 0) return;
 
         const angleShare = (teamCount / totalTeamsOnGrid) * 360;
-        gradientStops.push(`${supplier.color} ${currentAngle}deg ${currentAngle + angleShare}deg`);
+        const startAngle = currentAngle;
+        const endAngle = currentAngle + angleShare;
         
-        // Posicionar los logos de los EQUIPOS dentro de su porción de color
+        // El Grupo central (Gajo + Logos)
+        const g = document.createElementNS(svgNamespace, "g");
+        g.classList.add('engine-supplier-group');
+        g.dataset.supplier = supplier.group;
+        g.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        g.style.transformOrigin = '50px 50px';
+        g.style.cursor = 'pointer';
+
+        // 1. Crear el Sector (Piece of Pie)
+        const path = document.createElementNS(svgNamespace, "path");
+        path.setAttribute('d', getPieSliceDef(startAngle, endAngle, rInner, rOuter, 50, 50));
+        
+        // Obtener color desde las CSS variables si está en DOM
+        const computedColor = getComputedStyle(document.documentElement).getPropertyValue(`--${supplier.group}`).trim() || supplier.color;
+        
+        path.setAttribute('fill', computedColor);
+        path.classList.add('engine-slice');
+        path.style.transition = 'all 0.4s ease';
+        g.appendChild(path);
+
+        // 2. Añadir los logos de los equipos correspondientes
         const angleStep = angleShare / (teamCount + 1);
         supplier.teams.forEach((team, index) => {
             const angle = currentAngle + angleStep * (index + 1);
-            createLogoElement(team.logo, supplier.group, angle, team.id);
+            const angleRad = (angle - 90) * Math.PI / 180;
+            const x = 50 + rMid * Math.cos(angleRad);
+            const y = 50 + rMid * Math.sin(angleRad);
+
+            const img = document.createElementNS(svgNamespace, "image");
+            img.setAttribute('href', team.logo);
+            img.setAttribute('x', x - logoSize / 2);
+            img.setAttribute('y', y - logoSize / 2);
+            img.setAttribute('width', logoSize);
+            img.setAttribute('height', logoSize);
+            img.classList.add('svg-team-logo', `svg-logo-${team.id}`);
+            img.dataset.team = team.id;
+            
+            // Fix estético para que giren respecto a su centro visual en CSS
+            // transform-origin 50% 50% funciona sobre la caja en CSS
+            img.style.transformOrigin = `${x}px ${y}px`;
+            
+            g.appendChild(img);
         });
 
+        // 3. Interacciones y efectos visuales majestuosos
+        g.addEventListener('mouseenter', () => {
+            const midAngle = startAngle + angleShare / 2;
+            const midRad = (midAngle - 90) * Math.PI / 180;
+            
+            // El vector de desplazamiento outward (hacia afuera)
+            const tx = 3 * Math.cos(midRad);
+            const ty = 3 * Math.sin(midRad);
+
+            // Resaltar el grupo actual y desvanecer los demás
+            document.querySelectorAll('.engine-supplier-group').forEach(group => {
+                const slice = group.querySelector('.engine-slice');
+                if (group === g) {
+                    group.style.transform = `translate(${tx}px, ${ty}px) scale(1.05)`;
+                    group.style.opacity = '1';
+                    slice.style.stroke = '#ffffff';
+                    slice.style.strokeWidth = '0.5';
+                    slice.setAttribute('filter', 'url(#glow)');
+                } else {
+                    group.style.transform = 'scale(0.92)';
+                    group.style.opacity = '0.3';
+                    slice.style.stroke = 'none';
+                    slice.removeAttribute('filter');
+                }
+            });
+
+            // Animación y recambio del logo central
+            centerLogoContainer.innerHTML = `<img src="${supplier.mainLogo}" alt="${supplier.group}" />`;
+            
+            // Iluminar el contenedor padre sutilmente con el color del equipo
+            wheel.style.boxShadow = `0 0 100px ${computedColor}80, inset 0 0 40px rgba(0,0,0,0.8)`;
+        });
+
+        g.addEventListener('mouseleave', () => {
+            // Restaurar a la vista unificada general
+            document.querySelectorAll('.engine-supplier-group').forEach(group => {
+                group.style.transform = 'translate(0px, 0px) scale(1)';
+                group.style.opacity = '1';
+                const slice = group.querySelector('.engine-slice');
+                slice.style.stroke = 'none';
+                slice.removeAttribute('filter');
+            });
+            centerLogoContainer.innerHTML = '';
+            wheel.style.boxShadow = '0 0 60px rgba(0,0,0,0.6), inset 0 0 40px rgba(0,0,0,0.8)';
+        });
+
+        svg.appendChild(g);
         currentAngle += angleShare;
     });
 
-    wheel.style.background = `conic-gradient(${gradientStops.join(', ')})`;
-
-    function createLogoElement(logoSrc, group, angle, id) {
-        const logoDiv = document.createElement('div');
-        logoDiv.className = `team-logo logo-${id}`;
-        logoDiv.dataset.group = group;
-
-        const img = document.createElement('img');
-        img.src = logoSrc;
-        
-        const radius = 42;
-        const angleRad = (angle - 90) * (Math.PI / 180);
-        const x = 50 + radius * Math.cos(angleRad);
-        const y = 50 + radius * Math.sin(angleRad);
-
-        logoDiv.style.left = `${x}%`;
-        logoDiv.style.top = `${y}%`;
-        logoDiv.style.transform = `translate(-50%, -50%)`;
-
-        logoDiv.appendChild(img);
-        wheel.appendChild(logoDiv);
-        allTeamLogos.push(logoDiv);
-    }
+    // Limpieza de logos viejos basados en el código anterior si existen por algún motivo
+    const oldLogos = wheel.querySelectorAll('.team-logo');
+    oldLogos.forEach(logo => logo.remove());
     
-    // --- LÓGICA DE INTERACTIVIDAD ---
-    
-    allTeamLogos.forEach(logo => {
-        logo.addEventListener('mouseenter', () => handleMouseEnter(logo.dataset.group));
-        logo.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    function handleMouseEnter(group) {
-        wheel.classList.add('is-hovering');
-        wheel.style.background = `radial-gradient(circle, ${getComputedStyle(document.documentElement).getPropertyValue('--'+group)}90 0%, #101010 70%)`;
-
-        allTeamLogos.forEach(l => {
-            if (l.dataset.group === group) {
-                l.classList.add('highlight');
-            }
-        });
-        
-        const mainLogoData = suppliers.find(s => s.group === group);
-        centerLogoContainer.innerHTML = `<img src="${mainLogoData.mainLogo}" alt="${group}" />`;
-        
-        wheel.classList.add(`group-${group}-active`);
-    }
-
-    function handleMouseLeave() {
-        wheel.classList.remove('is-hovering');
-        wheel.style.background = `conic-gradient(${gradientStops.join(', ')})`;
-        
-        allTeamLogos.forEach(l => l.classList.remove('highlight'));
-        centerLogoContainer.innerHTML = '';
-        suppliers.forEach(s => wheel.classList.remove(`group-${s.group}-active`));
-    }
+    // Inyectar el SVG dinámico dentro del Wheel (por detrás del logo central)
+    wheel.insertBefore(svg, centerLogoContainer);
 });
