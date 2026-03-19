@@ -152,7 +152,9 @@ table {
 }
 
 /* Estilos específicos para cada posición - se mantienen tamaños pero se eliminan colores especiales */
-.position-1, .position-2, .position-3 {
+.position-1,
+.position-2,
+.position-3 {
     font-size: 1.5rem;
     font-weight: 800;
 }
@@ -270,19 +272,16 @@ table {
     box-shadow: 0 3px 10px rgba(4, 30, 66, 0.4);
 }
 
-.stake {
-    background: linear-gradient(90deg, #52FF00 0%, #70FF33 100%);
-    color: #000000;
-    box-shadow: 0 3px 10px rgba(82, 255, 0, 0.4);
+.audi {
+    background: linear-gradient(90deg, #2D2D2D 0%, #000000 100%);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    border-left: 5px solid #FF0000;
+    /* Red accent for Audi */
 }
 
-.stake .constructor-name {
-    color: #000000;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.stake .position::before {
-    background-color: rgba(0, 0, 0, 0.1);
+.cadillac {
+    background: linear-gradient(90deg, #000000 0%, #F1C40F 100%);
+    box-shadow: 0 3px 10px rgba(241, 196, 15, 0.4);
 }
 
 .footer {
@@ -313,8 +312,13 @@ table {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Estilos para modal constructor */
@@ -332,8 +336,13 @@ table {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .constructor-modal {
@@ -353,8 +362,13 @@ table {
 }
 
 @keyframes slideIn {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 .close-button {
@@ -528,85 +542,85 @@ table {
         font-size: 1.8rem;
         margin: 15px 0 25px;
     }
-    
+
     .table-container {
         border-radius: 10px;
         padding: 2px;
     }
-    
+
     table {
         border-spacing: 0 6px;
     }
-    
+
     .constructor-row {
         height: 60px;
     }
-    
+
     .constructor-name {
         font-size: 1.1rem;
         padding-left: 8px;
     }
-    
+
     .points {
         font-size: 1.1rem;
         width: 80px;
     }
-    
+
     .position {
         font-size: 1rem;
         width: 40px;
         padding: 0 10px;
     }
-    
+
     .logo {
         width: 50px;
         padding: 0 5px;
     }
-    
+
     .logo img {
         height: 25px;
     }
-    
+
     .navigation-buttons {
         flex-direction: column;
         gap: 12px;
         align-items: center;
         margin-bottom: 20px;
     }
-    
+
     .nav-button {
         width: 100%;
         max-width: 200px;
     }
-    
+
     .constructor-modal {
         width: 100%;
         padding: 20px;
     }
-    
+
     .constructor-logo {
         width: 100px;
         height: 100px;
     }
-    
+
     .constructor-title {
         font-size: 24px;
     }
-    
+
     .driver-item {
         padding: 12px;
     }
-    
+
     .driver-logo {
         width: 35px;
         height: 35px;
         margin-right: 10px;
     }
-    
+
     .driver-name {
         font-size: 16px;
     }
-    
+
     .driver-points {
         font-size: 16px;
         min-width: 50px;

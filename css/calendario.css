@@ -16,10 +16,33 @@
 body {
     background-color: var(--dark);
     color: var(--light);
+    margin: 0;
+    padding: 0;
+    /* Asegurar que siempre haya espacio para scroll */
+    min-height: 101vh;
+    overflow-y: scroll;
+}
+
+/* Hacer la barra de scroll visible en todos los navegadores */
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--accent);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #c00500;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -55,16 +78,70 @@ header h1 {
 
 .calendario {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* Ajuste para tablets/laptops pequeños */
+@media (max-width: 1024px) {
+    .calendario {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Ajuste para móviles */
+@media (max-width: 768px) {
+    .calendario {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .fecha {
+        height: 70px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .carrera-nombre-texto {
+        padding: 5px 2px !important;
+    }
+
+    .gp-sub-name {
+        font-size: 0.7rem !important;
+        gap: 3px !important;
+        flex-direction: column;
+        margin-top: 2px !important;
+    }
+
+    .gp-main-name {
+        font-size: 0.5rem !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    .gp-flag-mini {
+        width: 12px !important;
+    }
+
+    .mes-header {
+        font-size: 1.2rem !important;
+        padding: 10px !important;
+    }
 }
 
 .mes {
     background-color: var(--accent);
     border-radius: 10px;
-    /* Remove overflow: hidden to allow tooltips to display outside the container */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative; /* Add positioning context */
+    position: relative;
+    width: 100%;
 }
 
 .mes-header {
@@ -74,39 +151,100 @@ header h1 {
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
-    border-radius: 10px 10px 0 0; /* Maintain rounded corners at top */
+    border-radius: 10px 10px 0 0;
 }
 
 .dias {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    padding: 10px;
-    border-radius: 0 0 10px 10px; /* Maintain rounded corners at bottom */
+    padding: 1px;
+    /* Para mostrar los bordes de los hijos */
+    background-color: #333;
+    /* Color de los bordes del grid */
+    border-radius: 0 0 10px 10px;
 }
 
 .nombre-dia {
+    background-color: var(--accent);
     text-align: center;
     font-weight: bold;
-    margin-bottom: 10px;
+    padding: 10px 0;
     font-size: 0.8rem;
+    border-bottom: 1px solid #333;
 }
 
 .fecha {
-    height: 40px;
+    height: 100px;
+    /* Altura mayor para parecerse a la imagen */
+    background-color: var(--accent);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 5px;
     cursor: default;
     position: relative;
     font-size: 0.9rem;
-    border-radius: 50%;
+    border: 1px solid #333;
+    transition: background-color 0.2s;
 }
 
 .fecha-carrera {
-    background-color: var(--primary);
+    flex-direction: column;
+    align-items: center;
+    /* Centrar contenido del GP */
+    justify-content: center;
+    padding: 0;
     color: white;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    /* Para que el fondo cubra todo */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.carrera-dias-numeros {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.carrera-dias-numeros span {
+    font-size: 0.8rem;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+.carrera-nombre-texto {
+    text-align: center;
+    padding: 10px;
+    z-index: 2;
+}
+
+.gp-main-name {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.gp-sub-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.gp-flag-mini {
+    width: 25px;
+    height: auto;
+    border-radius: 2px;
 }
 
 .fecha-evento {
@@ -115,9 +253,12 @@ header h1 {
     cursor: pointer;
 }
 
-.fecha-carrera:hover, .fecha-evento:hover {
-    transform: scale(1.15);
-    box-shadow: 0 0 10px rgba(225, 6, 0, 0.7);
+.fecha:hover {
+    background-color: var(--accent-light);
+}
+
+.fecha-carrera:hover {
+    filter: brightness(1.1);
     z-index: 100;
 }
 
@@ -142,10 +283,21 @@ header h1 {
     transform: translateX(-50%);
 }
 
-/* Show tooltip on hover */
-.fecha-carrera:hover .tooltip, .fecha-evento:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
+/* Hide tooltips on mobile to avoid visual clutter and click interference */
+@media (max-width: 768px) {
+    .tooltip {
+        display: none !important;
+    }
+}
+
+/* Show tooltip on hover only on desktop */
+@media (min-width: 769px) {
+
+    .fecha-carrera:hover .tooltip,
+    .fecha-evento:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 /* Position adjustment for top half of calendar */
@@ -193,24 +345,41 @@ header h1 {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 10000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-content {
     background-color: var(--accent);
-    margin: 15% auto;
+    margin: 5% auto;
     padding: 20px;
-    border: 1px solid var(--primary);
-    border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
     color: var(--light);
+    box-shadow: 0 0 30px rgba(225, 6, 0, 0.4);
+    position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10% auto;
+        padding: 15px;
+        width: 95%;
+        max-height: 85vh;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2rem;
+    }
 }
 
 .close-button {
@@ -266,9 +435,20 @@ header h1 {
 }
 
 @keyframes dots {
-    0%, 20% { content: "•"; }
-    40% { content: "••"; }
-    60%, 100% { content: "•••"; }
+
+    0%,
+    20% {
+        content: "•";
+    }
+
+    40% {
+        content: "••";
+    }
+
+    60%,
+    100% {
+        content: "•••";
+    }
 }
 
 .error-message {
@@ -325,7 +505,7 @@ header h1 {
     width: 20px;
     height: 15px;
     margin-left: 5px;
-    vertical-align: middle; 
+    vertical-align: middle;
 }
 
 /* Estilos para la información del ganador en el modal */
@@ -354,7 +534,7 @@ header h1 {
 .ganador-bandera-modal {
     width: 30px;
     height: 20px;
-    vertical-align: middle; 
+    vertical-align: middle;
     margin-left: 5px;
 }
 

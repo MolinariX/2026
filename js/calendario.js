@@ -1,7 +1,35 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Variables globales
-    const currentYear = 2025;
+    const currentYear = 2026;
     let carrerasF1 = [];
+    
+    // Mapa de colores para cada GP (colores vibrantes y únicos)
+    const coloresGP = {
+        'australia': '#FFA500',      // Naranja (tierra naranja australiana)
+        'china': '#DC143C',          // Rojo carmesí  
+        'japan': '#FF1493',          // Rosa fuerte (flores de cerezo)
+        'bahrain': '#FFD700',        // Dorado (desierto)
+        'saudi-arabia': '#00CED1',   // Turquesa (Mar Rojo)
+        'miami': '#FF69B4',          // Rosa Miami
+        'canada': '#FF0000',         // Rojo brillante
+        'monaco': '#0047AB',         // Azul cobalto (yates del puerto)
+        'spain-barcelona': '#FFFF00', // Amarillo (sol español)
+        'austria': '#8B0000',        // Rojo oscuro (Red Bull)
+        'uk': '#006400',             // Verde oscuro (Silverstone)
+        'belgium': '#FF4500',        // Rojo naranja
+        'hungary': '#32CD32',        // Verde lima
+        'netherlands': '#FF8C00',    // Naranja oscuro (bandera holandesa)
+        'italy': '#228B22',          // Verde bosque (Monza)
+        'spain-madrid': '#9400D3',   // Violeta oscuro (NUEVO circuito)
+        'azerbaijan': '#4169E1',     // Azul real (Caspian)
+        'singapore': '#FF1493',      // Magenta (luces nocturnas)
+        'usa-austin': '#1E90FF',     // Azul Dodger (Texas)
+        'mexico': '#00FF00',         // Verde brillante
+        'brazil': '#FFD700',         // Amarillo dorado (bandera Brasil)
+        'las-vegas': '#8A2BE2',      // Violeta azulado (luces de Vegas)
+        'qatar': '#800080',          // Púrpura (lujo del desierto)
+        'abu-dhabi': '#FF6347'       // Tomate (atardecer)
+    };
     
     // Inicializar la aplicación
     initApp();
@@ -10,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function initApp() {
         try {
             // Cargar los datos de carreras
-            carrerasF1 = obtenerCalendarioF12025();
+            carrerasF1 = obtenerCalendarioF12026();
             
             // Generar el calendario
             generarCalendario();
@@ -26,1142 +54,492 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Datos reales del calendario F1 2025 con ganadores incluidos
-    function obtenerCalendarioF12025() {
+    // Datos del calendario F1 2026 - Temporada oficial
+    function obtenerCalendarioF12026() {
         return [
             {
-                id: 'australia-2025',
+                id: 'australia-2026',
                 nombre: 'GP de Australia',
                 circuito: 'Albert Park Circuit',
                 pais: 'Australia',
                 bandera: 'https://flagcdn.com/w80/au.png',
-                fechaInicio: new Date(2025, 2, 13), // 13 de marzo
-                fechaFin: new Date(2025, 2, 16), // 16 de marzo
-                horarioCarrera: '16 Marzo - 01:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052045',
-                ganador: "Lando Norris",
-                ganadorImagen: "images/drivers/norris.png",
-                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['australia'],
+                fechaInicio: new Date(2026, 2, 6), // 6 de marzo
+                fechaFin: new Date(2026, 2, 8), // 8 de marzo
+                horarioCarrera: '8 Marzo - 01:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Leclerc',
-                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 6/03 - 23:30 (5/03 ARG)', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Sábado 7/03 - 03:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 7/03 - 23:30 (6/03 ARG)', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Domingo 8/03 - 03:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 8/03 - 01:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'china-2025',
+                id: 'china-2026',
                 nombre: 'GP de China',
                 circuito: 'Shanghai International Circuit',
                 pais: 'China',
                 bandera: 'https://flagcdn.com/w80/cn.png',
-                fechaInicio: new Date(2025, 2, 21),
-                fechaFin: new Date(2025, 2, 23),
-                horarioCarrera: '23 Marzo - 04:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052046',
-                ganador: "Oscar Piastri",
-                ganadorImagen: "images/drivers/piastri.png",
-                ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                color: coloresGP['china'],
+                fechaInicio: new Date(2026, 2, 13), // 13 de marzo
+                fechaFin: new Date(2026, 2, 15), // 15 de marzo
+                horarioCarrera: '15 Marzo - 04:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Clasificación Sprint', 
-                        horario: '',
-                        ganador: 'Hamilton',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Carrera Sprint', 
-                        horario: '',
-                        ganador: 'Hamilton',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 13/03 - 06:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 13/03 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera Sprint', horario: 'Sábado 14/03 - 06:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 14/03 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 15/03 - 04:00', ganador: '', ganadorBandera: null }
                 ]
             },
-
-            
             {
-                id: 'japan-2025',
+                id: 'japan-2026',
                 nombre: 'GP de Japón',
                 circuito: 'Suzuka International Racing Course',
-                pais: 'Japan',
+                pais: 'Japón',
                 bandera: 'https://flagcdn.com/w80/jp.png',
-                fechaInicio: new Date(2025, 3, 3), // 3 de abril
-                fechaFin: new Date(2025, 3, 6), // 6 de abril
-                horarioCarrera: '6 Abril - 02:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052047',
-                ganador: "Max Verstappen", 
-                ganadorImagen: "images/drivers/verstappen.png",
-                ganadorBandera: 'https://flagcdn.com/w80/nl.png',
+                color: coloresGP['japan'],
+                fechaInicio: new Date(2026, 2, 27), // 27 de marzo
+                fechaFin: new Date(2026, 2, 29), // 29 de marzo
+                horarioCarrera: '29 Marzo - 02:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Verstappen',
-                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 27/03 - 22:30 (26/03 ARG)', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Sábado 28/03 - 02:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 28/03 - 22:30 (27/03 ARG)', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Domingo 29/03 - 02:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 29/03 - 02:00', ganador: '', ganadorBandera: null }
                 ]
             },
-            
-
-
             {
-                id: 'bahrain-2025',
+                id: 'bahrain-2026',
                 nombre: 'GP de Bahrein',
                 circuito: 'Bahrain International Circuit',
-                pais: 'Bahrain',
+                pais: 'Bahrein',
                 bandera: 'https://flagcdn.com/w80/bh.png',
-                fechaInicio: new Date(2025, 3, 11), // 11 de abril
-                fechaFin: new Date(2025, 3, 13), // 13 de abril
-                horarioCarrera: '13 Abril - 12:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052048',
-                ganador: "Oscar Piastri",
-                ganadorImagen: "images/drivers/piastri.png",
-                ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                color: coloresGP['bahrain'],
+                fechaInicio: new Date(2026, 3, 10), // 10 de abril
+                fechaFin: new Date(2026, 3, 12), // 12 de abril
+                horarioCarrera: '12 Abril - 12:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Piastri',
-                        ganador: '',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 10/04 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 10/04 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 11/04 - 09:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 11/04 - 13:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 12/04 - 12:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
-                id: 'saudi-arabia-2025',
+                id: 'saudi-arabia-2026',
                 nombre: 'GP de Arabia Saudita',
                 circuito: 'Jeddah Corniche Circuit',
-                pais: 'Saudi Arabia',
+                pais: 'Arabia Saudita',
                 bandera: 'https://flagcdn.com/w80/sa.png',
-                fechaInicio: new Date(2025, 3, 18), // 18 de abril
-                fechaFin: new Date(2025, 3, 20), // 20 de abril
-                horarioCarrera: '20 Abril - 14:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052049',
-                ganador: "Oscar Piastri",
-                ganadorImagen: "images/drivers/piastri.png",
-                ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                color: coloresGP['saudi-arabia'],
+                fechaInicio: new Date(2026, 3, 17), // 17 de abril
+                fechaFin: new Date(2026, 3, 19), // 19 de abril
+                horarioCarrera: '19 Abril - 15:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Gasly',
-                        ganadorBandera: 'https://flagcdn.com/w80/fr.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 17/04 - 11:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 17/04 - 15:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 18/04 - 12:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 18/04 - 16:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 19/04 - 15:00', ganador: '', ganadorBandera: null }
                 ]
             },
-            
             {
-                id: 'miami-2025',
+                id: 'miami-2026',
                 nombre: 'GP de Miami',
                 circuito: 'Miami International Autodrome',
-                pais: 'USA',
+                pais: 'Estados Unidos',
                 bandera: 'https://flagcdn.com/w80/us.png',
-                fechaInicio: new Date(2025, 4, 2), // 2 de mayo
-                fechaFin: new Date(2025, 4, 4), // 4 de mayo
-                horarioCarrera: '4 Mayo - 17:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052050',
-                ganador: "Oscar Piastri" ,
-                ganadorImagen: "images/drivers/piastri.png",
-                ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                color: coloresGP['miami'],
+                fechaInicio: new Date(2026, 4, 1), // 1 de mayo
+                fechaFin: new Date(2026, 4, 3), // 3 de mayo
+                horarioCarrera: '3 Mayo - 17:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Clasificación Sprint', 
-                        horario: '',
-                        ganador: 'Antonelli',
-                        ganadorBandera: 'https://flagcdn.com/w80/it.png'
-                    },
-                    { 
-                        nombre: 'Carrera Sprint', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Verstappen',
-                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 1/05 - 14:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 1/05 - 18:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera Sprint', horario: 'Sábado 2/05 - 13:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 2/05 - 17:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 3/05 - 17:00', ganador: '', ganadorBandera: null }
                 ]
             },
-            
-
             {
-                id: 'emilia-romagna-2025',
-                nombre: 'GP de Emilia Romagna',
-                circuito: 'Autodromo Enzo e Dino Ferrari',
-                pais: 'Italy',
-                bandera: 'https://flagcdn.com/w80/it.png',
-                fechaInicio: new Date(2025, 4, 16), // 16 de mayo
-                fechaFin: new Date(2025, 4, 18), // 18 de mayo
-                horarioCarrera: '18 Mayo - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052051',
-                ganador: "Max Verstappen",
-                ganadorImagen: "images/drivers/verstappen.png",
-                ganadorBandera: 'https://flagcdn.com/w80/nl.png',
-                sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
-                ]
-                
-            },
-            {
-                id: 'monaco-2025',
-                nombre: 'GP de Mónaco',
-                circuito: 'Circuit de Monaco',
-                pais: 'Monaco',
-                bandera: 'https://flagcdn.com/w80/mc.png',
-                fechaInicio: new Date(2025, 4, 23), // 23 de mayo
-                fechaFin: new Date(2025, 4, 25), // 25 de mayo
-                horarioCarrera: '25 Mayo - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/f1/circuito/_/id/600052052',
-                ganador: "Lando Norris",
-                ganadorImagen: "images/drivers/norris.png",
-                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
-                sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Leclerc',
-                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Leclerc',
-                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Lecrerc',
-                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
-                ]
-                
-            },
-            {
-                id: 'spain-2025',
-                nombre: 'GP de España',
-                circuito: 'Circuit de Barcelona-Catalunya',
-                pais: 'Spain',
-                bandera: 'https://flagcdn.com/w80/es.png',
-                fechaInicio: new Date(2025, 4, 30), // 30 de mayo
-                fechaFin: new Date(2025, 5, 1), // 1 de junio
-                horarioCarrera: '01 Junio - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052053',
-                ganador: "Oscar Piastri",
-                ganadorImagen: "images/drivers/piastri.png",
-                ganadorBandera: 'https://flagcdn.com/w80/au.png',
-                sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Piastri',
-                        ganadorBandera: 'https://flagcdn.com/w80/au.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
-                ]
-                
-            },
-            {
-                id: 'canada-2025',
+                id: 'canada-2026',
                 nombre: 'GP de Canadá',
                 circuito: 'Circuit Gilles Villeneuve',
-                pais: 'Canada',
+                pais: 'Canadá',
                 bandera: 'https://flagcdn.com/w80/ca.png',
-                fechaInicio: new Date(2025, 5, 13), // 13 de junio
-                fechaFin: new Date(2025, 5, 15), // 15 de junio
-                horarioCarrera: '15 Junio - 15:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052054',
-                ganador: "George Russell",
-                ganadorImagen: "images/drivers/russell.png",
-                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['canada'],
+                fechaInicio: new Date(2026, 4, 22), // 22 de mayo
+                fechaFin: new Date(2026, 4, 24), // 24 de mayo
+                horarioCarrera: '24 Mayo - 15:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Verstappen',
-                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Russell',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Russell',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 22/05 - 14:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 22/05 - 18:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera Sprint', horario: 'Sábado 23/05 - 13:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 23/05 - 17:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 24/05 - 15:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
-            
             {
-                id: 'austria-2025',
+                id: 'monaco-2026',
+                nombre: 'GP de Mónaco',
+                circuito: 'Circuit de Monaco',
+                pais: 'Mónaco',
+                bandera: 'https://flagcdn.com/w80/mc.png',
+                color: coloresGP['monaco'],
+                fechaInicio: new Date(2026, 5, 5), // 5 de junio
+                fechaFin: new Date(2026, 5, 7), // 7 de junio
+                horarioCarrera: '7 Junio - 10:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
+                sesiones: [
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 5/06 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 5/06 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 6/06 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 6/06 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 7/06 - 10:00', ganador: '', ganadorBandera: null }
+                ]
+            },
+            {
+                id: 'spain-barcelona-2026',
+                nombre: 'GP de España (Barcelona)',
+                circuito: 'Circuit de Barcelona-Catalunya',
+                pais: 'España',
+                bandera: 'https://flagcdn.com/w80/es.png',
+                color: coloresGP['spain-barcelona'],
+                fechaInicio: new Date(2026, 5, 12), // 12 de junio
+                fechaFin: new Date(2026, 5, 14), // 14 de junio
+                horarioCarrera: '14 Junio - 10:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
+                sesiones: [
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 12/06 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 12/06 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 13/06 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 13/06 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 14/06 - 10:00', ganador: '', ganadorBandera: null }
+                ]
+            },
+            {
+                id: 'austria-2026',
                 nombre: 'GP de Austria',
                 circuito: 'Red Bull Ring',
                 pais: 'Austria',
                 bandera: 'https://flagcdn.com/w80/at.png',
-                fechaInicio: new Date(2025, 5, 27), // 27 de junio
-                fechaFin: new Date(2025, 5, 29), // 29 de junio
-                horarioCarrera: '29 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052055',
-                ganador: "Lando Norris",
-                ganadorImagen: "images/drivers/norris.png",
-                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['austria'],
+                fechaInicio: new Date(2026, 5, 26), // 26 de junio
+                fechaFin: new Date(2026, 5, 28), // 28 de junio
+                horarioCarrera: '28 Junio - 10:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Russell',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 26/06 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 26/06 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 27/06 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 27/06 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 28/06 - 10:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'uk-2025',
+                id: 'uk-2026',
                 nombre: 'GP de Gran Bretaña',
                 circuito: 'Silverstone Circuit',
-                pais: 'Great Britain',
+                pais: 'Reino Unido',
                 bandera: 'https://flagcdn.com/w80/gb.png',
-                fechaInicio: new Date(2025, 6, 4), // 4 de julio
-                fechaFin: new Date(2025, 6, 6), // 6 de julio
-                horarioCarrera: '6 Julio - 11:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052056',
-                ganador: "Lando Norris",
-                ganadorImagen: "images/drivers/norris.png",
-                ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['uk'],
+                fechaInicio: new Date(2026, 6, 3), // 3 de julio
+                fechaFin: new Date(2026, 6, 5), // 5 de julio
+                horarioCarrera: '5 Julio - 11:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: '',
-                        ganador: 'Hamilton',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: '',
-                        ganador: 'Norris',
-                        ganadorBandera: 'https://flagcdn.com/w80/gb.png'
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: '',
-                        ganador: 'Leclerc',
-                        ganadorBandera: 'https://flagcdn.com/w80/mc.png'
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: '',
-                        ganador: 'Verstappen',
-                        ganadorBandera: 'https://flagcdn.com/w80/nl.png'
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: '',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 3/07 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 3/07 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera Sprint', horario: 'Sábado 4/07 - 07:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 4/07 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 5/07 - 11:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'belgium-2025',
+                id: 'belgium-2026',
                 nombre: 'GP de Bélgica',
                 circuito: 'Circuit de Spa-Francorchamps',
-                pais: 'Belgium',
+                pais: 'Bélgica',
                 bandera: 'https://flagcdn.com/w80/be.png',
-                fechaInicio: new Date(2025, 6, 25), // 25 de julio
-                fechaFin: new Date(2025, 6, 27), // 27 de julio
-                horarioCarrera: '27 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052057',
-                ganador: null ,// Aún sin ganador,
-               // ganadorImagen: "images/drivers/piastri.png",
-               //ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                color: coloresGP['belgium'],
+                fechaInicio: new Date(2026, 6, 17), // 17 de julio
+                fechaFin: new Date(2026, 6, 19), // 19 de julio
+                horarioCarrera: '19 Julio - 10:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 25/07 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación Sprint', 
-                        horario: 'Viernes 25/07 - 11:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera Sprint', 
-                        horario: 'Sábado 26/07 - 07:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 26/07 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 27/07 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 17/07 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 17/07 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 18/07 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 18/07 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 19/07 - 10:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
-                id: 'hungary-2025',
+                id: 'hungary-2026',
                 nombre: 'GP de Hungría',
                 circuito: 'Hungaroring',
-                pais: 'Hungary',
+                pais: 'Hungría',
                 bandera: 'https://flagcdn.com/w80/hu.png',
-                fechaInicio: new Date(2025, 7, 1), // 1 de agosto
-                fechaFin: new Date(2025, 7, 3), // 3 de agosto
-                horarioCarrera: '3 Julio - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052058',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['hungary'],
+                fechaInicio: new Date(2026, 6, 24), // 24 de julio
+                fechaFin: new Date(2026, 6, 26), // 26 de julio
+                horarioCarrera: '26 Julio - 10:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 24/07 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 24/07 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 25/07 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 25/07 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 26/07 - 10:00', ganador: '', ganadorBandera: null }
                 ]
-
             },
-            
             {
-                id: 'netherlands-2025',
-                nombre: 'Dutch GP',
+                id: 'netherlands-2026',
+                nombre: 'GP de Países Bajos',
                 circuito: 'Circuit Park Zandvoort',
-                pais: 'Netherlands',
+                pais: 'Países Bajos',
                 bandera: 'https://flagcdn.com/w80/nl.png',
-                fechaInicio: new Date(2025, 7, 29), // 29 de agosto
-                fechaFin: new Date(2025, 7, 31), // 31 de agosto
-                horarioCarrera: '31 Agosto - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052059',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['netherlands'],
+                fechaInicio: new Date(2026, 7, 21), // 21 de agosto
+                fechaFin: new Date(2026, 7, 23), // 23 de agosto
+                horarioCarrera: '23 Agosto - 10:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 21/08 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 21/08 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera Sprint', horario: 'Sábado 22/08 - 07:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 22/08 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 23/08 - 10:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'italy-2025',
+                id: 'italy-2026',
                 nombre: 'GP de Italia',
                 circuito: 'Autodromo Nazionale Monza',
-                pais: 'Italy',
+                pais: 'Italia',
                 bandera: 'https://flagcdn.com/w80/it.png',
-                fechaInicio: new Date(2025, 8, 5), // 5 de septiembre
-                fechaFin: new Date(2025, 8, 7), // 7 de septiembre
+                color: coloresGP['italy'],
+                fechaInicio: new Date(2026, 8, 5), // 5 de septiembre
+                fechaFin: new Date(2026, 8, 7), // 7 de septiembre
                 horarioCarrera: '7 Septiembre - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052060',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 5/09 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 5/09 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 6/09 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 6/09 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 7/09 - 10:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'azerbaijan-2025',
+                id: 'spain-madrid-2026',
+                nombre: 'GP de España (Madrid) ⭐ NUEVO',
+                circuito: 'Madrid Street Circuit',
+                pais: 'España',
+                bandera: 'https://flagcdn.com/w80/es.png',
+                color: coloresGP['spain-madrid'],
+                fechaInicio: new Date(2026, 8, 11), // 11 de septiembre
+                fechaFin: new Date(2026, 8, 13), // 13 de septiembre
+                horarioCarrera: '13 Septiembre - 10:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
+                sesiones: [
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 11/09 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 11/09 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 12/09 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 12/09 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 13/09 - 10:00', ganador: '', ganadorBandera: null }
+                ]
+            },
+            {
+                id: 'azerbaijan-2026',
                 nombre: 'GP de Azerbaiyán',
                 circuito: 'Baku City Circuit',
-                pais: 'Azerbaijan',
+                pais: 'Azerbaiyán',
                 bandera: 'https://flagcdn.com/w80/az.png',
-                fechaInicio: new Date(2025, 8, 19), // 19 de septiembre
-                fechaFin: new Date(2025, 8, 21), // 21 de septiembre
-                horarioCarrera: '21 Septiembre - 08:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052101',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['azerbaijan'],
+                fechaInicio: new Date(2026, 8, 25), // 25 de septiembre
+                fechaFin: new Date(2026, 8, 27), // 27 de septiembre
+                horarioCarrera: '27 Septiembre - 08:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 25/09 - 06:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 25/09 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 26/09 - 06:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 26/09 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 27/09 - 08:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'singapore-2025',
+                id: 'singapore-2026',
                 nombre: 'GP de Singapur',
                 circuito: 'Marina Bay Street Circuit',
-                pais: 'Singapore',
+                pais: 'Singapur',
                 bandera: 'https://flagcdn.com/w80/sg.png',
-                fechaInicio: new Date(2025, 9, 3), // 3 de octubre
-                fechaFin: new Date(2025, 9, 5), // 5 de octubre
-                horarioCarrera: '5 Octubre - 09:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052102',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['singapore'],
+                fechaInicio: new Date(2026, 9, 9), // 9 de octubre
+                fechaFin: new Date(2026, 9, 11), // 11 de octubre
+                horarioCarrera: '11 Octubre - 09:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 9/10 - 06:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 9/10 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera Sprint', horario: 'Sábado 10/10 - 06:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 10/10 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 11/10 - 09:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'usa-2025',
+                id: 'usa-austin-2026',
                 nombre: 'GP de Estados Unidos',
-                circuito: 'Circuit of The Americas',
-                pais: 'USA',
+                circuito: 'Circuit of the Americas',
+                pais: 'Estados Unidos',
                 bandera: 'https://flagcdn.com/w80/us.png',
-                fechaInicio: new Date(2025, 9, 17), // 17 de octubre
-                fechaFin: new Date(2025, 9, 19), // 19 de octubre
-                horarioCarrera: '19 Octubre - 16:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052103',
-                ganador: null ,// Aún sin ganador,
-               // ganadorImagen: "images/drivers/piastri.png",
-               //ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                color: coloresGP['usa-austin'],
+                fechaInicio: new Date(2026, 9, 23), // 23 de octubre
+                fechaFin: new Date(2026, 9, 25), // 25 de octubre
+                horarioCarrera: '25 Octubre - 16:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 02/05 - 13:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación Sprint', 
-                        horario: 'Viernes 02/05 - 17:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera Sprint', 
-                        horario: 'Sábado 03/05 - 13:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 03/05 - 17:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 04/05 - 17:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 23/10 - 14:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 23/10 - 18:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 24/10 - 13:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 24/10 - 17:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 25/10 - 16:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
-                id: 'mexico-2025',
+                id: 'mexico-2026',
                 nombre: 'GP de México',
                 circuito: 'Autódromo Hermanos Rodríguez',
-                pais: 'Mexico',
+                pais: 'México',
                 bandera: 'https://flagcdn.com/w80/mx.png',
-                fechaInicio: new Date(2025, 9, 24), // 24 de octubre
-                fechaFin: new Date(2025, 9, 26), // 26 de octubre
-                horarioCarrera: '26 Octubre - 17:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052104',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['mexico'],
+                fechaInicio: new Date(2026, 9, 30), // 30 de octubre
+                fechaFin: new Date(2026, 10, 1), // 1 de noviembre
+                horarioCarrera: '1 Noviembre - 17:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 30/10 - 14:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 30/10 - 18:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 31/10 - 13:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 31/10 - 17:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 1/11 - 17:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'brazil-2025',
+                id: 'brazil-2026',
                 nombre: 'GP de Brasil',
-                circuito: 'Autódromo José Carlos Pace',
-                pais: 'Brazil',
+                circuito: 'Autódromo José Carlos Pace (Interlagos)',
+                pais: 'Brasil',
                 bandera: 'https://flagcdn.com/w80/br.png',
-                fechaInicio: new Date(2025, 10, 7), // 7 de noviembre
-                fechaFin: new Date(2025, 10, 9), // 9 de noviembre
-                horarioCarrera: '9 Noviembre - 14:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052105',
-                ganador: null ,// Aún sin ganador,
-               // ganadorImagen: "images/drivers/piastri.png",
-               //ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                color: coloresGP['brazil'],
+                fechaInicio: new Date(2026, 10, 6), // 6 de noviembre
+                fechaFin: new Date(2026, 10, 8), // 8 de noviembre
+                horarioCarrera: '8 Noviembre - 15:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 02/05 - 13:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación Sprint', 
-                        horario: 'Viernes 02/05 - 17:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera Sprint', 
-                        horario: 'Sábado 03/05 - 13:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 03/05 - 17:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 04/05 - 17:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 6/11 - 12:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 6/11 - 16:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 7/11 - 11:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 7/11 - 15:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 8/11 - 15:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
-                id: 'las-vegas-2025',
+                id: 'las-vegas-2026',
                 nombre: 'GP de Las Vegas',
-                circuito: 'Las Vegas Strip Circuit',
-                pais: 'USA',
+                circuito: 'Las Vegas Street Circuit',
+                pais: 'Estados Unidos',
                 bandera: 'https://flagcdn.com/w80/us.png',
-                fechaInicio: new Date(2025, 10, 20), // 20 de noviembre
-                fechaFin: new Date(2025, 10, 23), // 23 de noviembre
-                horarioCarrera: '23 Noviembre - 01:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052106',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['las-vegas'],
+                fechaInicio: new Date(2026, 10, 20), // 20 de noviembre
+                fechaFin: new Date(2026, 10, 22), // 22 de noviembre
+                horarioCarrera: '23 Noviembre - 03:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 20/11 - 01:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 20/11 - 05:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 21/11 - 01:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 21/11 - 05:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 22/11 - 03:00', ganador: '', ganadorBandera: null }
                 ]
-                
             },
             {
-                id: 'qatar-2025',
+                id: 'qatar-2026',
                 nombre: 'GP de Qatar',
                 circuito: 'Lusail International Circuit',
                 pais: 'Qatar',
                 bandera: 'https://flagcdn.com/w80/qa.png',
-                fechaInicio: new Date(2025, 10, 28), // 28 de noviembre
-                fechaFin: new Date(2025, 10, 30), // 30 de noviembre
-                horarioCarrera: '30 Noviembre - 13:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052107',
-                ganador: null ,// Aún sin ganador,
-               // ganadorImagen: "images/drivers/piastri.png",
-               //ganadorBandera: 'https://flagcdn.com/w80/au.png',
+                color: coloresGP['qatar'],
+                fechaInicio: new Date(2026, 10, 27), // 27 de noviembre
+                fechaFin: new Date(2026, 10, 29), // 29 de noviembre
+                horarioCarrera: '29 Noviembre - 13:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 02/05 - 13:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación Sprint', 
-                        horario: 'Viernes 02/05 - 17:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera Sprint', 
-                        horario: 'Sábado 03/05 - 13:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 03/05 - 17:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 04/05 - 17:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 27/11 - 10:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 27/11 - 14:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 28/11 - 11:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 28/11 - 15:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 29/11 - 13:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
-                id: 'abu-dhabi-2025',
+                id: 'abu-dhabi-2026',
                 nombre: 'GP de Abu Dhabi',
                 circuito: 'Yas Marina Circuit',
-                pais: 'UAE',
+                pais: 'Emiratos Árabes Unidos',
                 bandera: 'https://flagcdn.com/w80/ae.png',
-                fechaInicio: new Date(2025, 11, 5), // 5 de diciembre
-                fechaFin: new Date(2025, 11, 7), // 7 de diciembre
-                horarioCarrera: '7 Diciembre - 10:00 (Argentina)',
-                enlace: 'https://www.espn.com.ar/deporte-motor/f1/circuito/_/id/600052108',
-                ganador: null ,// Aún sin ganador,
-                //ganadorImagen: "images/drivers/norris.png",
-                //ganadorBandera: 'https://flagcdn.com/w80/gb.png',
+                color: coloresGP['abu-dhabi'],
+                fechaInicio: new Date(2026, 11, 4), // 4 de diciembre
+                fechaFin: new Date(2026, 11, 6), // 6 de diciembre
+                horarioCarrera: '6 Diciembre - 10:00 (Argentina)',
+                enlace: 'https://www.formula1.com',
+                ganador: null,
                 sesiones: [
-                    { 
-                        nombre: 'Práctica Libre 1', 
-                        horario: 'Viernes 16/05 - 08:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 2', 
-                        horario: 'Viernes 16/05 - 12:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Práctica Libre 3', 
-                        horario: 'Sábado 17/05 - 07:30',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Clasificación', 
-                        horario: 'Sábado 17/05 - 11:00',
-                        ganador: '',
-                        ganadorBandera: ''
-                    },
-                    { 
-                        nombre: 'Carrera', 
-                        horario: 'Domingo 18/05 - 10:00',
-                        ganador: '',
-                        ganadorBandera: null
-                    }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 4/12 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 4/12 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 5/12 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 5/12 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 6/12 - 10:00', ganador: '', ganadorBandera: null }
                 ]
-                
-            },
+            }
         ];
     }
     
-    // Generar el calendario
     function generarCalendario() {
         const calendarContainer = document.getElementById('calendario');
         calendarContainer.innerHTML = ''; // Limpiar el contenedor
@@ -1182,8 +560,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const diasContainer = document.createElement('div');
             diasContainer.className = 'dias';
             
-            // Agregar nombres de los días
-            const nombresDias = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
+            // Agregar nombres de los días (Lunes a Domingo)
+            const nombresDias = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO'];
             nombresDias.forEach(dia => {
                 const diaNombre = document.createElement('div');
                 diaNombre.className = 'nombre-dia';
@@ -1191,11 +569,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 diasContainer.appendChild(diaNombre);
             });
             
-            // Obtener primer día del mes y total de días
-            const primerDia = new Date(currentYear, mes, 1).getDay();
+            // Obtener primer día del mes (ajustado a Lunes=0)
+            let primerDia = new Date(currentYear, mes, 1).getDay();
+            primerDia = (primerDia === 0) ? 6 : primerDia - 1; // Ajustar: Domingo=0 -> 6, Lunes=1 -> 0, etc.
+            
             const totalDias = new Date(currentYear, mes + 1, 0).getDate();
             
-            // Agregar días en blanco para ajustar el primer día del mes
+            // Agregar días en blanco para ajustar el primer día
             for (let i = 0; i < primerDia; i++) {
                 const diaVacio = document.createElement('div');
                 diaVacio.className = 'fecha';
@@ -1204,134 +584,99 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Agregar los días del mes
             for (let dia = 1; dia <= totalDias; dia++) {
-                const fechaElement = document.createElement('div');
-                fechaElement.className = 'fecha';
-                fechaElement.textContent = dia;
-                
-                // Verificar si hay carreras en este día
                 const fechaActual = new Date(currentYear, mes, dia);
                 
-                // Buscar carreras que coincidan con esta fecha
-                const carrerasEnFecha = carrerasF1.filter(carrera => {
-                    return fechaEnRango(fechaActual, carrera.fechaInicio, carrera.fechaFin);
-                });
-                
-                if (carrerasEnFecha.length > 0) {
-                    // Es una fecha de carrera
-                    const carrera = carrerasEnFecha[0]; // Tomamos la primera carrera si hay varias
-                    fechaElement.classList.add('fecha-carrera');
+                // Buscar si hay una carrera hoy
+                const carrera = carrerasF1.find(c => 
+                    fechaEnRango(fechaActual, c.fechaInicio, c.fechaFin)
+                );
+
+                // Determinar si debemos empezar un bloque de carrera hoy
+                // Es inicio si: empieza hoy O (es el día 1 del mes y la carrera ya empezó)
+                const esInicioDeBloque = carrera && (
+                    fechaActual.getTime() === carrera.fechaInicio.getTime() || 
+                    (dia === 1)
+                );
+
+                if (esInicioDeBloque) {
+                    // Calcular cuánto dura este bloque
+                    // Limitado por: fin de carrera, fin de mes, y fin de SEMANA (columna 7)
+                    let colEnSemana = (fechaActual.getDay() === 0) ? 7 : fechaActual.getDay(); // L=1, D=7
+                    let diasHastaFinSemana = 7 - colEnSemana + 1;
+                    
+                    let duracion = 0;
+                    let tempFecha = new Date(fechaActual);
+                    while (tempFecha <= carrera.fechaFin && tempFecha.getMonth() === mes && duracion < diasHastaFinSemana) {
+                        duracion++;
+                        tempFecha.setDate(tempFecha.getDate() + 1);
+                    }
+
+                    // Crear el elemento que ocupa varios días
+                    const fechaElement = document.createElement('div');
+                    fechaElement.className = 'fecha fecha-carrera';
+                    fechaElement.style.gridColumn = `span ${duracion}`;
+                    fechaElement.style.backgroundColor = carrera.color || '#e10600';
                     fechaElement.setAttribute('data-carrera', carrera.id);
                     
-                    // Crear tooltip con información de la carrera
+                    // Contenedor de números de día
+                    const numerosContenedor = document.createElement('div');
+                    numerosContenedor.className = 'carrera-dias-numeros';
+                    for (let n = 0; n < duracion; n++) {
+                        const num = document.createElement('span');
+                        num.textContent = dia + n;
+                        numerosContenedor.appendChild(num);
+                    }
+                    fechaElement.appendChild(numerosContenedor);
+
+                    // Nombre del GP
+                    const nombreGP = document.createElement('div');
+                    nombreGP.className = 'carrera-nombre-texto';
+                    nombreGP.innerHTML = `
+                        <div class="gp-main-name">GRAN PREMIO DE</div>
+                        <div class="gp-sub-name">${carrera.pais.toUpperCase()} <img src="${carrera.bandera}" class="gp-flag-mini"></div>
+                    `;
+                    fechaElement.appendChild(nombreGP);
+
+                    // Tooltip logic
                     const tooltip = document.createElement('div');
                     tooltip.className = 'tooltip';
-                    
-                    // Crear contenido del tooltip
                     const gpInfo = document.createElement('div');
                     gpInfo.className = 'gp-info';
-                    
-                    // Agregar nombre del GP y fechas
                     gpInfo.innerHTML = `
                         <strong>${carrera.nombre}</strong>
                         <p>${formatearFecha(carrera.fechaInicio)} - ${formatearFecha(carrera.fechaFin)}</p>
                         <p>${carrera.circuito}</p>
-                        <img src="${carrera.bandera}" alt="Bandera de ${carrera.pais}">
+                        <img src="${carrera.bandera}" alt="Bandera" style="width: 30px; margin-top: 5px;">
                     `;
                     
-                    // Agregar sesiones si existen
-if (carrera.sesiones && carrera.sesiones.length > 0) {
-    const sesionesContainer = document.createElement('div');
-    sesionesContainer.className = 'sesiones-container';
-    
-    const sesionesTitle = document.createElement('p');
-    sesionesTitle.className = 'sesiones-title';
-    sesionesTitle.textContent = 'Sesiones:';
-    sesionesContainer.appendChild(sesionesTitle);
-    
-    const sesionesList = document.createElement('ul');
-    sesionesList.className = 'sesiones-list';
-    
-    carrera.sesiones.forEach(sesion => {
-        const sesionItem = document.createElement('li');
-        
-        // Base info with session name and time
-        let sesionText = `${sesion.nombre}: ${sesion.horario}`;
-        
-        // If there's a winner, add it to the text
-        if (sesion.ganador) {
-            sesionText += ` - ${sesion.ganador}`;
-            
-            // If there's a flag for the winner, create an img element
-            if (sesion.ganadorBandera) {
-                const banderaImg = document.createElement('img');
-                banderaImg.src = sesion.ganadorBandera;
-                banderaImg.alt = "Bandera";
-                banderaImg.className = "ganador-bandera";
-                
-                // Set the text content first
-                sesionItem.textContent = sesionText;
-                
-                // Then append the flag image
-                sesionItem.appendChild(banderaImg);
-            } else {
-                // If no flag, just set the text
-                sesionItem.textContent = sesionText;
-            }
-        } else {
-            // If no winner, just show session name and time
-            sesionItem.textContent = sesionText;
-        }
-        
-            sesionesList.appendChild(sesionItem);
-    });
-    
-            sesionesContainer.appendChild(sesionesList);
-            gpInfo.appendChild(sesionesContainer);
-    } else {
-            // Si no hay sesiones definidas, mostrar el horario de carrera general
-            const horarioElement = document.createElement('p');
-            horarioElement.textContent = carrera.horarioCarrera;
-            gpInfo.appendChild(horarioElement);
-    }
-                    
-                    // Verificar si hay un ganador
-                    if (carrera.ganador) {
-                        const ganadorElement = document.createElement('div');
-                        ganadorElement.className = 'ganador';
-                        
-                        // Crear contenedor para nombre y bandera en la misma línea
-                        const nombreContainer = document.createElement('p');
-                        nombreContainer.innerHTML = `Ganador: ${carrera.ganador}`;
-                        
-                        // Agregar la bandera al lado del nombre si está disponible
-                        if (carrera.ganadorBandera) {
-                            nombreContainer.innerHTML += ` <img src="${carrera.ganadorBandera}" alt="Bandera" class="ganador-bandera">`;
-                        }
-                        
-                        ganadorElement.appendChild(nombreContainer);
-                        
-                        // Agregar imagen del ganador debajo del nombre
-                        if (carrera.ganadorImagen) {
-                            const imagenElement = document.createElement('img');
-                            imagenElement.src = carrera.ganadorImagen;
-                            imagenElement.alt = carrera.ganador;
-                            imagenElement.className = 'ganador-imagen';
-                            ganadorElement.appendChild(imagenElement);
-                        }
-                        
-                        gpInfo.appendChild(ganadorElement);
+                    if (carrera.sesiones && carrera.sesiones.length > 0) {
+                        const sesionesContainer = document.createElement('div');
+                        sesionesContainer.className = 'sesiones-container';
+                        const list = document.createElement('ul');
+                        list.className = 'sesiones-list';
+                        carrera.sesiones.forEach(s => {
+                            const li = document.createElement('li');
+                            li.textContent = `${s.nombre.replace('Práctica Libre ', 'FP')}: ${s.horario}`;
+                            list.appendChild(li);
+                        });
+                        sesionesContainer.appendChild(list);
+                        gpInfo.appendChild(sesionesContainer);
                     }
                     
                     tooltip.appendChild(gpInfo);
                     fechaElement.appendChild(tooltip);
+
+                    fechaElement.addEventListener('click', () => mostrarModal(carrera));
+                    diasContainer.appendChild(fechaElement);
                     
-                    // Agregar evento de clic para mostrar el modal
-                    fechaElement.addEventListener('click', function() {
-                        mostrarModal(carrera);
-                    });
+                    dia += (duracion - 1); // Adelantar el bucle
+                } else {
+                    // Día normal
+                    const fechaElement = document.createElement('div');
+                    fechaElement.className = 'fecha';
+                    fechaElement.textContent = dia;
+                    diasContainer.appendChild(fechaElement);
                 }
-                
-                diasContainer.appendChild(fechaElement);
             }
             
             mesElement.appendChild(diasContainer);

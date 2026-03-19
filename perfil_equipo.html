@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración para evitar el cacheo y actualizar de inmediato -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Equipo</title>
+    <link rel="stylesheet" href="css/styles.css?v=2">
+    <link rel="stylesheet" href="css/perfil.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
+</head>
+<body>
+    <!-- Menú (puedes copiar el de tus otras páginas) -->
+    <div class="menu-container">
+        <a href="campeones.html" style="color: white; padding: 20px; text-decoration: none;">← Volver a Campeones</a>
+    </div>
+
+    <!-- El contenedor principal donde se dibujará el perfil -->
+    <div class="profile-container" id="profile-container">
+        <!-- Mientras carga, se muestra este mensaje -->
+        <div class="loading-placeholder">
+            <h1>Cargando perfil...</h1>
+        </div>
+    </div>
+
+    <!-- Scripts Esenciales (los mismos que para el piloto) -->
+    <script src="js/database.js"></script>
+    <script src="js/perfil.js"></script>
+</body>
+</html>

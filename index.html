@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Configuración para evitar el cacheo y actualizar de inmediato -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Teams Layout</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
 </head>
+
 <body>
     <!-- Menú hamburguesa -->
     <div class="menu-container">
@@ -19,7 +25,6 @@
             </div>
             <div class="menu-items">
                 <a href="https://f1-dash.com/dashboard" target="_blank" class="menu-btn">VIVO</a>
-                <a href="calendario.html" class="menu-btn">CALENDARIO</a>
                 <a href="calendar.html" class="menu-btn">CALENDAR</a>
                 <a href="pilotos.html" class="menu-btn">MUNDIAL DE PILOTOS</a>
                 <a href="constructores.html" class="menu-btn">MUNDIAL DE CONSTRUCTORES</a>
@@ -33,7 +38,7 @@
 
     <div class="container">
         <!-- Red Bull -->
-        <div class="team-section">
+        <div class="team-section section-red-bull">
             <div class="team-row red-bull">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/max-verstappen.html" class="driver-link">
@@ -46,19 +51,19 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <a href="https://www.formula1.com/en/drivers/yuki-tsunoda" class="driver-link">
-                        <img src="images/drivers/tsunoda.png" alt="Tsunoda" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/isack-hadjar" class="driver-link">
+                        <img src="images/drivers/hadjar.png" alt="Hadjar" class="driver-image">
                     </a>
                 </div>
             </div>
             <div class="names-row">
                 <div class="name-left">VERSTAPPEN</div>
-                <div class="name-right">TSUNODA</div>
+                <div class="name-right">HADJAR</div>
             </div>
         </div>
-        
+
         <!-- Mercedes -->
-        <div class="team-section">
+        <div class="team-section section-mercedes">
             <div class="team-row mercedes">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/george-russell.html" class="driver-link">
@@ -81,9 +86,9 @@
                 <div class="name-right">ANTONELLI</div>
             </div>
         </div>
-        
+
         <!-- Ferrari -->
-        <div class="team-section">
+        <div class="team-section section-ferrari">
             <div class="team-row ferrari">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/charles-leclerc.html" class="driver-link">
@@ -106,9 +111,9 @@
                 <div class="name-right">HAMILTON</div>
             </div>
         </div>
-        
+
         <!-- McLaren -->
-        <div class="team-section">
+        <div class="team-section section-mclaren">
             <div class="team-row mclaren">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/lando-norris.html" class="driver-link">
@@ -131,9 +136,9 @@
                 <div class="name-right">PIASTRI</div>
             </div>
         </div>
-        
+
         <!-- Aston Martin -->
-        <div class="team-section">
+        <div class="team-section section-aston-martin">
             <div class="team-row aston-martin">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/fernando-alonso.html" class="driver-link">
@@ -156,9 +161,9 @@
                 <div class="name-right">STROLL</div>
             </div>
         </div>
-        
+
         <!-- Alpine -->
-        <div class="team-section">
+        <div class="team-section section-alpine">
             <div class="team-row alpine">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/pierre-gasly.html" class="driver-link">
@@ -181,9 +186,9 @@
                 <div class="name-right">COLAPINTO</div>
             </div>
         </div>
-        
+
         <!-- RB -->
-        <div class="team-section">
+        <div class="team-section section-rb">
             <div class="team-row rb">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/liam-lawson.html" class="driver-link">
@@ -196,19 +201,19 @@
                     </a>
                 </div>
                 <div class="driver driver-right">
-                    <a href="https://www.formula1.com/en/drivers/isack-hadjar.html" class="driver-link">
-                        <img src="images/drivers/hadjar.png" alt="Hadjar" class="driver-image">
+                    <a href="https://www.formula1.com/en/drivers/arvid-lindblad.html" class="driver-link">
+                        <img src="images/drivers/lindblad.png" alt="Lindblad" class="driver-image">
                     </a>
                 </div>
             </div>
             <div class="names-row">
                 <div class="name-left">LAWSON</div>
-                <div class="name-right">HADJAR</div>
+                <div class="name-right">LINDBLAD</div>
             </div>
         </div>
-        
+
         <!-- Williams -->
-        <div class="team-section">
+        <div class="team-section section-williams">
             <div class="team-row williams">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/alexander-albon.html" class="driver-link">
@@ -231,18 +236,18 @@
                 <div class="name-right">SAINZ</div>
             </div>
         </div>
-        
-        <!-- Stake -->
-        <div class="team-section">
-            <div class="team-row stake">
+
+        <!-- Audi -->
+        <div class="team-section section-audi">
+            <div class="team-row audi">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/nico-hulkenberg.html" class="driver-link">
                         <img src="images/drivers/hulkenberg.png" alt="Hulkenberg" class="driver-image">
                     </a>
                 </div>
                 <div class="team-logo">
-                    <a href="https://www.formula1.com/en/teams/kick-sauber" class="logo-link">
-                        <img src="images/logos/stake.png" alt="Stake" class="logo-image">
+                    <a href="#" class="logo-link">
+                        <img src="images/logos/audi.png" alt="Audi" class="logo-image">
                     </a>
                 </div>
                 <div class="driver driver-right">
@@ -256,9 +261,9 @@
                 <div class="name-right">BORTOLETO</div>
             </div>
         </div>
-        
+
         <!-- Haas -->
-        <div class="team-section">
+        <div class="team-section section-haas">
             <div class="team-row haas">
                 <div class="driver driver-left">
                     <a href="https://www.formula1.com/en/drivers/oliver-bearman.html" class="driver-link">
@@ -281,8 +286,34 @@
                 <div class="name-right">OCON</div>
             </div>
         </div>
+
+        <!-- Cadillac -->
+        <div class="team-section section-cadillac">
+            <div class="team-row cadillac">
+                <div class="driver driver-left">
+                    <a href="https://www.formula1.com/en/drivers/sergio-perez.html" class="driver-link">
+                        <img src="images/drivers/perez.png" alt="Perez" class="driver-image">
+                    </a>
+                </div>
+                <div class="team-logo">
+                    <a href="https://www.formula1.com/en/teams/cadillac" class="logo-link">
+                        <img src="images/logos/cadillac.png" alt="Cadillac" class="logo-image">
+                    </a>
+                </div>
+                <div class="driver driver-right">
+                    <a href="https://www.formula1.com/en/drivers/valtteri-bottas.html" class="driver-link">
+                        <img src="images/drivers/bottas.png" alt="Bottas" class="driver-image">
+                    </a>
+                </div>
+            </div>
+            <div class="names-row">
+                <div class="name-left">PEREZ</div>
+                <div class="name-right">BOTTAS</div>
+            </div>
+        </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=2"></script>
 </body>
+
 </html>

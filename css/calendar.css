@@ -1,235 +1,822 @@
-/* Contenido para: css/calendar.css */
+/* CSS for New Interactive Calendar */
 :root {
     --f1-red: #e10600;
-    --gold: #ffd700;
-    --dark-grey: #1e1e1e;
-    --light-grey: #333;
+    --dark-bg: #0f1014;
+    --card-bg: #1e1e24;
+    --card-hover: #2a2a32;
+    --text-main: #ffffff;
+    --text-muted: #8b8b8b;
 }
+
 body {
-    background-color: #121212;
-    color: #fff;
+    background-color: var(--dark-bg);
+    color: var(--text-main);
     font-family: 'Titillium Web', sans-serif;
-}
-.calendar-container {
-    max-width: 1600px;
-    margin: 20px auto;
-    padding: 20px;
-}
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-}
-.race-card {
-    background-color: var(--dark-grey);
-    border: 2px solid var(--light-grey);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-.race-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--f1-red);
-}
-.current-race-week {
-    border-color: var(--gold);
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-    transform: scale(1.03) translateY(-5px);
-}
-.current-race-week:hover {
-    border-color: var(--gold);
-}
-.circuit-img-container {
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-.circuit-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    filter: invert(1);
-}
-.race-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-.race-info img.flag {
-    width: 30px;
-    height: 20px;
-    object-fit: cover;
-    border: 1px solid #555;
-}
-.race-details h3 {
     margin: 0;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-}
-.race-details p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #aaa;
-    text-transform: uppercase;
-}
-.race-date {
-    margin-top: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ccc;
-}
-.tooltip {
-    position: fixed; /* Cambiado a fixed para evitar problemas de clipping */
-    background-color: rgba(20, 20, 20, 0.95);
-    border: 1px solid var(--gold);
-    border-radius: 8px;
-    padding: 15px;
-    width: 340px;
-    z-index: 1000;
-    pointer-events: none;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-    font-size: 0.9rem;
-    display: none;
-    transition: opacity 0.2s;
-}
-.tooltip-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #444;
-    text-transform: uppercase;
-}
-.tooltip-sessions-list {
-    list-style: none;
     padding: 0;
-    margin: 10px 0;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh;
 }
-.tooltip-sessions-list li {
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+.calendar-wrapper {
+    max-width: 1300px;
+    margin: 20px auto 40px auto;
+    padding: 20px;
 }
-.tooltip-sessions-list .session-name {
-    font-weight: 600;
-    color: #ddd;
-}
-.tooltip-sessions-list .session-time {
-    color: var(--gold);
-    text-align: right;
-    font-size: 0.85rem;
-}
-.session-winner {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #eee;
-}
-.session-winner-flag {
-    width: 20px;
-    height: 14px;
-    object-fit: cover;
-    border-radius: 2px;
-}
-.winner-block {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #444;
-    text-align: center;
-}
-.winner-label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: #aaa;
-    margin-bottom: 10px;
-}
-.winner-details {
+
+.calendar-header {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
-}
-.winner-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--gold);
-}
-.winner-name-flag {
-    text-align: left;
-}
-.winner-name {
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 1;
-}
-.winner-flag {
-    width: 30px;
-    margin-top: 5px;
-}
-.results-btn-container {
-    text-align: center;
-    margin-top: 15px;
-}
-.results-btn {
-    display: inline-block;
-    background-color: var(--f1-red);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.2s;
-    pointer-events: auto; /* Permite hacer clic en el botón dentro del modal */
-}
-.results-btn:hover {
-    background-color: #ff3333;
+    margin-bottom: 40px;
 }
 
-/* --- MODAL DE MÓVIL --- */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: none; justify-content: center; align-items: center;
-    z-index: 2000; padding: 15px; backdrop-filter: blur(5px);
+.f1-cal-logo {
+    height: 40px;
+    filter: invert(15%) sepia(85%) saturate(7000%) hue-rotate(350deg) brightness(95%) contrast(110%);
 }
-.modal-content {
-    background-color: var(--dark-grey);
-    padding: 25px; border-radius: 15px; border: 1px solid var(--gold);
-    position: relative; max-width: 500px; width: 100%;
-    max-height: 90vh; overflow-y: auto;
+
+.calendar-header h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -2px;
 }
-.modal-close-btn {
-    position: absolute; top: 10px; right: 15px;
-    background: none; border: none; color: white;
-    font-size: 2rem; cursor: pointer;
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
 }
-#modal-body .winner-details {
+
+@media (max-width: 900px) {
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* BASE CARDS */
+.gp-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    height: 110px;
+    border: 2px solid transparent;
+}
+
+.gp-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    background-color: var(--card-hover);
+}
+
+.flag-section {
+    width: 60px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    margin-right: 20px;
+}
+
+/* SCHEDULED CARD CONTENT */
+.scheduled-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.date-section {
+    display: flex;
     flex-direction: column;
+    margin-right: 25px;
+    min-width: 90px;
 }
-#modal-body .winner-name-flag {
+
+.date-month {
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+
+.date-days {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--f1-red);
+    line-height: 1;
+    margin-top: 3px;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.info-top {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.info-country {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-top: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* ESTADO SUSPENDIDO */
+.gp-card.cancelled {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+.gp-card.cancelled .date-days {
+    font-size: 1rem;
+    margin-top: 5px;
+    color: var(--f1-red);
+}
+
+/* COMPLETED CARD CONTENT - ESTILO ESPN */
+.gp-card.completed {
+    padding: 0;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.gp-card.completed:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.completed-left {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    flex: 1;
+    z-index: 2;
+}
+
+.completed-left .flag-section {
+    width: 70px;
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+.completed-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.completed-country {
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    font-family: 'Titillium Web', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+.completed-date {
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-top: 5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.completed-right {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 50%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.completed-right .team-logo-bg {
+    position: absolute;
+    right: 70%;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 70%;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.9));
+}
+
+.completed-right .winner-photo {
+    height: 150%;
+    object-fit: cover;
+    object-position: top;
+    transform: translateY(15%);
+    filter: drop-shadow(-10px 0 15px rgba(0,0,0,0.7));
+    z-index: 2;
+}
+
+/* GRADIENTES ESPN - SEÚGN DRIVER TEAM */
+.bg-mclaren { background: linear-gradient(90deg, #d35400 0%, #ff8700 100%); }
+.bg-redbull { background: linear-gradient(90deg, #02003c 0%, #1a30a0 100%); }
+.bg-mercedes { background: linear-gradient(90deg, #004d45 0%, #00d2be 100%); }
+.bg-ferrari { background: linear-gradient(90deg, #8a0000 0%, #e10600 100%); }
+.bg-aston { background: linear-gradient(90deg, #00332a 0%, #006f62 100%); }
+.bg-alpine { background: linear-gradient(90deg, #003766 0%, #0090ff 100%); }
+.bg-williams { background: linear-gradient(90deg, #002244 0%, #00a0ff 100%); }
+
+/* MODALES Y TABLAS */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(5px);
+    display: none; align-items: center; justify-content: center;
+    z-index: 2000; padding: 20px; box-sizing: border-box;
+}
+
+.modal-content, .table-modal-content {
+    background: var(--dark-bg);
+    border: 1px solid #333;
+    border-radius: 8px;
+    width: 100%; max-width: 600px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    display: flex; flex-direction: column;
+    max-height: 85vh; overflow: hidden;
+}
+.table-modal-content { max-width: 900px; height: 85vh; max-height: 85vh; overflow: hidden; }
+
+#gp-modal-body, #table-modal-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+.modal-close {
+    position: absolute; top: 15px; right: 15px;
+    background: none; border: none; color: #fff;
+    font-size: 1.5rem; cursor: pointer; z-index: 10;
+}
+
+.modal-close:hover { color: var(--f1-red); }
+
+.modal-header { padding: 20px; border-bottom: 1px solid #222; }
+.modal-header h2 { margin: 0; font-weight: 900; font-size: 1.8rem; text-transform: uppercase; }
+.modal-header .gp-location { color: var(--text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+
+.sessions-list { padding: 20px; overflow-y: auto; }
+.session-item {
+    background: var(--card-bg); border-radius: 6px; padding: 15px 20px; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-left: 4px solid #444;
+    flex-wrap: wrap; gap: 10px;
+}
+.session-item:hover { background: var(--card-hover); border-left-color: var(--f1-red); }
+.session-info { display: flex; flex-direction: column; }
+.session-name { font-weight: 800; font-size: 1.2rem; text-transform: uppercase; }
+.session-time { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+/* TABLA ESPN STYLE */
+.table-wrapper { overflow-y: auto; flex-grow: 1; padding: 0; }
+.espn-table { width: 100%; border-collapse: collapse; font-family: 'Titillium Web'; }
+.espn-table thead th {
+    background-color: #212529; color: #f8f9fa; font-size: 0.85rem; font-weight: 700;
+    text-transform: uppercase; padding: 12px 15px; text-align: left; position: sticky; top: 0; z-index: 5;
+    border-bottom: 2px solid #e10600;
+}
+.espn-table tbody tr {
+    border-bottom: 1px solid #2a2a32; background-color: #15151e; transition: background-color 0.2s;
+}
+.espn-table tbody tr:nth-child(even) { background-color: #1a1a24; }
+.espn-table tbody tr:hover { background-color: #2a2a32; }
+
+.espn-table td { padding: 12px 15px; font-size: 0.95rem; }
+.espn-pos { font-weight: 900; color: #fff; width: 40px; text-align: center; }
+.espn-driver { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; }
+.espn-team { color: #aaa; font-size: 0.85rem; text-transform: uppercase; }
+.espn-time { font-family: monospace; font-size: 1.05rem; }
+.espn-pts { font-weight: 900; color: #fff; }
+
+@media (max-width: 600px) {
+    .calendar-header h1 { font-size: 2.5rem; }
+    .completed-country { font-size: 1.5rem; }
+    .completed-date { font-size: 0.8rem; }
+    .completed-right .winner-photo { height: 120%; transform: translateY(10%); right: -10px;}
+    .date-days { font-size: 1.2rem; }
+    .info-country { font-size: 1.4rem; }
+}
+
+/* ========================================================= */
+/* ESTILOS DE LA VISTA ANUAL (ANTIGUO CALENDARIO) */
+/* ========================================================= */
+
+.view-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.view-btn {
+    background-color: transparent;
+    border: 2px solid var(--f1-red);
+    color: var(--text-main);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.view-btn:hover, .view-btn.active {
+    background-color: var(--f1-red);
+    color: white;
+}
+
+.container-anual {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.anual-header {
     text-align: center;
-    margin-top: 10px;
+    margin-bottom: 50px;
+    padding: 30px 0;
+    border-bottom: 2px solid rgba(225, 6, 0, 0.3);
 }
+
+.anual-header h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+}
+
+.calendario {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    margin-bottom: 60px;
+}
+
+@media (max-width: 1024px) {
+    .calendario {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-    .tooltip { display: none !important; }
-    h1 { font-size: 1.8rem; }
-    .calendar-grid { grid-template-columns: 1fr; gap: 15px; }
+    .calendario {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        display: flex;
+        flex-direction: column;
+    }
+    .anual-header h1 {
+        font-size: 2rem;
+    }
+}
+
+.mes {
+    background-color: #121218;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    overflow: visible;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mes:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+}
+
+.mes-header {
+    background: linear-gradient(135deg, #e10600 0%, #8a0000 100%);
+    color: white;
+    padding: 16px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 12px 12px 0 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 768px) {
+    .mes-header {
+        font-size: 1.3rem;
+        padding: 12px;
+    }
+}
+
+.dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 6px;
+    gap: 3px;
+    background-color: #0f0f15;
+    border-radius: 0 0 12px 12px;
+}
+
+.nombre-dia {
+    background-color: transparent;
+    text-align: center;
+    font-weight: 800;
+    padding: 10px 0;
+    font-size: 0.8rem;
+    color: #8b8b8b;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Mes actual brillando y destacando */
+.mes.current-month {
+    border: 2px solid var(--f1-red);
+    box-shadow: 0 10px 40px rgba(225, 6, 0, 0.3);
+    position: relative;
+}
+
+.mes.current-month::before {
+    content: "Mes Actual";
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--f1-red);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    z-index: 5;
+    box-shadow: 0 2px 10px rgba(225,6,0,0.6);
+}
+
+@media (max-width: 768px) {
+    .nombre-dia {
+        font-size: 0.65rem;
+        padding: 5px 0;
+    }
+}
+
+.fecha {
+    height: 95px;
+    background-color: #1a1a24;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 5px;
+    cursor: default;
+    position: relative;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .fecha {
+        height: 75px;
+        font-size: 0.75rem;
+    }
+}
+
+.fecha-carrera {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: white;
+    cursor: pointer;
+    overflow: visible;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+    position: relative;
+    z-index: 10;
+    border-radius: 6px;
+    filter: brightness(1.2) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.fecha-carrera.upcoming-race {
+    animation: next-race-glow 2.5s infinite alternate;
+    z-index: 20;
+    transform: scale(1.03);
+}
+
+@keyframes next-race-glow {
+    0% { filter: brightness(1.2) saturate(1.4) drop-shadow(0 0 5px rgba(255,255,255,0.2)); box-shadow: inset 0 0 20px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.3); }
+    100% { filter: brightness(1.7) saturate(1.8) drop-shadow(0 0 25px rgba(255,255,255,0.6)); box-shadow: inset 0 0 10px rgba(255,255,255,0.3); border-color: rgba(255,255,255,1); transform: scale(1.05); }
+}
+
+.carrera-dias-numeros {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.carrera-dias-numeros span {
+    font-size: 0.8rem;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .carrera-dias-numeros span {
+        font-size: 0.65rem;
+    }
+}
+
+.carrera-nombre-texto {
+    text-align: center;
+    padding: 5px 10px;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .carrera-nombre-texto {
+        padding: 3px 2px;
+    }
+}
+
+.gp-main-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    opacity: 0.9;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+@media (max-width: 768px) {
+    .gp-main-name {
+        font-size: 0.5rem;
+        letter-spacing: 0.5px;
+    }
+}
+
+.gp-sub-name {
+    font-size: 1.25rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 3px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+@media (max-width: 768px) {
+    .gp-sub-name {
+        font-size: 0.7rem;
+        gap: 3px;
+        flex-direction: column;
+        margin-top: 2px;
+    }
+}
+
+.gp-flag-mini {
+    width: 28px;
+    height: auto;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 768px) {
+    .gp-flag-mini {
+        width: 14px;
+    }
+}
+
+.fecha:hover {
+    background-color: #2a2a32;
+}
+
+.fecha-carrera:hover {
+    filter: brightness(1.5) saturate(1.8) !important;
+    z-index: 100 !important;
+    transform: scale(1.05);
+    transition: all 0.2s;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 260px;
+    background-color: #1a1a24;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    padding: 15px;
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255,255,255,0.1);
+    pointer-events: none;
+    bottom: -140px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+}
+
+@media (max-width: 768px) {
+    .tooltip {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .fecha-carrera:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.dias .fecha:nth-child(-n+21) .tooltip {
+    bottom: -140px;
+    top: auto;
+}
+
+.dias .fecha:nth-child(n+22) .tooltip {
+    bottom: auto;
+    top: -140px;
+}
+
+.dias .fecha:nth-child(7n+6) .tooltip,
+.dias .fecha:nth-child(7n+7) .tooltip {
+    transform: translateX(-80%);
+}
+
+.dias .fecha:nth-child(7n+1) .tooltip,
+.dias .fecha:nth-child(7n+2) .tooltip {
+    transform: translateX(-20%);
+}
+
+.gp-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gp-info img {
+    width: 30px;
+    height: 20px;
+    margin: 5px 0;
+}
+
+.modal-anual {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content-anual {
+    background-color: #1e1e2d;
+    margin: 5% auto;
+    padding: 20px;
+    border: 2px solid var(--f1-red);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    color: white;
+    box-shadow: 0 0 30px rgba(225, 6, 0, 0.4);
+    position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .modal-content-anual {
+        margin: 10% auto;
+        padding: 15px;
+        width: 95%;
+        max-height: 85vh;
+    }
+    .modal-content-anual h2 {
+        font-size: 1.2rem;
+    }
+}
+
+.close-button-anual {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.close-button-anual:hover {
+    color: var(--f1-red);
+}
+
+.winner-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--f1-red);
+}
+
+.winner-info {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #2d2d3a;
+    text-align: center;
+}
+
+.winner-info .empty {
+    font-style: italic;
+    color: #aaa;
+}
+
+.winner-info .winner-name {
+    color: gold;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.loading-spinner {
+    display: block;
+    text-align: center;
+    margin: 40px 0;
+    font-size: 1.2rem;
+}
+
+.sesiones-container {
+    margin-top: 8px;
+    text-align: left;
+}
+
+.sesiones-list {
+    list-style: none;
+    padding-left: 5px;
+    font-size: 0.8rem;
+}
+
+.sesiones-list li {
+    margin-bottom: 2px;
+}
+
+.sesiones-modal {
+    margin: 15px 0;
+}
+
+.sesiones-modal h3 {
+    margin-bottom: 10px;
+    color: var(--f1-red);
+}
+
+.sesiones-modal ul {
+    list-style: none;
+    padding-left: 5px;
+}
+
+.sesiones-modal li {
+    margin-bottom: 8px;
+    padding: 5px;
+    background-color: #2d2d3a;
+    border-radius: 4px;
 }

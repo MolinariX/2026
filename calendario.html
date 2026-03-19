@@ -1,24 +1,564 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Configuración para evitar el cacheo y actualizar de inmediato -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario F1 2025</title>
-    <link rel="stylesheet" href="css/calendario.css">
+    <title>Calendario F1 2026</title>
+    <link rel="stylesheet" href="css/styles.css?v=2">
+    <style>
+        :root {
+            --primary: #e10600;
+            --dark: #15151e;
+            --light: #f8f9fa;
+            --accent: #1e1e2d;
+            --accent-light: #2d2d3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-y: scroll;
+        }
+
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: var(--accent);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 6px;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: #c00500;
+        }
+
+        .container {
+            max-width: 1400px !important;
+            margin: 0 auto !important;
+            padding: 20px !important;
+            margin-top: 80px !important;
+            height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+            display: block !important;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #c00500;
+        }
+
+        .calendario {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 1024px) {
+            .calendario {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calendario {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 10px !important;
+            }
+        }
+
+        .mes {
+            background-color: var(--accent);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            overflow: visible;
+        }
+
+        .mes-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+        }
+
+        @media (max-width: 768px) {
+            .mes-header {
+                font-size: 1.2rem;
+                padding: 10px;
+            }
+        }
+
+        .dias {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            padding: 1px;
+            background-color: #333;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .nombre-dia {
+            background-color: var(--accent);
+            text-align: center;
+            font-weight: bold;
+            padding: 10px 0;
+            font-size: 0.8rem;
+            border-bottom: 1px solid #333;
+        }
+
+        @media (max-width: 768px) {
+            .nombre-dia {
+                font-size: 0.6rem;
+                padding: 5px 0;
+            }
+        }
+
+        .fecha {
+            height: 100px;
+            background-color: var(--accent);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 5px;
+            cursor: default;
+            position: relative;
+            font-size: 0.9rem;
+            border: 1px solid #333;
+            transition: background-color 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            .fecha {
+                height: 70px;
+                font-size: 0.75rem;
+            }
+        }
+
+        .fecha-carrera {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            color: white;
+            cursor: pointer;
+            overflow: visible;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .carrera-dias-numeros {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .carrera-dias-numeros span {
+            font-size: 0.8rem;
+            font-weight: bold;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .carrera-dias-numeros span {
+                font-size: 0.65rem;
+            }
+        }
+
+        .carrera-nombre-texto {
+            text-align: center;
+            padding: 10px;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .carrera-nombre-texto {
+                padding: 5px 2px;
+            }
+        }
+
+        .gp-main-name {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .gp-main-name {
+                font-size: 0.5rem;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        .gp-sub-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .gp-sub-name {
+                font-size: 0.7rem;
+                gap: 3px;
+                flex-direction: column;
+                margin-top: 2px;
+            }
+        }
+
+        .gp-flag-mini {
+            width: 25px;
+            height: auto;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .gp-flag-mini {
+                width: 12px;
+            }
+        }
+
+        .fecha:hover {
+            background-color: var(--accent-light);
+        }
+
+        .fecha-carrera:hover {
+            filter: brightness(1.1);
+            z-index: 100;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--accent-light);
+            color: var(--light);
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            bottom: -125px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .tooltip {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .fecha-carrera:hover .tooltip {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        .dias .fecha:nth-child(-n+21) .tooltip {
+            bottom: -125px;
+            top: auto;
+        }
+
+        .dias .fecha:nth-child(n+22) .tooltip {
+            bottom: auto;
+            top: -125px;
+        }
+
+        .dias .fecha:nth-child(7n+6) .tooltip,
+        .dias .fecha:nth-child(7n+7) .tooltip {
+            transform: translateX(-80%);
+        }
+
+        .dias .fecha:nth-child(7n+1) .tooltip,
+        .dias .fecha:nth-child(7n+2) .tooltip {
+            transform: translateX(-20%);
+        }
+
+        .gp-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gp-info img {
+            width: 30px;
+            height: 20px;
+            margin: 5px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: var(--accent);
+            margin: 5% auto;
+            padding: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            color: var(--light);
+            box-shadow: 0 0 30px rgba(225, 6, 0, 0.4);
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10% auto;
+                padding: 15px;
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .modal-content h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 20px;
+        }
+
+        .close-button:hover {
+            color: var(--primary);
+        }
+
+        .winner-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--primary);
+        }
+
+        .winner-info {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: var(--accent-light);
+            text-align: center;
+        }
+
+        .winner-info .empty {
+            font-style: italic;
+            color: #aaa;
+        }
+
+        .winner-info .winner-name {
+            color: gold;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .loading-spinner {
+            display: block;
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.2rem;
+        }
+
+        .loading-spinner::after {
+            content: "•••";
+            animation: dots 1.5s steps(5, end) infinite;
+            display: inline-block;
+            width: 30px;
+            text-align: left;
+        }
+
+        @keyframes dots {
+
+            0%,
+            20% {
+                content: "•";
+            }
+
+            40% {
+                content: "••";
+            }
+
+            60%,
+            100% {
+                content: "•••";
+            }
+        }
+
+        .sesiones-container {
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .sesiones-list {
+            list-style: none;
+            padding-left: 5px;
+            font-size: 0.8rem;
+        }
+
+        .sesiones-list li {
+            margin-bottom: 2px;
+        }
+
+        .ganador-imagen-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .ganador-imagen-modal {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid gold;
+        }
+
+        .ganador-bandera-modal {
+            width: 30px;
+            height: 20px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .sesiones-modal {
+            margin: 15px 0;
+        }
+
+        .sesiones-modal h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .sesiones-modal ul {
+            list-style: none;
+            padding-left: 5px;
+        }
+
+        .sesiones-modal li {
+            margin-bottom: 8px;
+            padding: 5px;
+            background-color: var(--accent-light);
+            border-radius: 4px;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Menú hamburguesa -->
+    <div class="menu-container">
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" id="hamburger-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu-items">
+                <a href="index.html" class="menu-btn">EQUIPOS</a>
+                <a href="https://f1-dash.com/dashboard" target="_blank" class="menu-btn">VIVO</a>
+                <a href="calendario.html" class="menu-btn active">CALENDARIO</a>
+                <a href="calendar.html" class="menu-btn">CALENDAR</a>
+                <a href="pilotos.html" class="menu-btn">MUNDIAL DE PILOTOS</a>
+                <a href="constructores.html" class="menu-btn">MUNDIAL DE CONSTRUCTORES</a>
+                <a href="campeones.html" class="menu-btn">CAMPEONES</a>
+                <a href="https://www.f1-tempo.com/" target="_blank" class="menu-btn">TELEMETRÍA</a>
+                <a href="https://simulador-f1.onrender.com/" class="menu-btn">SIMULADOR</a>
+                <a href="motores.html" class="menu-btn">MOTORES</a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <header>
-            <h1>Calendario Fórmula 1 - 2025</h1>
+            <h1>Calendario Fórmula 1 - 2026</h1>
             <p>Todas las fechas y horarios de los Grandes Premios</p>
             <a href="index.html" class="back-button">Volver al Inicio</a>
         </header>
-        
+
         <div id="calendario" class="calendario">
-            <!-- Los meses y días se generarán dinámicamente con JavaScript -->
             <div class="loading-spinner">Cargando datos de F1</div>
         </div>
-        
+
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
@@ -32,6 +572,586 @@
             </div>
         </div>
     </div>
-    <script src="js/calendario.js"></script>
+
+    <script src="js/script.js?v=2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentYear = 2026;
+            let carrerasF1 = [];
+
+            const coloresGP = {
+                'australia': '#FFA500',
+                'china': '#DC143C',
+                'japan': '#FF1493',
+                'bahrain': '#FFD700',
+                'saudi-arabia': '#00CED1',
+                'miami': '#FF69B4',
+                'canada': '#FF0000',
+                'monaco': '#0047AB',
+                'spain-barcelona': '#FFFF00',
+                'austria': '#8B0000',
+                'uk': '#006400',
+                'belgium': '#FF4500',
+                'hungary': '#32CD32',
+                'netherlands': '#FF8C00',
+                'italy': '#228B22',
+                'spain-madrid': '#9400D3',
+                'azerbaijan': '#4169E1',
+                'singapore': '#FF1493',
+                'usa-austin': '#1E90FF',
+                'mexico': '#00FF00',
+                'brazil': '#FFD700',
+                'las-vegas': '#8A2BE2',
+                'qatar': '#800080',
+                'abu-dhabi': '#FF6347'
+            };
+
+            initApp();
+
+            function initApp() {
+                try {
+                    carrerasF1 = obtenerCalendarioF12026();
+                    generarCalendario();
+                } catch (error) {
+                    console.error('Error al inicializar la aplicación:', error);
+                    document.getElementById('calendario').innerHTML = `
+                        <div class="error-message">
+                            <h3>Error al cargar los datos</h3>
+                            <p>${error.message}</p>
+                        </div>
+                    `;
+                }
+            }
+
+            function obtenerCalendarioF12026() {
+                return [
+                    {
+                        id: 'australia-2026',
+                        nombre: 'GP de Australia',
+                        circuito: 'Albert Park Circuit',
+                        pais: 'Australia',
+                        bandera: 'https://flagcdn.com/w80/au.png',
+                        color: coloresGP['australia'],
+                        fechaInicio: new Date(2026, 2, 6),
+                        fechaFin: new Date(2026, 2, 8),
+                        horarioCarrera: '8 Marzo - 01:00 (Argentina)',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: [
+                            { nombre: 'Práctica Libre 1', horario: 'Viernes 6/03 - 23:30' },
+                            { nombre: 'Práctica Libre 2', horario: 'Sábado 7/03 - 03:00' },
+                            { nombre: 'Clasificación', horario: 'Domingo 8/03 - 03:00' },
+                            { nombre: 'Carrera', horario: 'Domingo 8/03 - 01:00' }
+                        ]
+                    },
+                    {
+                        id: 'china-2026',
+                        nombre: 'GP de China',
+                        circuito: 'Shanghai International Circuit',
+                        pais: 'China',
+                        bandera: 'https://flagcdn.com/w80/cn.png',
+                        color: coloresGP['china'],
+                        fechaInicio: new Date(2026, 2, 13),
+                        fechaFin: new Date(2026, 2, 15),
+                        horarioCarrera: '15 Marzo - 04:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'japan-2026',
+                        nombre: 'GP de Japón',
+                        circuito: 'Suzuka Circuit',
+                        pais: 'Japón',
+                        bandera: 'https://flagcdn.com/w80/jp.png',
+                        color: coloresGP['japan'],
+                        fechaInicio: new Date(2026, 2, 27),
+                        fechaFin: new Date(2026, 2, 29),
+                        horarioCarrera: '29 Marzo - 02:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'bahrain-2026',
+                        nombre: 'GP de Bahrein',
+                        circuito: 'Bahrain International Circuit',
+                        pais: 'Bahrein',
+                        bandera: 'https://flagcdn.com/w80/bh.png',
+                        color: coloresGP['bahrain'],
+                        fechaInicio: new Date(2026, 3, 10),
+                        fechaFin: new Date(2026, 3, 12),
+                        horarioCarrera: '12 Abril - 12:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'saudi-arabia-2026',
+                        nombre: 'GP de Arabia Saudita',
+                        circuito: 'Jeddah Corniche Circuit',
+                        pais: 'Arabia Saudita',
+                        bandera: 'https://flagcdn.com/w80/sa.png',
+                        color: coloresGP['saudi-arabia'],
+                        fechaInicio: new Date(2026, 3, 17),
+                        fechaFin: new Date(2026, 3, 19),
+                        horarioCarrera: '19 Abril - 15:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'miami-2026',
+                        nombre: 'GP de Miami',
+                        circuito: 'Miami International Autodrome',
+                        pais: 'Estados Unidos',
+                        bandera: 'https://flagcdn.com/w80/us.png',
+                        color: coloresGP['miami'],
+                        fechaInicio: new Date(2026, 4, 1),
+                        fechaFin: new Date(2026, 4, 3),
+                        horarioCarrera: '3 Mayo - 17:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'canada-2026',
+                        nombre: 'GP de Canadá',
+                        circuito: 'Circuit Gilles Villeneuve',
+                        pais: 'Canadá',
+                        bandera: 'https://flagcdn.com/w80/ca.png',
+                        color: coloresGP['canada'],
+                        fechaInicio: new Date(2026, 4, 22),
+                        fechaFin: new Date(2026, 4, 24),
+                        horarioCarrera: '24 Mayo - 15:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'monaco-2026',
+                        nombre: 'GP de Mónaco',
+                        circuito: 'Circuit de Monaco',
+                        pais: 'Mónaco',
+                        bandera: 'https://flagcdn.com/w80/mc.png',
+                        color: coloresGP['monaco'],
+                        fechaInicio: new Date(2026, 5, 5),
+                        fechaFin: new Date(2026, 5, 7),
+                        horarioCarrera: '7 Junio - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'spain-barcelona-2026',
+                        nombre: 'GP de España',
+                        circuito: 'Circuit de Barcelona-Catalunya',
+                        pais: 'España',
+                        bandera: 'https://flagcdn.com/w80/es.png',
+                        color: coloresGP['spain-barcelona'],
+                        fechaInicio: new Date(2026, 5, 12),
+                        fechaFin: new Date(2026, 5, 14),
+                        horarioCarrera: '14 Junio - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'austria-2026',
+                        nombre: 'GP de Austria',
+                        circuito: 'Red Bull Ring',
+                        pais: 'Austria',
+                        bandera: 'https://flagcdn.com/w80/at.png',
+                        color: coloresGP['austria'],
+                        fechaInicio: new Date(2026, 5, 26),
+                        fechaFin: new Date(2026, 5, 28),
+                        horarioCarrera: '28 Junio - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'uk-2026',
+                        nombre: 'GP de Gran Bretaña',
+                        circuito: 'Silverstone Circuit',
+                        pais: 'Reino Unido',
+                        bandera: 'https://flagcdn.com/w80/gb.png',
+                        color: coloresGP['uk'],
+                        fechaInicio: new Date(2026, 6, 3),
+                        fechaFin: new Date(2026, 6, 5),
+                        horarioCarrera: '5 Julio - 11:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'belgium-2026',
+                        nombre: 'GP de Bélgica',
+                        circuito: 'Spa-Francorchamps',
+                        pais: 'Bélgica',
+                        bandera: 'https://flagcdn.com/w80/be.png',
+                        color: coloresGP['belgium'],
+                        fechaInicio: new Date(2026, 6, 17),
+                        fechaFin: new Date(2026, 6, 19),
+                        horarioCarrera: '19 Julio - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'hungary-2026',
+                        nombre: 'GP de Hungría',
+                        circuito: 'Hungaroring',
+                        pais: 'Hungría',
+                        bandera: 'https://flagcdn.com/w80/hu.png',
+                        color: coloresGP['hungary'],
+                        fechaInicio: new Date(2026, 6, 24),
+                        fechaFin: new Date(2026, 6, 26),
+                        horarioCarrera: '26 Julio - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'netherlands-2026',
+                        nombre: 'GP de Países Bajos',
+                        circuito: 'Zandvoort',
+                        pais: 'Países Bajos',
+                        bandera: 'https://flagcdn.com/w80/nl.png',
+                        color: coloresGP['netherlands'],
+                        fechaInicio: new Date(2026, 7, 22),
+                        fechaFin: new Date(2026, 7, 24),
+                        horarioCarrera: '24 Agosto - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'monza-2026',
+                        nombre: 'GP de Italia',
+                        circuito: 'Autodromo Nazionale Monza',
+                        pais: 'Italia',
+                        bandera: 'https://flagcdn.com/w80/it.png',
+                        color: coloresGP['italy'],
+                        fechaInicio: new Date(2026, 8, 5),
+                        fechaFin: new Date(2026, 8, 7),
+                        horarioCarrera: '7 Septiembre - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'spain-madrid-2026',
+                        nombre: 'GP de España (Madrid)',
+                        circuito: 'Madrid Street Circuit',
+                        pais: 'España',
+                        bandera: 'https://flagcdn.com/w80/es.png',
+                        color: coloresGP['spain-madrid'],
+                        fechaInicio: new Date(2026, 8, 11),
+                        fechaFin: new Date(2026, 8, 13),
+                        horarioCarrera: '13 Septiembre - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'azerbaijan-2026',
+                        nombre: 'GP de Azerbaiyán',
+                        circuito: 'Baku City Circuit',
+                        pais: 'Azerbaiyán',
+                        bandera: 'https://flagcdn.com/w80/az.png',
+                        color: coloresGP['azerbaijan'],
+                        fechaInicio: new Date(2026, 8, 25),
+                        fechaFin: new Date(2026, 8, 27),
+                        horarioCarrera: '27 Septiembre - 08:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'singapore-2026',
+                        nombre: 'GP de Singapur',
+                        circuito: 'Marina Bay',
+                        pais: 'Singapur',
+                        bandera: 'https://flagcdn.com/w80/sg.png',
+                        color: coloresGP['singapore'],
+                        fechaInicio: new Date(2026, 9, 9),
+                        fechaFin: new Date(2026, 9, 11),
+                        horarioCarrera: '11 Octubre - 09:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'austin-2026',
+                        nombre: 'GP de EE.UU.',
+                        circuito: 'COTA',
+                        pais: 'Estados Unidos',
+                        bandera: 'https://flagcdn.com/w80/us.png',
+                        color: coloresGP['usa-austin'],
+                        fechaInicio: new Date(2026, 9, 23),
+                        fechaFin: new Date(2026, 9, 25),
+                        horarioCarrera: '25 Octubre - 16:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'mexico-2026',
+                        nombre: 'GP de México',
+                        circuito: 'Hermanos Rodríguez',
+                        pais: 'México',
+                        bandera: 'https://flagcdn.com/w80/mx.png',
+                        color: coloresGP['mexico'],
+                        fechaInicio: new Date(2026, 9, 30),
+                        fechaFin: new Date(2026, 10, 1),
+                        horarioCarrera: '1 Noviembre - 17:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'brazil-2026',
+                        nombre: 'GP de Brasil',
+                        circuito: 'Interlagos',
+                        pais: 'Brasil',
+                        bandera: 'https://flagcdn.com/w80/br.png',
+                        color: coloresGP['brazil'],
+                        fechaInicio: new Date(2026, 10, 6),
+                        fechaFin: new Date(2026, 10, 8),
+                        horarioCarrera: '8 Noviembre - 15:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'vegas-2026',
+                        nombre: 'GP de Las Vegas',
+                        circuito: 'Las Vegas Strip',
+                        pais: 'Estados Unidos',
+                        bandera: 'https://flagcdn.com/w80/us.png',
+                        color: coloresGP['las-vegas'],
+                        fechaInicio: new Date(2026, 10, 20),
+                        fechaFin: new Date(2026, 10, 22),
+                        horarioCarrera: '22 Noviembre - 03:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'qatar-2026',
+                        nombre: 'GP de Qatar',
+                        circuito: 'Lusail',
+                        pais: 'Qatar',
+                        bandera: 'https://flagcdn.com/w80/qa.png',
+                        color: coloresGP['qatar'],
+                        fechaInicio: new Date(2026, 10, 27),
+                        fechaFin: new Date(2026, 10, 29),
+                        horarioCarrera: '29 Noviembre - 13:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    },
+                    {
+                        id: 'abu-dhabi-2026',
+                        nombre: 'GP de Abu Dhabi',
+                        circuito: 'Yas Marina Circuit',
+                        pais: 'Emiratos Árabes',
+                        bandera: 'https://flagcdn.com/w80/ae.png',
+                        color: coloresGP['abu-dhabi'],
+                        fechaInicio: new Date(2026, 11, 4),
+                        fechaFin: new Date(2026, 11, 6),
+                        horarioCarrera: '6 Diciembre - 10:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: []
+                    }
+                ];
+            }
+
+            function generarCalendario() {
+                const calendarContainer = document.getElementById('calendario');
+                calendarContainer.innerHTML = '';
+
+                for (let mes = 0; mes < 12; mes++) {
+                    const mesElement = document.createElement('div');
+                    mesElement.className = 'mes';
+
+                    const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                    const mesHeader = document.createElement('div');
+                    mesHeader.className = 'mes-header';
+                    mesHeader.textContent = nombresMeses[mes];
+                    mesElement.appendChild(mesHeader);
+
+                    const diasContainer = document.createElement('div');
+                    diasContainer.className = 'dias';
+
+                    const nombresDias = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
+                    nombresDias.forEach(dia => {
+                        const diaNombre = document.createElement('div');
+                        diaNombre.className = 'nombre-dia';
+                        diaNombre.textContent = dia;
+                        diasContainer.appendChild(diaNombre);
+                    });
+
+                    let primerDia = new Date(currentYear, mes, 1).getDay();
+                    primerDia = (primerDia === 0) ? 6 : primerDia - 1;
+
+                    const totalDias = new Date(currentYear, mes + 1, 0).getDate();
+
+                    for (let i = 0; i < primerDia; i++) {
+                        const diaVacio = document.createElement('div');
+                        diaVacio.className = 'fecha';
+                        diasContainer.appendChild(diaVacio);
+                    }
+
+                    for (let dia = 1; dia <= totalDias; dia++) {
+                        const fechaActual = new Date(currentYear, mes, dia);
+
+                        const carrera = carrerasF1.find(c =>
+                            fechaEnRango(fechaActual, c.fechaInicio, c.fechaFin)
+                        );
+
+                        const esInicioDeBloque = carrera && (
+                            fechaActual.getTime() === carrera.fechaInicio.getTime() ||
+                            (dia === 1)
+                        );
+
+                        if (esInicioDeBloque) {
+                            let colEnSemana = (fechaActual.getDay() === 0) ? 7 : fechaActual.getDay();
+                            let diasHastaFinSemana = 7 - colEnSemana + 1;
+
+                            let duracion = 0;
+                            let tempFecha = new Date(fechaActual);
+                            while (tempFecha <= carrera.fechaFin && tempFecha.getMonth() === mes && duracion < diasHastaFinSemana) {
+                                duracion++;
+                                tempFecha.setDate(tempFecha.getDate() + 1);
+                            }
+
+                            const fechaElement = document.createElement('div');
+                            fechaElement.className = 'fecha fecha-carrera';
+                            fechaElement.style.gridColumn = `span ${duracion}`;
+                            fechaElement.style.backgroundColor = carrera.color || '#e10600';
+                            fechaElement.setAttribute('data-carrera', carrera.id);
+
+                            const numerosContenedor = document.createElement('div');
+                            numerosContenedor.className = 'carrera-dias-numeros';
+                            for (let n = 0; n < duracion; n++) {
+                                const num = document.createElement('span');
+                                num.textContent = dia + n;
+                                numerosContenedor.appendChild(num);
+                            }
+                            fechaElement.appendChild(numerosContenedor);
+
+                            const nombreGP = document.createElement('div');
+                            nombreGP.className = 'carrera-nombre-texto';
+                            nombreGP.innerHTML = `
+                                <div class="gp-main-name">GRAN PREMIO DE</div>
+                                <div class="gp-sub-name">${carrera.pais.toUpperCase()} <img src="${carrera.bandera}" class="gp-flag-mini"></div>
+                            `;
+                            fechaElement.appendChild(nombreGP);
+
+                            const tooltip = document.createElement('div');
+                            tooltip.className = 'tooltip';
+                            const gpInfo = document.createElement('div');
+                            gpInfo.className = 'gp-info';
+                            gpInfo.innerHTML = `
+                                <strong>${carrera.nombre}</strong>
+                                <p>${formatearFecha(carrera.fechaInicio)} - ${formatearFecha(carrera.fechaFin)}</p>
+                                <p>${carrera.circuito}</p>
+                                <img src="${carrera.bandera}" alt="Bandera">
+                            `;
+
+                            if (carrera.sesiones && carrera.sesiones.length > 0) {
+                                const sesionesContainer = document.createElement('div');
+                                sesionesContainer.className = 'sesiones-container';
+                                const list = document.createElement('ul');
+                                list.className = 'sesiones-list';
+                                carrera.sesiones.forEach(s => {
+                                    const li = document.createElement('li');
+                                    li.textContent = `${s.nombre}: ${s.horario}`;
+                                    list.appendChild(li);
+                                });
+                                sesionesContainer.appendChild(list);
+                                gpInfo.appendChild(sesionesContainer);
+                            }
+
+                            tooltip.appendChild(gpInfo);
+                            fechaElement.appendChild(tooltip);
+
+                            fechaElement.addEventListener('click', () => mostrarModal(carrera));
+                            diasContainer.appendChild(fechaElement);
+
+                            dia += (duracion - 1);
+                        } else {
+                            const fechaElement = document.createElement('div');
+                            fechaElement.className = 'fecha';
+                            fechaElement.textContent = dia;
+                            diasContainer.appendChild(fechaElement);
+                        }
+                    }
+
+                    mesElement.appendChild(diasContainer);
+                    calendarContainer.appendChild(mesElement);
+                }
+            }
+
+            function fechaEnRango(fecha, inicio, fin) {
+                return fecha >= inicio && fecha <= fin;
+            }
+
+            function formatearFecha(fecha) {
+                const dia = fecha.getDate();
+                const mes = fecha.toLocaleString('es-ES', { month: 'short' });
+                return `${dia} ${mes}`;
+            }
+
+            function mostrarModal(carrera) {
+                const modal = document.getElementById('modal');
+                const modalContent = document.getElementById('modal-content');
+                const winnerInfo = document.getElementById('winner-info');
+                const closeButton = document.querySelector('.close-button');
+
+                modalContent.innerHTML = `
+                    <h2>${carrera.nombre}</h2>
+                    <p><strong>Circuito:</strong> ${carrera.circuito}</p>
+                    <p><strong>País:</strong> ${carrera.pais} <img src="${carrera.bandera}" alt="Bandera" style="width: 30px; vertical-align: middle;"></p>
+                    <p><strong>Fechas:</strong> ${formatearFecha(carrera.fechaInicio)} - ${formatearFecha(carrera.fechaFin)}</p>
+                `;
+
+                if (carrera.sesiones && carrera.sesiones.length > 0) {
+                    let sesionesHTML = '<div class="sesiones-modal"><h3>Horarios:</h3><ul>';
+                    carrera.sesiones.forEach(sesion => {
+                        sesionesHTML += `<li><strong>${sesion.nombre}:</strong> ${sesion.horario}</li>`;
+                    });
+                    sesionesHTML += '</ul></div>';
+                    modalContent.innerHTML += sesionesHTML;
+                } else {
+                    modalContent.innerHTML += `<p><strong>Horario de carrera:</strong> ${carrera.horarioCarrera}</p>`;
+                }
+
+                modalContent.innerHTML += `<p><a href="${carrera.enlace}" target="_blank" style="color: var(--primary);">Ver detalles en Formula 1</a></p>`;
+
+                if (carrera.ganador) {
+                    winnerInfo.innerHTML = `<span class="winner-name">${carrera.ganador}</span>`;
+                } else {
+                    winnerInfo.innerHTML = `<span class="empty">Aún no hay ganador registrado</span>`;
+                }
+
+                modal.style.display = 'block';
+
+                closeButton.onclick = function () {
+                    modal.style.display = 'none';
+                };
+
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = 'none';
+                    }
+                };
+            }
+        });
+    </script>
 </body>
+
 </html>

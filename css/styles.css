@@ -1,73 +1,85 @@
 /* ======================================================================== */
-/* ===== REEMPLAZA TODO TU ARCHIVO CSS/STYLES.CSS CON ESTE CÓDIGO ===== */
+/* ===== PREMIUM MINIMALIST DESIGN - PERFECT SYMMETRY ===== */
 /* ======================================================================== */
+
+:root {
+    --bg-color: #050507;
+    --card-radius: 20px;
+    --transition-speed: 0.4s;
+    --font-main: 'Titillium Web', sans-serif;
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Titillium Web', Arial, sans-serif;
+    font-family: var(--font-main);
 }
 
 body {
-    background-color: #000000;
-    /* QUITADO: Se elimina el padding-top global para no afectar a todas las páginas */
+    background-color: var(--bg-color);
+    color: #fff;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-image: radial-gradient(circle at 50% 0%, #15151e 0%, #050507 80%);
+    height: 100vh;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
-    margin-top: 80px; /* RESTAURADO: El espaciado para la página de equipos */
-}
-
-/* --- MENÚ - BARRA SUPERIOR FIJA --- */
+/* --- MENÚ --- */
 .menu-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 15px 25px;
+    padding: 15px 40px;
     display: flex;
-    justify-content: flex-end; /* Alinear siempre el icono a la derecha */
+    justify-content: flex-end;
     align-items: center;
-    background-color: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(5, 5, 7, 0.6);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* --- ICONO HAMBURGUESA (SIEMPRE VISIBLE) --- */
 .hamburger-icon {
     display: block;
-    width: 30px;
+    width: 32px;
     height: 22px;
     position: relative;
     cursor: pointer;
     z-index: 1002;
+    transition: transform var(--transition-speed);
 }
+.hamburger-icon:hover { transform: scale(1.05); }
+
 .hamburger-icon .bar {
-    display: block; width: 100%; height: 3px;
-    background-color: white; border-radius: 3px; position: absolute;
-    transition: all 0.3s ease-in-out;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    position: absolute;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
+
 .hamburger-icon .bar:nth-child(1) { top: 0; }
 .hamburger-icon .bar:nth-child(2) { top: 50%; transform: translateY(-50%); }
 .hamburger-icon .bar:nth-child(3) { top: 100%; transform: translateY(-100%); }
 
-/* Animación del icono a "X" */
 .hamburger-icon.active .bar:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
 .hamburger-icon.active .bar:nth-child(2) { opacity: 0; }
 .hamburger-icon.active .bar:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
 
-/* --- MENÚ OVERLAY A PANTALLA COMPLETA --- */
 .menu-items {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.95);
+    background: rgba(2, 2, 3, 0.98);
+    backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,103 +87,273 @@ body {
     gap: 25px;
     opacity: 0;
     visibility: hidden;
-    transform: scale(1.1);
-    transition: opacity 0.3s ease, visibility 0s 0.3s, transform 0.3s ease;
+    transform: translateY(-20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
 }
 
 .menu-items.active {
     opacity: 1;
     visibility: visible;
-    transform: scale(1);
-    transition: opacity 0.3s ease, visibility 0s 0s, transform 0.3s ease;
+    transform: translateY(0);
 }
 
 .menu-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
-    background: linear-gradient(to right, #d32f2f, #b71c1c);
-    color: white;
+    padding: 14px 40px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
     text-decoration: none;
     font-weight: 600;
-    border-radius: 6px;
+    border-radius: 30px;
     text-transform: uppercase;
-    font-size: 1.2rem;
-    letter-spacing: 1.2px;
-    width: 85%;
-    max-width: 320px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transform: translateY(10px);
-    opacity: 0;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    min-width: 300px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
 }
+
 .menu-btn:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 6px 12px rgba(211, 47, 47, 0.3);
-}
-.menu-btn.active {
-    background: linear-gradient(to right, #ffd700, #ffc400);
-    color: #121212;
-}
-
-.menu-items.active .menu-btn {
-    transform: translateY(0);
-    opacity: 1;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.menu-items.active .menu-btn:nth-child(1) { transition-delay: 0.1s; }
-.menu-items.active .menu-btn:nth-child(2) { transition-delay: 0.15s; }
-.menu-items.active .menu-btn:nth-child(3) { transition-delay: 0.2s; }
-.menu-items.active .menu-btn:nth-child(4) { transition-delay: 0.25s; }
-.menu-items.active .menu-btn:nth-child(5) { transition-delay: 0.3s; }
-.menu-items.active .menu-btn:nth-child(6) { transition-delay: 0.35s; }
-
-
-/* --- ESTRUCTURA PRINCIPAL DE EQUIPOS --- */
-.team-section { margin-bottom: 6px; }
-.team-row { display: flex; position: relative; height: 140px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
-.names-row { display: flex; justify-content: space-between; background-color: #000000; height: 30px; padding: 0 20px; align-items: center; margin-top: 1px; margin-bottom: 5px; }
-.team-logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 220px; height: 100px; display: flex; justify-content: center; align-items: center; z-index: 2; }
-.logo-link { display: flex; justify-content: center; align-items: center; transition: transform 0.3s ease; }
-.logo-link:hover { transform: scale(1.1); }
-.logo-image { max-width: 100%; max-height: 100%; object-fit: contain; }
-.driver { position: relative; width: 50%; height: 100%; display: flex; align-items: center; }
-.driver-left { justify-content: flex-start; padding-left: 30px; }
-.driver-right { justify-content: flex-end; padding-right: 30px; }
-.driver-link { transition: transform 0.3s ease; display: block; }
-.driver-link:hover { transform: scale(1.05); }
-.driver-image { max-height: 135px; width: auto; object-fit: contain; }
-.name-left, .name-right { color: white; font-weight: bold; font-size: 16px; letter-spacing: 1px; }
-.red-bull { background: linear-gradient(90deg, #0600EF 0%, #1E41FF 100%); }
-.mercedes { background: linear-gradient(90deg, #00D2BE 0%, #00E6D3 100%); }
-.ferrari { background: linear-gradient(90deg, #FF0000 0%, #FF2800 100%); }
-.mclaren { background: linear-gradient(90deg, #FF8700 0%, #FFB000 100%); }
-.aston-martin { background: linear-gradient(90deg, #006F62 0%, #00A28E 100%); }
-.alpine { background: linear-gradient(90deg, #0090FF 0%, #00ACFF 100%); }
-.rb { background: linear-gradient(90deg, #1E41FF 0%, #3C5CFF 100%); }
-.williams { background: linear-gradient(90deg, #0082FA 0%, #0097FF 100%); }
-.stake { background: linear-gradient(90deg, #52E252 0%, #7FFF7F 100%); }
-.haas { background: linear-gradient(90deg, #FFFFFF 0%, #F0F0F0 100%); }
-.haas + .names-row .name-left,
-.haas + .names-row .name-right { color: black; }
-
-
-/* --- AJUSTES RESPONSIVE --- */
-@media (max-width: 992px) {
-    .team-row { height: 120px; }
-    .driver-left, .driver-right { padding: 0 20px; }
-    .driver-image { max-height: 115px; }
-    .team-logo { width: 180px; height: 80px; }
-    .names-row { padding: 0 15px; }
-    .name-left, .name-right { font-size: 14px; }
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
-@media (max-width: 576px) {
-    .team-row { height: 80px; }
-    .driver-left, .driver-right { padding: 0 10px; }
-    .driver-image { max-height: 75px; }
-    .team-logo { width: 100px; height: 50px; }
-    .names-row { height: 25px; }
-    .name-left, .name-right { font-size: 10px; }
+/* --- GRID LAYOUT --- */
+.container {
+    max-width: 1700px;
+    margin: 80px auto 0;
+    padding: 15px 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+    height: calc(100vh - 100px);
+    max-height: calc(100vh - 100px);
+    grid-template-areas:
+        "c1r1 c2r1 c3r1"
+        "c1r2 c2r2 c3r2"
+        "c1r3 c2r2 c3r3"
+        "c1r4 c2r4 c3r4";
 }
+
+.section-red-bull { grid-area: c1r1; }
+.section-mercedes { grid-area: c1r2; }
+.section-ferrari  { grid-area: c1r3; }
+.section-aston-martin { grid-area: c1r4; }
+.section-alpine   { grid-area: c2r1; }
+.section-mclaren  { 
+    grid-area: c2r2; 
+    border: 1px solid rgba(255, 136, 0, 0.4) !important; 
+    box-shadow: 0 0 30px rgba(255, 136, 0, 0.15); 
+}
+.section-mclaren:hover {
+    box-shadow: 0 15px 40px rgba(255, 136, 0, 0.3) !important;
+    border-color: rgba(255, 136, 0, 0.8) !important;
+}
+.section-rb       { grid-area: c2r4; }
+.section-williams { grid-area: c3r1; }
+.section-audi     { grid-area: c3r2; }
+.section-haas     { grid-area: c3r3; }
+.section-cadillac { grid-area: c3r4; }
+
+/* --- TEAM CARDS - MINIMALIST --- */
+.team-section {
+    position: relative;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    background: rgba(20, 20, 25, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.team-section:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(30, 30, 35, 0.6);
+    z-index: 10;
+}
+
+.team-row {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+    align-items: flex-end; /* IMPORTANT for driver alignment to bottom */
+}
+
+/* Base Team Colors as Subtle Background Gradients */
+.red-bull { background: radial-gradient(circle at bottom center, rgba(6, 0, 239, 0.15) 0%, transparent 70%); border-bottom: 2px solid #0600ef; }
+.mercedes { background: radial-gradient(circle at bottom center, rgba(0, 210, 190, 0.1) 0%, transparent 70%); border-bottom: 2px solid #00d2be; }
+.ferrari { background: radial-gradient(circle at bottom center, rgba(220, 0, 0, 0.15) 0%, transparent 70%); border-bottom: 2px solid #dc0000; }
+.mclaren { background: radial-gradient(circle at bottom center, rgba(255, 135, 0, 0.15) 0%, transparent 70%); border-bottom: 2px solid #ff8700; }
+.aston-martin { background: radial-gradient(circle at bottom center, rgba(0, 102, 94, 0.15) 0%, transparent 70%); border-bottom: 2px solid #00665e; }
+.alpine { background: radial-gradient(circle at bottom center, rgba(0, 144, 255, 0.15) 0%, transparent 70%); border-bottom: 2px solid #0090ff; }
+.rb { background: radial-gradient(circle at bottom center, rgba(20, 52, 203, 0.15) 0%, transparent 70%); border-bottom: 2px solid #1434cb; }
+.williams { background: radial-gradient(circle at bottom center, rgba(0, 90, 255, 0.15) 0%, transparent 70%); border-bottom: 2px solid #005aff; }
+.audi { background: radial-gradient(circle at bottom center, rgba(240, 240, 240, 0.08) 0%, transparent 70%); border-bottom: 2px solid #f0f0f0; }
+.haas { background: radial-gradient(circle at bottom center, rgba(255, 255, 255, 0.08) 0%, transparent 70%); border-bottom: 2px solid #ffffff; }
+.cadillac { background: radial-gradient(circle at bottom center, rgba(255, 196, 0, 0.1) 0%, transparent 70%); border-bottom: 2px solid #ffc400; }
+
+/* LOGO BEHIND DRIVERS */
+.team-logo {
+    position: absolute;
+    top: 45%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* KEY FIX: Logo behind drivers */
+    pointer-events: none; /* Let clicks pass to drivers if needed */
+}
+
+.logo-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    opacity: 0.25; /* Sleek watermark style */
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
+    transition: all 0.5s ease;
+}
+
+.team-section:hover .logo-image {
+    opacity: 0.5; /* Subtly reveals on hover */
+    transform: scale(1.08); 
+}
+
+/* EXACT DRIVER SIZES - PERFECT SYMMETRY */
+.driver {
+    flex: 1; /* Takes exactly 50% width */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Drivers base at the bottom perfectly */
+    position: relative;
+    z-index: 5; /* KEY FIX: In front of logo */
+    padding: 0 5%;
+}
+
+.driver-link {
+    width: 100%;
+    height: 94%; /* Leaves a tiny gap at top */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.driver-image {
+    height: 100%; /* Forces both drivers to take exactly 100% of their allocated height */
+    width: 100%;  
+    object-fit: contain; /* Ensures aspect ratio is maintained symmetrically */
+    object-position: bottom center; /* Both connect seamlessly at bottom anchor */
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.driver:hover .driver-image {
+    transform: scale(1.08) translateY(-3px);
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+}
+
+/* NAMES ROW - SLEEK OVERLAY */
+.names-row {
+    height: 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 10;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    pointer-events: none; /* Don't block driver hover interactions */
+}
+
+.name-left, .name-right {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #a0a0a0;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    transition: color 0.3s ease;
+}
+
+.team-section:hover .name-left,
+.team-section:hover .name-right {
+    color: #ffffff;
+}
+
+/* --- MOBILE RESPONSIVE SIZES --- */
+@media (max-width: 1024px) {
+    body {
+        overflow: auto; /* Enable vertical scroll */
+        height: auto;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+        padding: 15px;
+        margin-top: 80px; 
+        gap: 20px;
+    }
+    
+    .team-section {
+        height: 220px; /* Fixed height forces symmetry to be perfectly enforced for all */
+        min-height: 220px;
+        border-radius: 16px;
+    }
+
+    .section-mclaren {
+        order: -1; 
+        height: 260px; /* Champion slightly taller */
+        min-height: 260px;
+    }
+
+    .team-logo {
+        width: 60%;
+    }
+
+    .logo-image {
+        opacity: 0.2; /* Very soft on mobile to not clutter */
+    }
+    
+    .team-section:hover .logo-image {
+        opacity: 0.35; 
+        transform: scale(1.05);
+    }
+    
+    .driver {
+        padding: 0 2%; /* Maximize space on small screens */
+    }
+}

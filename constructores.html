@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Configuración para evitar el cacheo y actualizar de inmediato -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campeonato de Constructores F1 2025</title>
+    <title>Campeonato de Constructores F1 2026</title>
     <link rel="stylesheet" href="css/constructores.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
 </head>
+
 <body>
     <div class="container">
         <div class="navigation-buttons">
             <a href="index.html" class="nav-button home-button">
-                <span class="button-icon"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-home"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg></span>
+                <span class="button-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                    </svg></span>
                 <span class="button-text">Inicio</span>
             </a>
             <a href="pilotos.html" class="nav-button drivers-button">
@@ -19,27 +32,28 @@
                 <span class="button-text">Pilotos</span>
             </a>
         </div>
-        
-        <h1>Campeonato de Constructores F1 2025</h1>
-        
+
+        <h1 id="page-title">Campeonato de Constructores F1 2026</h1>
+
         <div class="loading-spinner" id="spinner">
             <div class="spinner"></div>
             <p>Cargando datos...</p>
         </div>
-        
+
         <div class="table-container">
             <table id="constructores-table">
                 <!-- La tabla se llenará dinámicamente con JavaScript -->
             </table>
         </div>
-        
+
         <div class="footer">
             <p>Última actualización: <span id="last-update">Cargando...</span></p>
         </div>
     </div>
-    
+
     <!-- The modal elements will be created dynamically by the JavaScript -->
-    
+
     <script src="js/constructores.js"></script>
 </body>
+
 </html>

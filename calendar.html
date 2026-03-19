@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Configuración para evitar el cacheo y actualizar de inmediato -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario F1 2025</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/calendar.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
+    <title>Calendario F1 2026</title>
+    <link rel="stylesheet" href="css/styles.css?v=2">
+    <link rel="stylesheet" href="css/calendar.css?v=2">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-    <!-- Menú hamburguesa -->
+    <!-- Menú hamburguesa (igual a tu original) -->
     <div class="menu-container">
         <div class="hamburger-menu">
             <div class="hamburger-icon" id="hamburger-btn">
@@ -18,36 +26,80 @@
                 <div class="bar"></div>
             </div>
             <div class="menu-items">
+                <a href="index.html" class="menu-btn">EQUIPOS</a>
                 <a href="https://f1-dash.com/dashboard" target="_blank" class="menu-btn">VIVO</a>
-                <a href="calendario.html" class="menu-btn active">CALENDARIO</a>
+                <a href="calendar.html" class="menu-btn active">CALENDAR</a>
                 <a href="pilotos.html" class="menu-btn">MUNDIAL DE PILOTOS</a>
                 <a href="constructores.html" class="menu-btn">MUNDIAL DE CONSTRUCTORES</a>
+                <a href="campeones.html" class="menu-btn">CAMPEONES</a>
                 <a href="https://www.f1-tempo.com/" target="_blank" class="menu-btn">TELEMETRÍA</a>
                 <a href="https://simulador-f1.onrender.com/" class="menu-btn">SIMULADOR</a>
+                <a href="motores.html" class="menu-btn">MOTORES</a>
             </div>
         </div>
     </div>
 
-    <div class="calendar-container">
-        <h1>CALENDARIO F1 2025</h1>
-        <div class="calendar-grid" id="calendar-grid">
-            <div class="loading-message">Cargando calendario...</div>
+    <!-- CONTROLES DE VISTA -->
+    <div class="view-controls">
+        <button id="btn-vista-grilla" class="view-btn active">Vista Normal</button>
+        <button id="btn-vista-anual" class="view-btn">Vista Anual</button>
+    </div>
+
+    <!-- CALENDARIO INTERACTIVO (VISTA GRILLA) -->
+    <div id="vista-grilla" class="calendar-wrapper">
+        <header class="calendar-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="F1 Logo" class="f1-cal-logo">
+            <h1>2026</h1>
+        </header>
+
+        <div class="calendar-grid" id="f1-calendar-grid">
+            <!-- Renderizado dinámico desde JS -->
         </div>
     </div>
 
-    <!-- Tooltip para ESCRITORIO -->
-    <div id="race-tooltip" class="tooltip"></div>
+    <!-- VISTA ANUAL -->
+    <div id="vista-anual" class="container-anual" style="display: none;">
+        <header class="anual-header">
+            <h1>Calendario Fórmula 1 - 2026</h1>
+            <p>Todas las fechas y horarios de los Grandes Premios</p>
+        </header>
 
-    <!-- Modal para MÓVIL -->
-    <div id="race-modal" class="modal-overlay">
+        <div id="calendario" class="calendario">
+            <div class="loading-spinner">Cargando datos de F1</div>
+        </div>
+
+        <div id="anual-modal" class="modal-anual">
+            <div class="modal-content-anual">
+                <span class="close-button-anual">&times;</span>
+                <div id="modal-content"></div>
+                <div class="winner-section">
+                    <h3>Ganador:</h3>
+                    <div id="winner-info" class="winner-info">
+                        <span class="empty">Aún no hay ganador registrado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Base para Detalles del GP -->
+    <div id="gp-modal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-btn" id="modal-close-btn">×</button>
-            <div id="modal-body"></div>
+            <button class="modal-close" id="gp-modal-close"><i class="fas fa-times"></i></button>
+            <div id="gp-modal-body"></div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="js/script.js"></script>
-    <script src="js/calendar.js"></script>
+    <!-- Modal para Tabla Completa de Posiciones -->
+    <div id="table-modal" class="modal-overlay" style="z-index: 2500;">
+        <div class="table-modal-content">
+            <button class="modal-close" id="table-modal-close"><i class="fas fa-times"></i></button>
+            <div id="table-modal-body"></div>
+        </div>
+    </div>
+
+    <script src="js/script.js?v=2"></script>
+    <script src="js/calendar.js?v=2"></script>
 </body>
+
 </html>

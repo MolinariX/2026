@@ -1,33 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Configuración para evitar el cacheo y actualizar de inmediato -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campeones de Fórmula 1</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=2">
     <link rel="stylesheet" href="css/campeones.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
+
 <body>
-    <!-- Menú -->
+    <!-- Menú hamburguesa -->
     <div class="menu-container">
-        <div class="hamburger-icon" id="hamburger-btn">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-        </div>
-        <div class="menu-items" id="menu-items">
-            <a href="index.html" class="menu-btn">EQUIPOS</a>
-            <a href="calendario.html" class="menu-btn">CALENDARIO</a>
-            <a href="pilotos.html" class="menu-btn">PILOTOS</a>
-            <a href="constructores.html" class="menu-btn">CONSTRUCTORES</a>
-            <a href="motores.html" class="menu-btn">MOTORES</a>
-            <a href="campeones.html" class="menu-btn active">CAMPEONES</a>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" id="hamburger-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu-items">
+                <a href="index.html" class="menu-btn">EQUIPOS</a>
+                <a href="https://f1-dash.com/dashboard" target="_blank" class="menu-btn">VIVO</a>
+                <a href="calendar.html" class="menu-btn">CALENDAR</a>
+                <a href="pilotos.html" class="menu-btn">MUNDIAL DE PILOTOS</a>
+                <a href="constructores.html" class="menu-btn">MUNDIAL DE CONSTRUCTORES</a>
+                <a href="campeones.html" class="menu-btn active">CAMPEONES</a>
+                <a href="https://www.f1-tempo.com/" target="_blank" class="menu-btn">TELEMETRÍA</a>
+                <a href="https://simulador-f1.onrender.com/" class="menu-btn">SIMULADOR</a>
+                <a href="motores.html" class="menu-btn">MOTORES</a>
+            </div>
         </div>
     </div>
 
     <!-- Contenedor Principal -->
     <div class="hall-of-fame-container">
-        
+
         <!-- Pantalla de Selección Inicial -->
         <div class="selection-screen active" id="selection-screen">
             <div class="cover-image-container">
@@ -64,7 +77,8 @@
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=2"></script>
     <script src="js/campeones.js"></script>
 </body>
+
 </html>

@@ -55,14 +55,20 @@ const constructores = [
         logo: 'images/logos/williams.png'
     },
     {
-        id: 'stake',
-        name: 'Stake',
-        color: 'stake',
-        logo: 'images/logos/stake.png'
+        id: 'audi',
+        name: 'Audi',
+        color: 'audi',
+        logo: 'images/logos/audi.png'
+    },
+    {
+        id: 'cadillac',
+        name: 'Cadillac',
+        color: 'cadillac',
+        logo: 'images/logos/cadillac.png'
     }
 ];
 
-// Lista de pilotos por equipo (2025)
+// Lista de pilotos por equipo (2026)
 const pilotosPorEquipo = {
     'mclaren': [
         { nombre: 'Norris', logo: 'images/logos/mclaren.png' },
@@ -74,7 +80,7 @@ const pilotosPorEquipo = {
     ],
     'red_bull': [
         { nombre: 'Verstappen', logo: 'images/logos/redbull.png' },
-        { nombre: 'Tsunoda', logo: 'images/logos/redbull.png' }
+        { nombre: 'Hadjar', logo: 'images/logos/redbull.png' }
     ],
     'mercedes': [
         { nombre: 'Russell', logo: 'images/logos/mercedes.png' },
@@ -94,39 +100,60 @@ const pilotosPorEquipo = {
     ],
     'racing_bulls': [
         { nombre: 'Lawson', logo: 'images/logos/rb.png' },
-        { nombre: 'Hadjar', logo: 'images/logos/rb.png' }
+        { nombre: 'Lindblad', logo: 'images/logos/rb.png' }
     ],
     'williams': [
         { nombre: 'Albon', logo: 'images/logos/williams.png' },
         { nombre: 'Sainz', logo: 'images/logos/williams.png' }
     ],
-    'stake': [
-        { nombre: 'Hulkenberg', logo: 'images/logos/stake.png' },
-        { nombre: 'Bortoleto', logo: 'images/logos/stake.png' }
+    'audi': [
+        { nombre: 'Hulkenberg', logo: 'images/logos/audi.png' },
+        { nombre: 'Bortoleto', logo: 'images/logos/audi.png' }
+    ],
+    'cadillac': [
+        { nombre: 'Perez', logo: 'images/logos/cadillac.png' },
+        { nombre: 'Bottas', logo: 'images/logos/cadillac.png' }
     ]
 };
-const cambiosPilotos = {
-    'tsunoda': {
-        equipoAnterior: 'racing_bulls',
-        equipoActual: 'red_bull',
-        carreraDelCambio: 3, // Cambió después de la R2
-        puntosAnteriores: 3 // Puntos acumulados en RB antes del cambio
-    },
-    'lawson': {
-        equipoAnterior: 'red_bull',
-        equipoActual: 'racing_bulls',
-        carreraDelCambio: 3, // Cambió después de la R2
-        puntosAnteriores: 0 // No sumó puntos antes del cambio
-    }
-};
+const cambiosPilotos = {};
 // Almacenamiento de datos globales
 let constructorData = [];
 let driverData = [];
 
 // Punto de entrada principal
 document.addEventListener('DOMContentLoaded', () => {
+    // --- UPDATE PAGE TITLE ---
+    function updatePageTitle() {
+        const currentYear = localStorage.getItem('f1SeasonYear') || '2026';
+        const titleElement = document.getElementById('page-title');
+        if (titleElement) {
+            titleElement.textContent = `Campeonato de Constructores F1 ${currentYear}`;
+        }
+        // Also update the document title
+        document.title = `Constructores F1 ${currentYear}`;
+    }
+
+    // --- CUSTOM EVENT LISTENER ---
+    window.addEventListener('yearChanged', () => {
+        // Since we are showing constructors, we can fully re-fetch easily
+        document.getElementById('spinner').style.display = 'flex';
+        updatePageTitle(); // Update the title
+        fetchConstructorsData();
+        fetchDriversData();
+        
+        // Update season status text
+        const currentYear = localStorage.getItem('f1SeasonYear') || '2026';
+        const existingStatus = document.getElementById('season-status');
+        if (existingStatus) {
+            existingStatus.remove();
+        }
+    });
+
     // Crear elementos del modal
     createModalElements();
+    
+    // Update title on load
+    updatePageTitle();
     
     // Cargar datos de constructores
     fetchConstructorsData();
@@ -173,7 +200,7 @@ function createModalElements() {
 // Función para obtener datos de constructores de la API
 async function fetchConstructorsData() {
     try {
-        const currentYear = new Date().getFullYear(); // Obtener año actual (2025)
+        const currentYear = localStorage.getItem('f1SeasonYear') || '2026';
         
         // Usar la API de Jolpica
         const response = await fetch(`https://api.jolpi.ca/ergast/f1/${currentYear}/constructorStandings.json`);
@@ -216,7 +243,7 @@ async function fetchConstructorsData() {
 // Función para obtener datos de pilotos de la API
 async function fetchDriversData() {
     try {
-        const currentYear = new Date().getFullYear();
+        const currentYear = localStorage.getItem('f1SeasonYear') || '2026';
         
         const response = await fetch(`https://api.jolpi.ca/ergast/f1/${currentYear}/driverStandings.json`);
         const data = await response.json();
@@ -234,7 +261,7 @@ async function fetchDriversData() {
                 let points = parseInt(driver.points);
                 
                 // Ajustar equipo y puntos para pilotos que han cambiado
-                if (cambiosPilotos[driverId]) {
+                if ((currentYear === '2025' || currentYear === '2026') && cambiosPilotos[driverId]) {
                     const cambio = cambiosPilotos[driverId];
                     teamId = cambio.equipoActual; // Usamos el equipo actual para la visualización
                     
@@ -250,7 +277,7 @@ async function fetchDriversData() {
                     team: driver.Constructors[0].name,
                     points: points,
                     // Almacenar información adicional para los pilotos que han cambiado
-                    cambio: cambiosPilotos[driverId]
+                    cambio: (currentYear === '2025' || currentYear === '2026') ? cambiosPilotos[driverId] : null
                 };
             });
         } else {
@@ -299,7 +326,7 @@ function showEmptyStandings() {
     const statusElement = document.createElement('div');
     statusElement.id = 'season-status';
     statusElement.className = 'season-status';
-    statusElement.innerHTML = '<p>Temporada 2025 - Aún no ha comenzado</p>';
+    statusElement.innerHTML = '<p>Temporada 2026 - Aún no ha comenzado</p>';
     
     // Insertar antes de la tabla
     const tableContainer = document.querySelector('.table-container');
@@ -345,8 +372,10 @@ function findConstructorByName(apiName) {
         'rb': 'racing_bulls', 
         'visa cash app rb': 'racing_bulls',
         'williams': 'williams',
-        'sauber': 'stake',
-        'stake f1 team kick sauber': 'stake'
+        'sauber': 'audi',
+        'stake': 'audi',
+        'audi': 'audi',
+        'cadillac': 'cadillac'
     };
     
     // Buscar en el mapeo
@@ -371,8 +400,11 @@ function findTeamIdByName(teamName) {
     if (normalizedName.includes('rb') || normalizedName.includes('visa cash app')) {
         return 'racing_bulls';
     }
-    if (normalizedName.includes('sauber') || normalizedName.includes('stake')) {
-        return 'stake';
+    if (normalizedName.includes('sauber') || normalizedName.includes('stake') || normalizedName.includes('audi')) {
+        return 'audi';
+    }
+    if (normalizedName.includes('cadillac')) {
+        return 'cadillac';
     }
     
     // Buscar en el mapeo para otros casos

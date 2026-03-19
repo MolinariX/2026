@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Configuración para evitar el cacheo y actualizar de inmediato -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proveedores de Motores F1 2026</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=2">
     <link rel="stylesheet" href="css/motores.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
 </head>
+
 <body>
-    <!-- Menú -->
+    <!-- Menú hamburguesa -->
     <div class="menu-container">
-        <div class="hamburger-icon" id="hamburger-btn">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-        </div>
-        <div class="menu-items" id="menu-items">
-            <a href="index.html" class="menu-btn">EQUIPOS</a>
-            <a href="calendario.html" class="menu-btn">CALENDARIO</a>
-            <a href="pilotos.html" class="menu-btn">PILOTOS</a>
-            <a href="constructores.html" class="menu-btn">CONSTRUCTORES</a>
-            <a href="motores.html" class="menu-btn active">MOTORES</a>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" id="hamburger-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu-items">
+                <a href="index.html" class="menu-btn">EQUIPOS</a>
+                <a href="https://f1-dash.com/dashboard" target="_blank" class="menu-btn">VIVO</a>
+                <a href="calendar.html" class="menu-btn">CALENDAR</a>
+                <a href="pilotos.html" class="menu-btn">MUNDIAL DE PILOTOS</a>
+                <a href="constructores.html" class="menu-btn">MUNDIAL DE CONSTRUCTORES</a>
+                <a href="campeones.html" class="menu-btn">CAMPEONES</a>
+                <a href="https://www.f1-tempo.com/" target="_blank" class="menu-btn">TELEMETRÍA</a>
+                <a href="https://simulador-f1.onrender.com/" class="menu-btn">SIMULADOR</a>
+                <a href="motores.html" class="menu-btn active">MOTORES</a>
+            </div>
         </div>
     </div>
 
@@ -30,12 +44,13 @@
                 <div class="center-logo-container" id="center-logo-container"></div>
             </div>
         </div>
-        
+
         <!-- El título ahora va DESPUÉS, en la parte inferior -->
         <h1>PROVEEDORES DE MOTORES 2026</h1>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=2"></script>
     <script src="js/motores.js"></script>
 </body>
+
 </html>
