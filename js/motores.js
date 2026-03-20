@@ -223,4 +223,47 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Inyectar el SVG dinámico dentro del Wheel (por detrás del logo central)
     wheel.insertBefore(svg, centerLogoContainer);
+
+    // --- AUDIO DEL MOTOR (una sola vez por sesión) ---
+    const MOTOR_AUDIO_KEY = 'f1_motor_audio_played';
+    if (!sessionStorage.getItem(MOTOR_AUDIO_KEY)) {
+        sessionStorage.setItem(MOTOR_AUDIO_KEY, 'true');
+
+        const motorAudio = new Audio('audio/motor.mp3');
+        motorAudio.volume = 0.7;
+
+        const FADE_DURATION = 2; // segundos de fade-out al final
+
+        motorAudio.addEventListener('loadedmetadata', () => {
+            const duration = motorAudio.duration;
+            const fadeStartTime = Math.max(0, duration - FADE_DURATION);
+
+            // Iniciar monitoreo del tiempo para el fade-out
+            const fadeInterval = setInterval(() => {
+                if (motorAudio.paused || motorAudio.ended) {
+                    clearInterval(fadeInterval);
+                    return;
+                }
+
+                if (motorAudio.currentTime >= fadeStartTime) {
+                    const remaining = duration - motorAudio.currentTime;
+                    const newVolume = Math.max(0, (remaining / FADE_DURATION) * 0.7);
+                    motorAudio.volume = newVolume;
+                }
+            }, 50); // Chequear cada 50ms para un fade suave
+        });
+
+        motorAudio.addEventListener('ended', () => {
+            motorAudio.volume = 0;
+        });
+
+        motorAudio.play().catch(() => {
+            // Autoplay bloqueado: reproducir al primer click
+            const clickHandler = () => {
+                motorAudio.play().catch(() => {});
+                document.removeEventListener('click', clickHandler);
+            };
+            document.addEventListener('click', clickHandler);
+        });
+    }
 });

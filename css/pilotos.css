@@ -188,51 +188,65 @@ h1 {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Colores de equipos */
-.redbull {
-    background-color: #0600ef;
+/* Colores de equipos — Moderno y Minimalista */
+.red_bull, .redbull {
+    background: linear-gradient(90deg, rgba(30, 65, 255, 0.25) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #3671ff;
 }
 
 .ferrari {
-    background-color: #dc0000;
+    background: linear-gradient(90deg, rgba(220, 0, 0, 0.2) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #e8002d;
 }
 
 .mercedes {
-    background-color: #00d2be;
+    background: linear-gradient(90deg, rgba(0, 210, 190, 0.15) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #27f4d2;
 }
 
 .mclaren {
-    background-color: #ff8700;
+    background: linear-gradient(90deg, rgba(255, 135, 0, 0.2) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #ff8000;
 }
 
-.aston-martin {
-    background-color: #006f62;
+.aston_martin, .aston-martin {
+    background: linear-gradient(90deg, rgba(0, 111, 98, 0.2) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #229971;
 }
 
 .alpine {
-    background-color: #0090ff;
+    background: linear-gradient(90deg, rgba(0, 144, 255, 0.15) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #0093ff;
 }
 
 .williams {
-    background-color: #005aff;
+    background: linear-gradient(90deg, rgba(0, 90, 255, 0.15) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #64c4ff;
 }
 
-.rb {
-    background-color: #00226c;
+.rb, .racing_bulls {
+    background: linear-gradient(90deg, rgba(102, 146, 255, 0.15) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #6692ff;
 }
 
 .haas {
-    background-color: #ffffff;
-    color: black;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #b6babd;
 }
 
 .haas .driver-name,
 .haas .points {
-    color: black;
+    color: white;
 }
 
-.sauber {
-    background-color: #5cdb95;
+.sauber, .kick_sauber, .audi {
+    background: linear-gradient(90deg, rgba(82, 226, 82, 0.12) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #52e252;
+}
+
+.cadillac {
+    background: linear-gradient(90deg, rgba(22, 115, 49, 0.2) 0%, rgba(20, 20, 30, 0.9) 100%);
+    border-left: 4px solid #1e8b3f;
 }
 
 /* Estilos para el panel de detalles del piloto */

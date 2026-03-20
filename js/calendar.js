@@ -291,13 +291,15 @@ async function openGPModal(gp) {
             const flagUrl = getFlagUrl(winnerDrv.nationality);
             const flagImg = flagUrl ? `<img src="${flagUrl}" style="width:28px; height:18px; object-fit:cover; margin-right:10px; border-radius:3px; box-shadow:0 0 5px rgba(0,0,0,0.6);">` : '';
             winnerHtml = `
-                <div style="display:flex; align-items:center; color:#fff; font-weight:900; font-size:1.4rem; text-transform:uppercase; text-shadow:0 2px 4px rgba(0,0,0,0.8); margin-left: 10px;">
-                    <span style="color:gold; margin-right:12px; font-size:1.1rem;">1º</span>
-                    ${flagImg} ${winnerDrv.familyName}
+                <div style="display:flex; align-items:center; background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.25); padding:8px 14px; border-radius:8px; gap:8px;">
+                    <span style="font-size:1.2rem;">🏆</span>
+                    <span style="color:gold; font-weight:900; font-size:0.9rem;">1º</span>
+                    ${flagImg}
+                    <span style="color:#fff; font-weight:800; font-size:1.1rem; text-transform:uppercase; letter-spacing:0.5px;">${winnerDrv.familyName}</span>
                 </div>
             `;
         } else if (sess.id === 'race' || sess.id === 'quali' || sess.id === 'sprint') {
-             winnerHtml = `<span style="color:var(--f1-red); font-size:0.8rem; font-weight:bold;">VER RESULTADOS ></span>`;
+             winnerHtml = `<span style="color:#fff; background:rgba(225,6,0,0.2); border:1px solid rgba(225,6,0,0.4); padding:6px 14px; border-radius:20px; font-size:0.8rem; font-weight:700; letter-spacing:0.5px;">VER RESULTADOS ›</span>`;
         }
 
         listHtml += `

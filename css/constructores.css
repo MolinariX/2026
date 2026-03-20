@@ -216,72 +216,80 @@ table {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-/* Colores específicos para cada constructor con gradientes mejorados */
+/* Colores de constructores — Moderno y Minimalista */
 .mclaren {
-    background: linear-gradient(90deg, #F29F05 0%, #FF9900 100%);
-    box-shadow: 0 3px 10px rgba(242, 159, 5, 0.4);
+    background: linear-gradient(90deg, rgba(255, 135, 0, 0.2) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #ff8000;
+    box-shadow: 0 3px 12px rgba(255, 128, 0, 0.15);
 }
 
 .ferrari {
-    background: linear-gradient(90deg, #FF0000 0%, #FF3333 100%);
-    box-shadow: 0 3px 10px rgba(255, 0, 0, 0.4);
+    background: linear-gradient(90deg, rgba(220, 0, 0, 0.2) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #e8002d;
+    box-shadow: 0 3px 12px rgba(232, 0, 45, 0.15);
 }
 
 .red-bull {
-    background: linear-gradient(90deg, #0600EF 0%, #0033FF 100%);
-    box-shadow: 0 3px 10px rgba(6, 0, 239, 0.4);
+    background: linear-gradient(90deg, rgba(30, 65, 255, 0.2) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #3671ff;
+    box-shadow: 0 3px 12px rgba(54, 113, 255, 0.15);
 }
 
 .mercedes {
-    background: linear-gradient(90deg, #00D2BE 0%, #00E5CC 100%);
-    box-shadow: 0 3px 10px rgba(0, 210, 190, 0.4);
+    background: linear-gradient(90deg, rgba(0, 210, 190, 0.15) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #27f4d2;
+    box-shadow: 0 3px 12px rgba(39, 244, 210, 0.12);
 }
 
 .aston-martin {
-    background: linear-gradient(90deg, #006F62 0%, #00857A 100%);
-    box-shadow: 0 3px 10px rgba(0, 111, 98, 0.4);
+    background: linear-gradient(90deg, rgba(0, 111, 98, 0.2) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #229971;
+    box-shadow: 0 3px 12px rgba(34, 153, 113, 0.15);
 }
 
 .alpine {
-    background: linear-gradient(90deg, #FF87BC 0%, #FFA6CE 100%);
-    box-shadow: 0 3px 10px rgba(255, 135, 188, 0.4);
+    background: linear-gradient(90deg, rgba(0, 144, 255, 0.15) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #0093ff;
+    box-shadow: 0 3px 12px rgba(0, 147, 255, 0.12);
 }
 
 .haas {
-    background: linear-gradient(90deg, #FFFFFF 0%, #F0F0F0 100%);
-    color: #000000 !important;
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #b6babd;
+    box-shadow: 0 3px 12px rgba(182, 186, 189, 0.08);
 }
 
 .haas .constructor-name {
-    color: #000000;
-    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    text-shadow: none;
 }
 
 .haas .position::before {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.03);
 }
 
 .racing-bulls {
-    background: linear-gradient(90deg, #0032FF 0%, #0050FF 100%);
-    box-shadow: 0 3px 10px rgba(0, 50, 255, 0.4);
+    background: linear-gradient(90deg, rgba(102, 146, 255, 0.15) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #6692ff;
+    box-shadow: 0 3px 12px rgba(102, 146, 255, 0.12);
 }
 
 .williams {
-    background: linear-gradient(90deg, #041E42 0%, #0A2E5A 100%);
-    box-shadow: 0 3px 10px rgba(4, 30, 66, 0.4);
+    background: linear-gradient(90deg, rgba(0, 90, 255, 0.15) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #64c4ff;
+    box-shadow: 0 3px 12px rgba(100, 196, 255, 0.12);
 }
 
 .audi {
-    background: linear-gradient(90deg, #2D2D2D 0%, #000000 100%);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
-    border-left: 5px solid #FF0000;
-    /* Red accent for Audi */
+    background: linear-gradient(90deg, rgba(82, 226, 82, 0.1) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #52e252;
+    box-shadow: 0 3px 12px rgba(82, 226, 82, 0.1);
 }
 
 .cadillac {
-    background: linear-gradient(90deg, #000000 0%, #F1C40F 100%);
-    box-shadow: 0 3px 10px rgba(241, 196, 15, 0.4);
+    background: linear-gradient(90deg, rgba(22, 115, 49, 0.2) 0%, rgba(24, 24, 24, 0.95) 100%);
+    border-left: 4px solid #1e8b3f;
+    box-shadow: 0 3px 12px rgba(30, 139, 63, 0.15);
 }
 
 .footer {

@@ -9,7 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Teams Layout</title>
-    <link rel="stylesheet" href="css/styles.css?v=2">
+    <link rel="stylesheet" href="css/styles.css?v=3">
+    <link rel="stylesheet" href="css/intro.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
     <link rel="icon" type="image/svg+xml" href="images/bandera.svg">
@@ -17,8 +18,41 @@
 </head>
 
 <body>
+    <!-- ===== INTRO OVERLAY ===== -->
+    <div id="intro-overlay">
+        <div class="intro-particles">
+            <span style="left:10%; animation-duration:6s; animation-delay:0s;"></span>
+            <span style="left:25%; animation-duration:8s; animation-delay:1s;"></span>
+            <span style="left:40%; animation-duration:5s; animation-delay:0.5s;"></span>
+            <span style="left:55%; animation-duration:7s; animation-delay:2s;"></span>
+            <span style="left:70%; animation-duration:9s; animation-delay:0.3s;"></span>
+            <span style="left:85%; animation-duration:6s; animation-delay:1.5s;"></span>
+            <span style="left:15%; animation-duration:10s; animation-delay:0.8s;"></span>
+            <span style="left:60%; animation-duration:7s; animation-delay:2.5s;"></span>
+        </div>
+        <div class="intro-red-glow"></div>
+        <div class="semaphore">
+            <div class="semaphore-light"></div>
+            <div class="semaphore-light"></div>
+            <div class="semaphore-light"></div>
+            <div class="semaphore-light"></div>
+        </div>
+        <div class="flag-container">
+            <img src="images/bandera.svg" alt="F1 Flag">
+        </div>
+        <audio id="intro-audio" preload="auto" src="audio/inicio.mp3"></audio>
+        <button class="skip-intro-btn">SALTAR</button>
+    </div>
+
+    <!-- ===== BACKGROUND VIDEO ===== -->
+    <div id="bg-video-container">
+        <video id="bg-video" muted loop playsinline preload="auto">
+            <source src="videos/presentacion.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <!-- Menú hamburguesa -->
-    <div class="menu-container">
+    <div class="menu-container hidden-during-intro">
         <div class="hamburger-menu">
             <div class="hamburger-icon" id="hamburger-btn">
                 <div class="bar"></div>
@@ -34,10 +68,12 @@
                 <a href="https://www.f1-tempo.com/" target="_blank" class="menu-btn">TELEMETRÍA</a>
                 <a href="https://simulador-f1.onrender.com/" class="menu-btn">SIMULADOR</a>
                 <a href="motores.html" class="menu-btn">MOTORES</a>
+                <a href="https://www.statsf1.com/es/default.aspx" target="_blank" class="menu-btn">ESTADÍSTICAS</a>
             </div>
         </div>
     </div>
 
+    <div class="main-content-wrapper">
     <div class="container">
         <!-- Red Bull -->
         <div class="team-section section-red-bull">
@@ -314,8 +350,10 @@
             </div>
         </div>
     </div>
+    </div> <!-- /main-content-wrapper -->
 
-    <script src="js/script.js?v=2"></script>
+    <script src="js/intro.js?v=1"></script>
+    <script src="js/script.js?v=3"></script>
 </body>
 
 </html>
