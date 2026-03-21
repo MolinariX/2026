@@ -335,3 +335,77 @@
 @keyframes fadeInSkip {
     to { opacity: 1; }
 }
+
+/* ─────────────────────────────────────────────────────────────── */
+/* TAP TO START SCREEN — agregar al final de intro.css            */
+/* ─────────────────────────────────────────────────────────────── */
+
+#tap-to-start {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    cursor: pointer;
+    background: #050507;
+    transition: opacity 0.4s ease;
+}
+
+#tap-to-start.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tap-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+}
+
+.tap-logo img {
+    width: 100px;
+    height: 100px;
+    filter: drop-shadow(0 0 20px rgba(225, 6, 0, 0.4));
+    animation: tapLogoFloat 3s ease-in-out infinite;
+}
+
+@keyframes tapLogoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+}
+
+.tap-pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 2px solid rgba(225, 6, 0, 0.4);
+    animation: tapPulse 1.8s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes tapPulse {
+    0%   { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(1.8); opacity: 0; }
+}
+
+.tap-label {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    margin: 0;
+    animation: tapLabelBlink 2s ease-in-out infinite;
+}
+
+@keyframes tapLabelBlink {
+    0%, 100% { opacity: 0.45; }
+    50%       { opacity: 0.9; }
+}
