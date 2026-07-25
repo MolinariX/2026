@@ -70,10 +70,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 6/03 - 23:30 (5/03 ARG)', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 2', horario: 'Sábado 7/03 - 03:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 3', horario: 'Sábado 7/03 - 23:30 (6/03 ARG)', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Domingo 8/03 - 03:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 1', horario: 'Jueves 5/03 - 22:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 6/03 - 02:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Viernes 6/03 - 22:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 7/03 - 02:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera', horario: 'Domingo 8/03 - 01:00', ganador: '', ganadorBandera: null }
                 ]
             },
@@ -90,10 +90,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 13/03 - 06:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación Sprint', horario: 'Viernes 13/03 - 10:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera Sprint', horario: 'Sábado 14/03 - 06:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Sábado 14/03 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 13/03 - 00:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 13/03 - 04:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera Sprint', horario: 'Sábado 14/03 - 00:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 14/03 - 04:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera', horario: 'Domingo 15/03 - 04:00', ganador: '', ganadorBandera: null }
                 ]
             },
@@ -110,10 +110,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 27/03 - 22:30 (26/03 ARG)', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 2', horario: 'Sábado 28/03 - 02:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 3', horario: 'Sábado 28/03 - 22:30 (27/03 ARG)', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Domingo 29/03 - 02:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 1', horario: 'Jueves 26/03 - 23:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 27/03 - 03:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Viernes 27/03 - 23:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 28/03 - 03:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera', horario: 'Domingo 29/03 - 02:00', ganador: '', ganadorBandera: null }
                 ]
             },
@@ -130,10 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 10/04 - 08:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 2', horario: 'Viernes 10/04 - 12:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 3', horario: 'Sábado 11/04 - 09:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Sábado 11/04 - 13:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 10/04 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 10/04 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 11/04 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 11/04 - 11:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera', horario: 'Domingo 12/04 - 12:00', ganador: '', ganadorBandera: null }
                 ]
             },
@@ -146,15 +146,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: coloresGP['saudi-arabia'],
                 fechaInicio: new Date(2026, 3, 17), // 17 de abril
                 fechaFin: new Date(2026, 3, 19), // 19 de abril
-                horarioCarrera: '19 Abril - 15:00 (Argentina)',
+                horarioCarrera: '19 Abril - 14:00 (Argentina)',
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 17/04 - 11:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 2', horario: 'Viernes 17/04 - 15:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 3', horario: 'Sábado 18/04 - 12:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Sábado 18/04 - 16:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera', horario: 'Domingo 19/04 - 15:00', ganador: '', ganadorBandera: null }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 17/04 - 10:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 17/04 - 14:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 18/04 - 10:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 18/04 - 14:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 19/04 - 14:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
@@ -170,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 1/05 - 14:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación Sprint', horario: 'Viernes 1/05 - 18:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 1/05 - 13:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 1/05 - 17:30', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera Sprint', horario: 'Sábado 2/05 - 13:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Clasificación', horario: 'Sábado 2/05 - 17:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera', horario: 'Domingo 3/05 - 17:00', ganador: '', ganadorBandera: null }
@@ -186,15 +186,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: coloresGP['canada'],
                 fechaInicio: new Date(2026, 4, 22), // 22 de mayo
                 fechaFin: new Date(2026, 4, 24), // 24 de mayo
-                horarioCarrera: '24 Mayo - 15:00 (Argentina)',
+                horarioCarrera: '24 Mayo - 17:00 (Argentina)',
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
                     { nombre: 'Práctica Libre 1', horario: 'Viernes 22/05 - 14:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación Sprint', horario: 'Viernes 22/05 - 18:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 22/05 - 18:30', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera Sprint', horario: 'Sábado 23/05 - 13:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Clasificación', horario: 'Sábado 23/05 - 17:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera', horario: 'Domingo 24/05 - 15:00', ganador: '', ganadorBandera: null }
+                    { nombre: 'Carrera', horario: 'Domingo 24/05 - 17:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
@@ -270,10 +270,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 3/07 - 08:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación Sprint', horario: 'Viernes 3/07 - 12:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera Sprint', horario: 'Sábado 4/07 - 07:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Sábado 4/07 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 3/07 - 09:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 3/07 - 13:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera Sprint', horario: 'Sábado 4/07 - 08:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 4/07 - 12:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera', horario: 'Domingo 5/07 - 11:00', ganador: '', ganadorBandera: null }
                 ]
             },
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ganador: null,
                 sesiones: [
                     { nombre: 'Práctica Libre 1', horario: 'Viernes 21/08 - 08:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación Sprint', horario: 'Viernes 21/08 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 21/08 - 12:30', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera Sprint', horario: 'Sábado 22/08 - 07:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Clasificación', horario: 'Sábado 22/08 - 11:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera', horario: 'Domingo 23/08 - 10:00', ganador: '', ganadorBandera: null }
@@ -344,17 +344,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 pais: 'Italia',
                 bandera: 'https://flagcdn.com/w80/it.png',
                 color: coloresGP['italy'],
-                fechaInicio: new Date(2026, 8, 5), // 5 de septiembre
-                fechaFin: new Date(2026, 8, 7), // 7 de septiembre
-                horarioCarrera: '7 Septiembre - 10:00 (Argentina)',
+                fechaInicio: new Date(2026, 8, 4), // 4 de septiembre
+                fechaFin: new Date(2026, 8, 6), // 6 de septiembre
+                horarioCarrera: '6 Septiembre - 10:00 (Argentina)',
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 5/09 - 08:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 2', horario: 'Viernes 5/09 - 12:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 3', horario: 'Sábado 6/09 - 07:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Sábado 6/09 - 11:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera', horario: 'Domingo 7/09 - 10:00', ganador: '', ganadorBandera: null }
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 4/09 - 08:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 4/09 - 12:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 5/09 - 07:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 5/09 - 11:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 6/09 - 10:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
@@ -384,17 +384,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 pais: 'Azerbaiyán',
                 bandera: 'https://flagcdn.com/w80/az.png',
                 color: coloresGP['azerbaijan'],
-                fechaInicio: new Date(2026, 8, 25), // 25 de septiembre
-                fechaFin: new Date(2026, 8, 27), // 27 de septiembre
-                horarioCarrera: '27 Septiembre - 08:00 (Argentina)',
+                fechaInicio: new Date(2026, 8, 23), // 23 de septiembre
+                fechaFin: new Date(2026, 8, 26), // 26 de septiembre (carrera el sábado)
+                horarioCarrera: '26 Septiembre - 08:00 (Argentina)',
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 25/09 - 06:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 2', horario: 'Viernes 25/09 - 10:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 3', horario: 'Sábado 26/09 - 06:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Sábado 26/09 - 10:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera', horario: 'Domingo 27/09 - 08:00', ganador: '', ganadorBandera: null }
+                    { nombre: 'Práctica Libre 1', horario: 'Jueves 24/09 - 06:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Jueves 24/09 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Viernes 25/09 - 06:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Viernes 25/09 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Sábado 26/09 - 08:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ganador: null,
                 sesiones: [
                     { nombre: 'Práctica Libre 1', horario: 'Viernes 9/10 - 06:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación Sprint', horario: 'Viernes 9/10 - 10:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación Sprint', horario: 'Viernes 9/10 - 10:30', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera Sprint', horario: 'Sábado 10/10 - 06:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Clasificación', horario: 'Sábado 10/10 - 10:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Carrera', horario: 'Domingo 11/10 - 09:00', ganador: '', ganadorBandera: null }
@@ -426,15 +426,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: coloresGP['usa-austin'],
                 fechaInicio: new Date(2026, 9, 23), // 23 de octubre
                 fechaFin: new Date(2026, 9, 25), // 25 de octubre
-                horarioCarrera: '25 Octubre - 16:00 (Argentina)',
+                horarioCarrera: '25 Octubre - 17:00 (Argentina)',
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
                     { nombre: 'Práctica Libre 1', horario: 'Viernes 23/10 - 14:30', ganador: '', ganadorBandera: '' },
                     { nombre: 'Práctica Libre 2', horario: 'Viernes 23/10 - 18:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 3', horario: 'Sábado 24/10 - 13:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Sábado 24/10 - 17:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera', horario: 'Domingo 25/10 - 16:00', ganador: '', ganadorBandera: null }
+                    { nombre: 'Práctica Libre 3', horario: 'Sábado 24/10 - 14:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Sábado 24/10 - 18:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Domingo 25/10 - 17:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: coloresGP['mexico'],
                 fechaInicio: new Date(2026, 9, 30), // 30 de octubre
                 fechaFin: new Date(2026, 10, 1), // 1 de noviembre
-                horarioCarrera: '1 Noviembre - 17:00 (Argentina)',
+                horarioCarrera: '1 Noviembre - 16:00 (Argentina)',
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     { nombre: 'Práctica Libre 2', horario: 'Viernes 30/10 - 18:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Práctica Libre 3', horario: 'Sábado 31/10 - 13:30', ganador: '', ganadorBandera: '' },
                     { nombre: 'Clasificación', horario: 'Sábado 31/10 - 17:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera', horario: 'Domingo 1/11 - 17:00', ganador: '', ganadorBandera: null }
+                    { nombre: 'Carrera', horario: 'Domingo 1/11 - 16:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
@@ -466,15 +466,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: coloresGP['brazil'],
                 fechaInicio: new Date(2026, 10, 6), // 6 de noviembre
                 fechaFin: new Date(2026, 10, 8), // 8 de noviembre
-                horarioCarrera: '8 Noviembre - 15:00 (Argentina)',
+                horarioCarrera: '8 Noviembre - 14:00 (Argentina)',
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 6/11 - 12:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 2', horario: 'Viernes 6/11 - 16:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 1', horario: 'Viernes 6/11 - 11:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Viernes 6/11 - 15:00', ganador: '', ganadorBandera: '' },
                     { nombre: 'Práctica Libre 3', horario: 'Sábado 7/11 - 11:30', ganador: '', ganadorBandera: '' },
                     { nombre: 'Clasificación', horario: 'Sábado 7/11 - 15:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera', horario: 'Domingo 8/11 - 15:00', ganador: '', ganadorBandera: null }
+                    { nombre: 'Carrera', horario: 'Domingo 8/11 - 14:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
@@ -484,17 +484,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 pais: 'Estados Unidos',
                 bandera: 'https://flagcdn.com/w80/us.png',
                 color: coloresGP['las-vegas'],
-                fechaInicio: new Date(2026, 10, 20), // 20 de noviembre
-                fechaFin: new Date(2026, 10, 22), // 22 de noviembre
-                horarioCarrera: '23 Noviembre - 03:00 (Argentina)',
+                fechaInicio: new Date(2026, 10, 19), // 19 de noviembre
+                fechaFin: new Date(2026, 10, 21), // 21 de noviembre
+                horarioCarrera: '22 Nov - 03:00 (Argentina)',
                 enlace: 'https://www.formula1.com',
                 ganador: null,
                 sesiones: [
-                    { nombre: 'Práctica Libre 1', horario: 'Viernes 20/11 - 01:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 2', horario: 'Viernes 20/11 - 05:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Práctica Libre 3', horario: 'Sábado 21/11 - 01:30', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Clasificación', horario: 'Sábado 21/11 - 05:00', ganador: '', ganadorBandera: '' },
-                    { nombre: 'Carrera', horario: 'Domingo 22/11 - 03:00', ganador: '', ganadorBandera: null }
+                    { nombre: 'Práctica Libre 1', horario: 'Jueves 19/11 - 01:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 2', horario: 'Jueves 19/11 - 05:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Práctica Libre 3', horario: 'Viernes 20/11 - 01:30', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Clasificación', horario: 'Viernes 20/11 - 05:00', ganador: '', ganadorBandera: '' },
+                    { nombre: 'Carrera', horario: 'Sábado 22/11 - 03:00', ganador: '', ganadorBandera: null }
                 ]
             },
             {
