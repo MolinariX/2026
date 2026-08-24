@@ -68,54 +68,7 @@ const constructores = [
     }
 ];
 
-// Lista de pilotos por equipo (2026)
-const pilotosPorEquipo = {
-    'mclaren': [
-        { nombre: 'Norris', logo: 'images/logos/mclaren.png' },
-        { nombre: 'Piastri', logo: 'images/logos/mclaren.png' }
-    ],
-    'ferrari': [
-        { nombre: 'Leclerc', logo: 'images/logos/ferrari.png' },
-        { nombre: 'Hamilton', logo: 'images/logos/ferrari.png' }
-    ],
-    'red_bull': [
-        { nombre: 'Verstappen', logo: 'images/logos/redbull.png' },
-        { nombre: 'Hadjar', logo: 'images/logos/redbull.png' }
-    ],
-    'mercedes': [
-        { nombre: 'Russell', logo: 'images/logos/mercedes.png' },
-        { nombre: 'Antonelli', logo: 'images/logos/mercedes.png' }
-    ],
-    'aston_martin': [
-        { nombre: 'Alonso', logo: 'images/logos/aston-martin.png' },
-        { nombre: 'Stroll', logo: 'images/logos/aston-martin.png' }
-    ],
-    'alpine': [
-        { nombre: 'Gasly', logo: 'images/logos/alpine.png' },
-        { nombre: 'Colapinto', logo: 'images/logos/alpine.png' }
-    ],
-    'haas': [
-        { nombre: 'Ocon', logo: 'images/logos/haas.png' },
-        { nombre: 'Bearman', logo: 'images/logos/haas.png' }
-    ],
-    'racing_bulls': [
-        { nombre: 'Lawson', logo: 'images/logos/rb.png' },
-        { nombre: 'Lindblad', logo: 'images/logos/rb.png' }
-    ],
-    'williams': [
-        { nombre: 'Albon', logo: 'images/logos/williams.png' },
-        { nombre: 'Sainz', logo: 'images/logos/williams.png' }
-    ],
-    'audi': [
-        { nombre: 'Hulkenberg', logo: 'images/logos/audi.png' },
-        { nombre: 'Bortoleto', logo: 'images/logos/audi.png' }
-    ],
-    'cadillac': [
-        { nombre: 'Perez', logo: 'images/logos/cadillac.png' },
-        { nombre: 'Bottas', logo: 'images/logos/cadillac.png' }
-    ]
-};
-const cambiosPilotos = {};
+// Los pilotos por equipo se obtienen dinámicamente desde la API (driverStandings)
 // Almacenamiento de datos globales
 let constructorData = [];
 let driverData = [];
@@ -257,27 +210,23 @@ async function fetchDriversData() {
             // Almacenar datos de pilotos
             driverData = driverStandings.map(driver => {
                 const driverId = driver.Driver.driverId.toLowerCase();
-                let teamId = findTeamIdByName(driver.Constructors[0].name);
-                let points = parseInt(driver.points);
-                
-                // Ajustar equipo y puntos para pilotos que han cambiado
-                if ((currentYear === '2025' || currentYear === '2026') && cambiosPilotos[driverId]) {
-                    const cambio = cambiosPilotos[driverId];
-                    teamId = cambio.equipoActual; // Usamos el equipo actual para la visualización
-                    
-                    // No necesitamos ajustar los puntos aquí, lo haremos al mostrar
-                    // los detalles del constructor
+                let teamId = 'unknown';
+                let teamName = 'Unknown Team';
+                if (driver.Constructors && driver.Constructors.length > 0) {
+                    const latestConstructor = driver.Constructors[driver.Constructors.length - 1];
+                    teamId = findTeamIdByName(latestConstructor.name);
+                    teamName = latestConstructor.name;
                 }
+                let points = parseInt(driver.points);
                 
                 return {
                     driverId: driverId,
                     name: `${driver.Driver.givenName} ${driver.Driver.familyName}`,
                     code: driver.Driver.code,
                     teamId: teamId,
-                    team: driver.Constructors[0].name,
+                    team: teamName,
                     points: points,
-                    // Almacenar información adicional para los pilotos que han cambiado
-                    cambio: (currentYear === '2025' || currentYear === '2026') ? cambiosPilotos[driverId] : null
+                    cambio: null
                 };
             });
         } else {
@@ -290,10 +239,10 @@ async function fetchDriversData() {
                         driverId: driverId,
                         name: driver.nombre,
                         code: driver.nombre.substring(0, 3).toUpperCase(),
-                        teamId: cambiosPilotos[driverId] ? cambiosPilotos[driverId].equipoActual : teamId,
+                        teamId: teamId,
                         team: findTeamNameById(teamId),
                         points: 0,
-                        cambio: cambiosPilotos[driverId]
+                        cambio: null
                     });
                 });
             }
@@ -309,8 +258,13 @@ async function fetchDriversData() {
 function showEmptyStandings() {
     // Crear datos con todos los equipos en cero puntos
     constructorData = constructores.map((constructor, index) => {
+        let apiId = constructor.id;
+        if (constructor.id === 'racing_bulls') apiId = 'rb';
+        else if (constructor.id === 'audi') apiId = 'sauber';
+        
         return {
             id: constructor.id,
+            apiConstructorId: apiId,
             name: constructor.name,
             points: 0,
             position: index + 1,
@@ -346,6 +300,7 @@ function processApiData(apiData) {
         
         return {
             id: constructor ? constructor.id : 'unknown',
+            apiConstructorId: item.Constructor.constructorId,
             name: item.Constructor.name,
             points: parseInt(item.points),
             position: parseInt(item.position),
@@ -458,116 +413,153 @@ function updateTable(data) {
 }
 
 // Mostrar detalles del constructor seleccionado
-function showConstructorDetails(constructorId) {
-    // Encontrar el constructor por ID
+async function showConstructorDetails(constructorId) {
     const constructor = constructorData.find(c => c.id === constructorId);
-    
     if (!constructor) return;
     
-    // Filtrar pilotos actuales de este equipo
-    let teamDrivers = driverData.filter(driver => driver.teamId === constructorId);
-    
-    // Ajustar los puntos de los pilotos que cambiaron de equipo
-    teamDrivers = teamDrivers.map(driver => {
-        // Si el piloto tiene un cambio registrado y su equipo actual es este constructor
-        if (driver.cambio && driver.cambio.equipoActual === constructorId) {
-            // Crear una copia del piloto para no modificar los datos originales
-            return {
-                ...driver,
-                // Restar los puntos anteriores para mostrar solo los sumados con este equipo
-                points: driver.points - driver.cambio.puntosAnteriores
-            };
-        }
-        return driver;
-    });
-    
-    // También necesitamos incluir pilotos que anteriormente estaban en este equipo
-    // pero que conservan puntos históricos
-    const pilotosHistoricos = Object.entries(cambiosPilotos)
-        .filter(([driverId, cambio]) => cambio.equipoAnterior === constructorId && cambio.puntosAnteriores > 0)
-        .map(([driverId, cambio]) => {
-            // Encontrar los datos del piloto
-            const piloto = driverData.find(d => d.driverId === driverId);
-            if (piloto) {
-                // Crear una copia para no modificar los datos originales
-                return {
-                    ...piloto,
-                    points: cambio.puntosAnteriores,
-                    esHistorico: true
-                };
-            }
-            return null;
-        })
-        .filter(p => p !== null);
-    
-    // Añadir pilotos históricos si existen
-    teamDrivers = [...teamDrivers, ...pilotosHistoricos];
-    
-    // Calcular puntos totales del equipo (incluyendo puntos históricos)
-    let totalPoints = constructor.points;
-    
-    // Obtener el contenedor de detalles
     const detailsContainer = document.getElementById('constructor-details');
     
-    // Generar contenido HTML
-    let detailsHTML = `
+    // Mostrar el modal de inmediato con un spinner mientras carga
+    detailsContainer.innerHTML = `
         <div class="constructor-logo">
             <img src="${constructor.logo}" alt="${constructor.name} logo">
         </div>
         <div class="constructor-title">${constructor.name}</div>
         <div class="constructor-type">Constructor</div>
-        <div class="total-points">Total Points: ${totalPoints}</div>
+        <div class="total-points">Total Points: ${constructor.points}</div>
         <div class="divider"></div>
         <div class="team-drivers-title">Team Drivers</div>
-        <div class="driver-list">
-    `;
-    
-    // Añadir cada piloto
-    teamDrivers.forEach(driver => {
-        // Extraer solo el apellido del nombre completo
-        const driverNames = driver.name.split(' ');
-        const lastName = driverNames[driverNames.length - 1].toLowerCase();
-        
-        // Normalizar el apellido para quitar caracteres especiales
-        const normalizedLastName = lastName
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, ""); // Elimina acentos y diéresis
-        
-        const driverImagePath = `images/drivers/${normalizedLastName}.png`;
-        
-        // Añadir clase especial si es un piloto histórico
-        const historicClass = driver.esHistorico ? 'historic-driver' : '';
-        const historicNote = driver.esHistorico ? '(Sprint R2)' : '';
-        
-        detailsHTML += `
-            <div class="driver-item ${historicClass}">
-                <div class="driver-logo">
-                    <img src="${driverImagePath}" alt="${driver.name}">
-                </div>
-                <div class="driver-name">${driver.name} ${historicNote}</div>
-                <div class="driver-points">${driver.points} pts</div>
+        <div class="driver-list" id="modal-driver-list">
+            <div class="loading-spinner" style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+                <div class="spinner"></div>
+                <p style="margin-left: 10px; color: #aaa;">Cargando pilotos...</p>
             </div>
-        `;
-    });
-    
-    // Cerrar la lista de pilotos y añadir total
-    detailsHTML += `
         </div>
         <div class="total-team-points">
             <div class="total-team-label">Total Team Points: </div>
-            <div class="total-team-value">${totalPoints}</div>
+            <div class="total-team-value">${constructor.points}</div>
         </div>
     `;
     
-    // Actualizar el contenido
-    detailsContainer.innerHTML = detailsHTML;
-    
-    // Mostrar el overlay y el modal
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('constructor-modal').style.display = 'block';
-    
-    // Evitar scroll en el body
     document.body.style.overflow = 'hidden';
+    
+    // IDs de pilotos actuales del equipo (desde standings de pilotos)
+    const currentDriverIds = new Set(
+        driverData
+            .filter(d => d.teamId === constructorId)
+            .map(d => d.driverId)
+    );
+    
+    // Consultar resultados de carrera y sprint para este constructor
+    const currentYear = localStorage.getItem('f1SeasonYear') || '2026';
+    const apiConstructorId = constructor.apiConstructorId || constructorId;
+    
+    const resultsUrl = `https://api.jolpi.ca/ergast/f1/${currentYear}/constructors/${apiConstructorId}/results.json?limit=100`;
+    const sprintUrl = `https://api.jolpi.ca/ergast/f1/${currentYear}/constructors/${apiConstructorId}/sprint.json?limit=100`;
+    
+    let raceData = null;
+    let sprintData = null;
+    
+    try {
+        const [raceRes, sprintRes] = await Promise.all([
+            fetch(resultsUrl),
+            fetch(sprintUrl)
+        ]);
+        if (raceRes.ok) raceData = await raceRes.json();
+        if (sprintRes.ok) sprintData = await sprintRes.json();
+    } catch (error) {
+        console.error('Error al obtener detalles del constructor:', error);
+    }
+    
+    // Construir mapa de pilotos desde resultados reales de la API
+    const driversMap = {};
+    
+    // Procesar resultados de carreras
+    const races = raceData?.MRData?.RaceTable?.Races || [];
+    races.forEach(race => {
+        (race.Results || []).forEach(res => {
+            const dId = res.Driver.driverId.toLowerCase();
+            const pts = parseFloat(res.points) || 0;
+            if (!driversMap[dId]) {
+                driversMap[dId] = {
+                    driverId: dId,
+                    name: `${res.Driver.givenName} ${res.Driver.familyName}`,
+                    code: res.Driver.code,
+                    points: 0
+                };
+            }
+            driversMap[dId].points += pts;
+            driversMap[dId].name = `${res.Driver.givenName} ${res.Driver.familyName}`;
+            driversMap[dId].code = res.Driver.code;
+        });
+    });
+    
+    // Procesar resultados de sprints
+    const sprints = sprintData?.MRData?.RaceTable?.Races || [];
+    sprints.forEach(race => {
+        (race.SprintResults || []).forEach(res => {
+            const dId = res.Driver.driverId.toLowerCase();
+            const pts = parseFloat(res.points) || 0;
+            if (!driversMap[dId]) {
+                driversMap[dId] = {
+                    driverId: dId,
+                    name: `${res.Driver.givenName} ${res.Driver.familyName}`,
+                    code: res.Driver.code,
+                    points: 0
+                };
+            }
+            driversMap[dId].points += pts;
+        });
+    });
+    
+    // Agregar pilotos actuales que aún no hayan puntuado (inicio de temporada)
+    driverData
+        .filter(d => d.teamId === constructorId && !driversMap[d.driverId])
+        .forEach(d => {
+            driversMap[d.driverId] = {
+                driverId: d.driverId,
+                name: d.name,
+                code: d.code,
+                points: 0
+            };
+        });
+    
+    // Convertir a array: pilotos actuales primero, luego por puntos
+    const teamDrivers = Object.values(driversMap);
+    teamDrivers.sort((a, b) => {
+        const aIsCurrent = currentDriverIds.has(a.driverId);
+        const bIsCurrent = currentDriverIds.has(b.driverId);
+        if (aIsCurrent !== bIsCurrent) return aIsCurrent ? -1 : 1;
+        return b.points - a.points;
+    });
+    
+    // Renderizar la lista de pilotos en el modal
+    const driverListContainer = document.getElementById('modal-driver-list');
+    if (driverListContainer) {
+        let driverHTML = '';
+        
+        teamDrivers.forEach(driver => {
+            const lastName = driver.name.split(' ').pop().toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const driverImagePath = `images/drivers/${lastName}.png`;
+            const isCurrent = currentDriverIds.has(driver.driverId);
+            
+            driverHTML += `
+                <div class="driver-item${isCurrent ? '' : ' former-driver'}">
+                    <div class="driver-logo">
+                        <img src="${driverImagePath}" alt="${driver.name}" onerror="this.src='images/default/default.png';">
+                    </div>
+                    <div class="driver-name">${driver.name}</div>
+                    <div class="driver-points">${driver.points} pts</div>
+                </div>
+            `;
+        });
+        
+        driverListContainer.innerHTML = driverHTML ||
+            '<div style="padding: 10px; text-align: center; color: #aaa;">No hay pilotos registrados</div>';
+    }
 }
 
 
