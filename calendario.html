@@ -600,6 +600,7 @@
                 'italy': '#228B22',
                 'spain-madrid': '#9400D3',
                 'azerbaijan': '#4169E1',
+                'malaysia': '#CC0001',
                 'singapore': '#FF1493',
                 'usa-austin': '#1E90FF',
                 'mexico': '#00FF00',
@@ -872,18 +873,44 @@
                         sesiones: []
                     },
                     {
+                        id: 'malaysia-2026',
+                        nombre: 'GP de Malasia',
+                        circuito: 'Sepang International Circuit',
+                        pais: 'Malasia',
+                        bandera: 'https://flagcdn.com/w80/my.png',
+                        color: coloresGP['malaysia'],
+                        fechaInicio: new Date(2026, 9, 2),
+                        fechaFin: new Date(2026, 9, 4),
+                        horarioCarrera: '4 Octubre - 04:00',
+                        enlace: 'https://www.formula1.com',
+                        ganador: null,
+                        sesiones: [
+                            { nombre: 'Práctica Libre 1', horario: 'Viernes 2/10 - 01:30' },
+                            { nombre: 'Práctica Libre 2', horario: 'Viernes 2/10 - 05:00' },
+                            { nombre: 'Práctica Libre 3', horario: 'Sábado 3/10 - 01:30' },
+                            { nombre: 'Clasificación', horario: 'Sábado 3/10 - 05:00' },
+                            { nombre: 'Carrera', horario: 'Domingo 4/10 - 04:00' }
+                        ]
+                    },
+                    {
                         id: 'singapore-2026',
                         nombre: 'GP de Singapur',
-                        circuito: 'Marina Bay',
+                        circuito: 'Marina Bay Street Circuit',
                         pais: 'Singapur',
                         bandera: 'https://flagcdn.com/w80/sg.png',
                         color: coloresGP['singapore'],
                         fechaInicio: new Date(2026, 9, 9),
                         fechaFin: new Date(2026, 9, 11),
-                        horarioCarrera: '11 Octubre - 09:00',
+                        horarioCarrera: '10 Octubre - 18:00 (Carrera)',
                         enlace: 'https://www.formula1.com',
                         ganador: null,
-                        sesiones: []
+                        sesiones: [
+                            { nombre: 'Práctica Libre 1', horario: 'Jueves 8/10 - 14:30' },
+                            { nombre: 'Clasificación Sprint', horario: 'Jueves 8/10 - 18:30' },
+                            { nombre: 'Carrera Sprint', horario: 'Viernes 9/10 - 15:00' },
+                            { nombre: 'Clasificación', horario: 'Viernes 9/10 - 19:00' },
+                            { nombre: 'Carrera', horario: 'Sábado 10/10 - 18:00' }
+                        ]
                     },
                     {
                         id: 'austin-2026',

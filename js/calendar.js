@@ -144,56 +144,64 @@ const calendarStore = [
         {id: 'quali', name: 'Clasificación', timeText: 'VIE 25/09 10:00 (ARG)'},
         {id: 'race', name: 'Carrera', timeText: 'SÁB 26/09 08:00 (ARG)'}
     ]},
-    // R18 - Singapur SPRINT (SGT=UTC+8, ARG=UTC-3)
-    { round: 18, country: 'SINGAPORE', location: 'SINGAPORE', month: 'OCT', days: '09-11', flagUrl: 'https://flagcdn.com/w80/sg.png', status: 'scheduled', isSprint: true, sessions: [
-        {id: 'fp1', name: 'Práctica Libre 1', timeText: 'VIE 09/10 06:30 (ARG)'},
-        {id: 'sprintQuali', name: 'Clasificación Sprint', timeText: 'VIE 09/10 10:30 (ARG)'},
-        {id: 'sprint', name: 'Carrera Sprint', timeText: 'SÁB 10/10 06:00 (ARG)'},
-        {id: 'quali', name: 'Clasificación', timeText: 'SÁB 10/10 10:00 (ARG)'},
-        {id: 'race', name: 'Carrera', timeText: 'DOM 11/10 09:00 (ARG)'}
+    // R18 - Malasia (MYT=UTC+8, ARG=UTC-3)
+    { round: 18, country: 'MALAYSIA', location: 'SEPANG', month: 'OCT', days: '02-04', flagUrl: 'https://flagcdn.com/w80/my.png', status: 'scheduled', sessions: [
+        {id: 'fp1', name: 'Práctica Libre 1', timeText: 'VIE 02/10 01:30 (ARG)'},
+        {id: 'fp2', name: 'Práctica Libre 2', timeText: 'VIE 02/10 05:00 (ARG)'},
+        {id: 'fp3', name: 'Práctica Libre 3', timeText: 'SÁB 03/10 01:30 (ARG)'},
+        {id: 'quali', name: 'Clasificación', timeText: 'SÁB 03/10 05:00 (ARG)'},
+        {id: 'race', name: 'Carrera', timeText: 'DOM 04/10 04:00 (ARG)'}
     ]},
-    // R19 - EE.UU. Austin (CDT=UTC-5, ARG=UTC-3) - NO es Sprint en 2026
-    { round: 19, country: 'UNITED STATES', location: 'AUSTIN', month: 'OCT', days: '23-25', flagUrl: 'https://flagcdn.com/w80/us.png', status: 'scheduled', sessions: [
+    // R19 - Singapur SPRINT (SGT=UTC+8, ARG=UTC-3)
+    { round: 19, country: 'SINGAPORE', location: 'SINGAPORE', month: 'OCT', days: '09-11', flagUrl: 'https://flagcdn.com/w80/sg.png', status: 'scheduled', isSprint: true, sessions: [
+        {id: 'fp1', name: 'Práctica Libre 1', timeText: 'JUE 08/10 14:30 (ARG)'},
+        {id: 'sprintQuali', name: 'Clasificación Sprint', timeText: 'JUE 08/10 18:30 (ARG)'},
+        {id: 'sprint', name: 'Carrera Sprint', timeText: 'VIE 09/10 15:00 (ARG)'},
+        {id: 'quali', name: 'Clasificación', timeText: 'VIE 09/10 19:00 (ARG)'},
+        {id: 'race', name: 'Carrera', timeText: 'SÁB 10/10 18:00 (ARG)'}
+    ]},
+    // R20 - EE.UU. Austin (CDT=UTC-5, ARG=UTC-3) - NO es Sprint en 2026
+    { round: 20, country: 'UNITED STATES', location: 'AUSTIN', month: 'OCT', days: '23-25', flagUrl: 'https://flagcdn.com/w80/us.png', status: 'scheduled', sessions: [
         {id: 'fp1', name: 'Práctica Libre 1', timeText: 'VIE 23/10 14:30 (ARG)'},
         {id: 'fp2', name: 'Práctica Libre 2', timeText: 'VIE 23/10 18:00 (ARG)'},
         {id: 'fp3', name: 'Práctica Libre 3', timeText: 'SÁB 24/10 14:30 (ARG)'},
         {id: 'quali', name: 'Clasificación', timeText: 'SÁB 24/10 18:00 (ARG)'},
         {id: 'race', name: 'Carrera', timeText: 'DOM 25/10 17:00 (ARG)'}
     ]},
-    // R20 - México (CDT=UTC-5, ARG=UTC-3)
-    { round: 20, country: 'MEXICO', location: 'MEXICO CITY', month: 'OCT/NOV', days: '30-01', flagUrl: 'https://flagcdn.com/w80/mx.png', status: 'scheduled', sessions: [
+    // R21 - México (CDT=UTC-5, ARG=UTC-3)
+    { round: 21, country: 'MEXICO', location: 'MEXICO CITY', month: 'OCT/NOV', days: '30-01', flagUrl: 'https://flagcdn.com/w80/mx.png', status: 'scheduled', sessions: [
         {id: 'fp1', name: 'Práctica Libre 1', timeText: 'VIE 30/10 14:30 (ARG)'},
         {id: 'fp2', name: 'Práctica Libre 2', timeText: 'VIE 30/10 18:00 (ARG)'},
         {id: 'fp3', name: 'Práctica Libre 3', timeText: 'SÁB 31/10 13:30 (ARG)'},
         {id: 'quali', name: 'Clasificación', timeText: 'SÁB 31/10 17:00 (ARG)'},
         {id: 'race', name: 'Carrera', timeText: 'DOM 01/11 16:00 (ARG)'}
     ]},
-    // R21 - Brasil (BRT=UTC-3, ARG=UTC-3, misma hora)
-    { round: 21, country: 'BRAZIL', location: 'SÃO PAULO', month: 'NOV', days: '06-08', flagUrl: 'https://flagcdn.com/w80/br.png', status: 'scheduled', sessions: [
+    // R22 - Brasil (BRT=UTC-3, ARG=UTC-3, misma hora)
+    { round: 22, country: 'BRAZIL', location: 'SÃO PAULO', month: 'NOV', days: '06-08', flagUrl: 'https://flagcdn.com/w80/br.png', status: 'scheduled', sessions: [
         {id: 'fp1', name: 'Práctica Libre 1', timeText: 'VIE 06/11 11:30 (ARG)'},
         {id: 'fp2', name: 'Práctica Libre 2', timeText: 'VIE 06/11 15:00 (ARG)'},
         {id: 'fp3', name: 'Práctica Libre 3', timeText: 'SÁB 07/11 11:30 (ARG)'},
         {id: 'quali', name: 'Clasificación', timeText: 'SÁB 07/11 15:00 (ARG)'},
         {id: 'race', name: 'Carrera', timeText: 'DOM 08/11 14:00 (ARG)'}
     ]},
-    // R22 - Las Vegas (PST Nov=UTC-8, ARG=UTC-3)
-    { round: 22, country: 'LAS VEGAS', location: 'LAS VEGAS', month: 'NOV', days: '19-21', flagUrl: 'https://flagcdn.com/w80/us.png', status: 'scheduled', sessions: [
+    // R23 - Las Vegas (PST Nov=UTC-8, ARG=UTC-3)
+    { round: 23, country: 'LAS VEGAS', location: 'LAS VEGAS', month: 'NOV', days: '19-21', flagUrl: 'https://flagcdn.com/w80/us.png', status: 'scheduled', sessions: [
         {id: 'fp1', name: 'Práctica Libre 1', timeText: 'JUE 19/11 01:30 (ARG)'},
         {id: 'fp2', name: 'Práctica Libre 2', timeText: 'JUE 19/11 05:00 (ARG)'},
         {id: 'fp3', name: 'Práctica Libre 3', timeText: 'VIE 20/11 01:30 (ARG)'},
         {id: 'quali', name: 'Clasificación', timeText: 'VIE 20/11 05:00 (ARG)'},
         {id: 'race', name: 'Carrera', timeText: 'SÁB 21/11 03:00 (ARG)'}
     ]},
-    // R23 - Qatar (AST=UTC+3, ARG=UTC-3)
-    { round: 23, country: 'QATAR', location: 'LUSAIL', month: 'NOV', days: '27-29', flagUrl: 'https://flagcdn.com/w80/qa.png', status: 'scheduled', sessions: [
+    // R24 - Qatar (AST=UTC+3, ARG=UTC-3)
+    { round: 24, country: 'QATAR', location: 'LUSAIL', month: 'NOV', days: '27-29', flagUrl: 'https://flagcdn.com/w80/qa.png', status: 'scheduled', sessions: [
         {id: 'fp1', name: 'Práctica Libre 1', timeText: 'VIE 27/11 10:30 (ARG)'},
         {id: 'fp2', name: 'Práctica Libre 2', timeText: 'VIE 27/11 14:00 (ARG)'},
         {id: 'fp3', name: 'Práctica Libre 3', timeText: 'SÁB 28/11 11:30 (ARG)'},
         {id: 'quali', name: 'Clasificación', timeText: 'SÁB 28/11 15:00 (ARG)'},
         {id: 'race', name: 'Carrera', timeText: 'DOM 29/11 13:00 (ARG)'}
     ]},
-    // R24 - Abu Dhabi (GST=UTC+4, ARG=UTC-3)
-    { round: 24, country: 'ABU DHABI', location: 'YAS ISLAND', month: 'DEC', days: '04-06', flagUrl: 'https://flagcdn.com/w80/ae.png', status: 'scheduled', sessions: [
+    // R25 - Abu Dhabi (GST=UTC+4, ARG=UTC-3)
+    { round: 25, country: 'ABU DHABI', location: 'YAS ISLAND', month: 'DEC', days: '04-06', flagUrl: 'https://flagcdn.com/w80/ae.png', status: 'scheduled', sessions: [
         {id: 'fp1', name: 'Práctica Libre 1', timeText: 'VIE 04/12 07:30 (ARG)'},
         {id: 'fp2', name: 'Práctica Libre 2', timeText: 'VIE 04/12 11:00 (ARG)'},
         {id: 'fp3', name: 'Práctica Libre 3', timeText: 'SÁB 05/12 08:30 (ARG)'},
@@ -583,8 +591,8 @@ const coloresGP = {
     'saudi-arabia': '#00CED1', 'miami': '#FF69B4', 'canada': '#FF0000', 'monaco': '#0047AB',
     'spain-barcelona': '#FFFF00', 'austria': '#8B0000', 'uk': '#006400', 'belgium': '#FF4500',
     'hungary': '#32CD32', 'netherlands': '#FF8C00', 'italy': '#228B22', 'spain-madrid': '#9400D3',
-    'azerbaijan': '#4169E1', 'singapore': '#FF1493', 'usa-austin': '#1E90FF', 'mexico': '#00FF00',
-    'brazil': '#FFD700', 'las-vegas': '#8A2BE2', 'qatar': '#800080', 'abu-dhabi': '#FF6347'
+    'azerbaijan': '#4169E1', 'malaysia': '#CC0001', 'singapore': '#FF1493', 'usa-austin': '#1E90FF',
+    'mexico': '#00FF00', 'brazil': '#FFD700', 'las-vegas': '#8A2BE2', 'qatar': '#800080', 'abu-dhabi': '#FF6347'
 };
 
 function initAppAnual() {
@@ -740,13 +748,21 @@ function obtenerCalendarioF12026() {
             { nombre: 'Clasificación', horario: 'Viernes 25/09 - 10:00' },
             { nombre: 'Carrera', horario: 'Sábado 26/09 - 08:00' }
         ] },
-        // R18 - Singapur SPRINT (SGT=UTC+8)
-        { id: 'singapore-2026', nombre: 'GP de Singapur', circuito: 'Marina Bay', pais: 'Singapur', bandera: 'https://flagcdn.com/w80/sg.png', color: coloresGP['singapore'], fechaInicio: new Date(2026, 9, 9), fechaFin: new Date(2026, 9, 11), horarioCarrera: '11 Octubre - 09:00 (Argentina)', enlace: 'https://www.formula1.com', ganador: null, sesiones: [
-            { nombre: 'Práctica Libre 1', horario: 'Viernes 9/10 - 06:30' },
-            { nombre: 'Clasificación Sprint', horario: 'Viernes 9/10 - 10:30' },
-            { nombre: 'Carrera Sprint', horario: 'Sábado 10/10 - 06:00' },
-            { nombre: 'Clasificación', horario: 'Sábado 10/10 - 10:00' },
-            { nombre: 'Carrera', horario: 'Domingo 11/10 - 09:00' }
+        // R18 - Malasia (MYT=UTC+8)
+        { id: 'malaysia-2026', nombre: 'GP de Malasia', circuito: 'Sepang International Circuit', pais: 'Malasia', bandera: 'https://flagcdn.com/w80/my.png', color: coloresGP['malaysia'], fechaInicio: new Date(2026, 9, 2), fechaFin: new Date(2026, 9, 4), horarioCarrera: '4 Octubre - 04:00 (Argentina)', enlace: 'https://www.formula1.com', ganador: null, sesiones: [
+            { nombre: 'Práctica Libre 1', horario: 'Viernes 2/10 - 01:30' },
+            { nombre: 'Práctica Libre 2', horario: 'Viernes 2/10 - 05:00' },
+            { nombre: 'Práctica Libre 3', horario: 'Sábado 3/10 - 01:30' },
+            { nombre: 'Clasificación', horario: 'Sábado 3/10 - 05:00' },
+            { nombre: 'Carrera', horario: 'Domingo 4/10 - 04:00' }
+        ] },
+        // R19 - Singapur SPRINT (SGT=UTC+8)
+        { id: 'singapore-2026', nombre: 'GP de Singapur', circuito: 'Marina Bay Street Circuit', pais: 'Singapur', bandera: 'https://flagcdn.com/w80/sg.png', color: coloresGP['singapore'], fechaInicio: new Date(2026, 9, 9), fechaFin: new Date(2026, 9, 11), horarioCarrera: '10 Octubre - 18:00 (Argentina)', enlace: 'https://www.formula1.com', ganador: null, sesiones: [
+            { nombre: 'Práctica Libre 1', horario: 'Jueves 8/10 - 14:30' },
+            { nombre: 'Clasificación Sprint', horario: 'Jueves 8/10 - 18:30' },
+            { nombre: 'Carrera Sprint', horario: 'Viernes 9/10 - 15:00' },
+            { nombre: 'Clasificación', horario: 'Viernes 9/10 - 19:00' },
+            { nombre: 'Carrera', horario: 'Sábado 10/10 - 18:00' }
         ] },
         // R19 - EE.UU. Austin (CDT=UTC-5) - NO Sprint
         { id: 'austin-2026', nombre: 'GP de EE.UU.', circuito: 'COTA', pais: 'Estados Unidos', bandera: 'https://flagcdn.com/w80/us.png', color: coloresGP['usa-austin'], fechaInicio: new Date(2026, 9, 23), fechaFin: new Date(2026, 9, 25), horarioCarrera: '25 Octubre - 17:00 (Argentina)', enlace: 'https://www.formula1.com', ganador: null, sesiones: [
