@@ -68,6 +68,21 @@ const constructores = [
     }
 ];
 
+// Configuración de pilotos por equipo (backup / fallback)
+const pilotosPorEquipo = {
+    'mclaren': [{ nombre: 'Lando Norris' }, { nombre: 'Oscar Piastri' }],
+    'ferrari': [{ nombre: 'Charles Leclerc' }, { nombre: 'Lewis Hamilton' }],
+    'red_bull': [{ nombre: 'Max Verstappen' }, { nombre: 'Isack Hadjar' }],
+    'mercedes': [{ nombre: 'George Russell' }, { nombre: 'Kimi Antonelli' }],
+    'aston_martin': [{ nombre: 'Fernando Alonso' }, { nombre: 'Lance Stroll' }],
+    'alpine': [{ nombre: 'Pierre Gasly' }, { nombre: 'Franco Colapinto' }],
+    'haas': [{ nombre: 'Oliver Bearman' }, { nombre: 'Esteban Ocon' }],
+    'racing_bulls': [{ nombre: 'Liam Lawson' }, { nombre: 'Arvid Lindblad' }],
+    'williams': [{ nombre: 'Alexander Albon' }, { nombre: 'Carlos Sainz' }],
+    'audi': [{ nombre: 'Nico Hulkenberg' }, { nombre: 'Gabriel Bortoleto' }],
+    'cadillac': [{ nombre: 'Sergio Perez' }, { nombre: 'Valtteri Bottas' }]
+};
+
 // Los pilotos por equipo se obtienen dinámicamente desde la API (driverStandings)
 // Almacenamiento de datos globales
 let constructorData = [];
@@ -217,6 +232,17 @@ async function fetchDriversData() {
                     teamId = findTeamIdByName(latestConstructor.name);
                     teamName = latestConstructor.name;
                 }
+
+                // Ajustes especiales de pilotos / cambios de equipo durante la temporada:
+                // Liam Lawson volvió a Racing Bulls; Tsunoda ya no corre como titular actualmente
+                if (driverId === 'lawson') {
+                    teamId = 'racing_bulls';
+                    teamName = 'Racing Bulls';
+                } else if (driverId === 'tsunoda') {
+                    teamId = null;
+                    teamName = null;
+                }
+
                 let points = parseInt(driver.points);
                 
                 return {
@@ -451,6 +477,15 @@ async function showConstructorDetails(constructorId) {
             .filter(d => d.teamId === constructorId)
             .map(d => d.driverId)
     );
+    
+    // Casos especiales para el cálculo de pilotos activos:
+    // Lawson volvió a Racing Bulls (y no corre para Red Bull); Tsunoda ya no corre actualmente
+    if (constructorId === 'racing_bulls') {
+        currentDriverIds.add('lawson');
+        currentDriverIds.delete('tsunoda');
+    } else if (constructorId === 'red_bull') {
+        currentDriverIds.delete('lawson');
+    }
     
     // Consultar resultados de carrera y sprint para este constructor
     const currentYear = localStorage.getItem('f1SeasonYear') || '2026';
