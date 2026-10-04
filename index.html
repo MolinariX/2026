@@ -7,10 +7,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>F1 Teams Layout</title>
     <link rel="stylesheet" href="css/styles.css?v=3">
-    <link rel="stylesheet" href="css/intro.css?v=1">
+    <link rel="stylesheet" href="css/intro.css?v=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
     <link rel="icon" type="image/svg+xml" href="images/bandera.svg">
@@ -42,7 +42,10 @@
             <img src="images/bandera.svg" alt="F1 Flag">
         </div>
         <audio id="intro-audio" preload="auto" src="audio/inicio.mp3"></audio>
-        <button class="skip-intro-btn">SALTAR</button>
+        <button class="skip-intro-btn" id="skip-intro-btn" aria-label="Saltar introducción">
+            <span>SALTAR</span>
+            <i class="fa-solid fa-angles-right" aria-hidden="true"></i>
+        </button>
     </div>
 
     <!-- ===== BACKGROUND VIDEO ===== -->
@@ -353,7 +356,7 @@
     </div>
     </div> <!-- /main-content-wrapper -->
 
-    <script src="js/intro.js?v=1"></script>
+    <script src="js/intro.js?v=2"></script>
     <script src="js/script.js?v=3"></script>
 </body>
 

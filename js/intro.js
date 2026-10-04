@@ -217,6 +217,10 @@
         function finishIntro() {
             if (overlay.classList.contains('fade-out')) return;
 
+            if (tapScreen && tapScreen.parentNode) {
+                tapScreen.remove();
+            }
+
             // Cancelar el rAF del fade de audio
             if (audioFadeInterval) cancelAnimationFrame(audioFadeInterval);
 
