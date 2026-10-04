@@ -5,6 +5,7 @@
 // Mapeos rápidos para asociar apellidos o IDs con sus logos e imágenes y colores para el fondo.
 const driverData = {
     verstappen: { id: 'verstappen', name: 'VERSTAPPEN', team: 'Red Bull Racing', img: 'images/drivers/verstappen.png', flag: 'nl', bgClass: 'bg-redbull', logo: 'images/logos/redbull.png' },
+    max_verstappen: { id: 'max_verstappen', name: 'VERSTAPPEN', team: 'Red Bull Racing', img: 'images/drivers/verstappen.png', flag: 'nl', bgClass: 'bg-redbull', logo: 'images/logos/redbull.png' },
     leclerc: { id: 'leclerc', name: 'LECLERC', team: 'Ferrari', img: 'images/drivers/leclerc.png', flag: 'mc', bgClass: 'bg-ferrari', logo: 'images/logos/ferrari.png' },
     norris: { id: 'norris', name: 'NORRIS', team: 'McLaren', img: 'images/drivers/norris.png', flag: 'gb', bgClass: 'bg-mclaren', logo: 'images/logos/mclaren.png' },
     antonelli: { id: 'antonelli', name: 'ANTONELLI', team: 'Mercedes', img: 'images/drivers/antonelli.png', flag: 'it', bgClass: 'bg-mercedes', logo: 'images/logos/mercedes.png' },
@@ -343,11 +344,16 @@ function renderMainGrid() {
         // DISEÑO ESPN CUANDO LA CARRERA ESTÁ COMPLETADA
         if (gp.status === 'completed') {
             // Emparejar piloto de API con driverData local
-            let dr = Object.values(driverData).find(d => d.id === gp.winnerRaw); 
-            // Fallbacks for testing si no está en config:
-            if (!dr) dr = driverData.leclerc; // default de muestra
-            if(gp.winnerRaw === 'verstappen') dr = driverData.verstappen;
-            if(gp.winnerRaw === 'norris') dr = driverData.norris;
+            let winnerId = gp.winnerRaw ? gp.winnerRaw.toLowerCase() : '';
+            if (winnerId === 'max_verstappen') winnerId = 'verstappen';
+            
+            let dr = driverData[gp.winnerRaw] || driverData[winnerId] || Object.values(driverData).find(d => d.id === gp.winnerRaw || d.id === winnerId);
+            if (!dr && gp.winnerRaw) {
+                dr = Object.values(driverData).find(d => winnerId.includes(d.id) || d.id.includes(winnerId));
+            }
+            if (gp.winnerRaw === 'verstappen' || gp.winnerRaw === 'max_verstappen') dr = driverData.verstappen;
+            if (gp.winnerRaw === 'norris') dr = driverData.norris;
+            if (!dr) dr = driverData.verstappen;
 
             card.className = `gp-card completed ${dr.bgClass || 'bg-mclaren'}`;
             card.innerHTML = `
@@ -395,7 +401,8 @@ const nationalityToFlag = {
     "Argentine": "ar", "Mexican": "mx", "Australian": "au", "French": "fr",
     "Thai": "th", "Japanese": "jp", "Canadian": "ca", "Finnish": "fi",
     "Chinese": "cn", "Danish": "dk", "German": "de", "American": "us",
-    "Brazilian": "br", "Italian": "it", "New Zealander": "nz", "Colombian": "co"
+    "Brazilian": "br", "Italian": "it", "New Zealander": "nz", "Colombian": "co",
+    "Malaysian": "my"
 };
 
 function getFlagUrl(nationality) {

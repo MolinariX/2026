@@ -35,6 +35,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const defaultDriverImg = 'images/default/default.png';
     const defaultTeamLogo = 'images/logos/default.png';
 
+    const countryMap = { 
+        "Australia": "au", "Austria": "at", "Azerbaijan": "az", "Bahrain": "bh", 
+        "Belgium": "be", "Brazil": "br", "Canada": "ca", "China": "cn", 
+        "France": "fr", "Germany": "de", "Hungary": "hu", "Italy": "it", 
+        "Japan": "jp", "Mexico": "mx", "Monaco": "mc", "Netherlands": "nl", 
+        "The Netherlands": "nl", "Qatar": "qa", "Saudi Arabia": "sa", 
+        "Singapore": "sg", "Spain": "es", "UAE": "ae", "United Kingdom": "gb", 
+        "UK": "gb", "United States": "us", "USA": "us", "Portugal": "pt", 
+        "Turkey": "tr", "Russia": "ru", "Malaysia": "my" 
+    };
+
     // --- CUSTOM EVENT LISTENER ---
     window.addEventListener('yearChanged', () => {
         const newYear = localStorage.getItem('f1SeasonYear') || '2026';
@@ -256,8 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             const getCountryFlag = (countryName) => {
-               const map = { "Australia": "au", "Austria": "at", "Azerbaijan": "az", "Bahrain": "bh", "Belgium": "be", "Brazil": "br", "Canada": "ca", "China": "cn", "France": "fr", "Germany": "de", "Hungary": "hu", "Italy": "it", "Japan": "jp", "Mexico": "mx", "Monaco": "mc", "Netherlands": "nl", "The Netherlands": "nl", "Qatar": "qa", "Saudi Arabia": "sa", "Singapore": "sg", "Spain": "es", "UAE": "ae", "United Kingdom": "gb", "UK": "gb", "United States": "us", "USA": "us" };
-               const code = map[countryName] || "unknown";
+               const code = countryMap[countryName] || "unknown";
                if (code === "unknown") return "";
                return `https://flagcdn.com/w40/${code}.png`;
             };
@@ -331,8 +341,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await fetchApi(`https://api.jolpi.ca/ergast/f1/${currentYear}.json`);
             const races = data?.MRData?.RaceTable?.Races || [];
             
-            const countryMap = { "Australia": "au", "Austria": "at", "Azerbaijan": "az", "Bahrain": "bh", "Belgium": "be", "Brazil": "br", "Canada": "ca", "China": "cn", "France": "fr", "Germany": "de", "Hungary": "hu", "Italy": "it", "Japan": "jp", "Mexico": "mx", "Monaco": "mc", "Netherlands": "nl", "Qatar": "qa", "Saudi Arabia": "sa", "Singapore": "sg", "Spain": "es", "UAE": "ae", "United Kingdom": "gb", "United States": "us", "USA": "us", "Portugal": "pt", "Turkey": "tr", "Russia": "ru", "Malaysia": "my" };
-
             races.forEach(race => {
                 const round = race.round;
                 const country = race.Circuit.Location.country;
